@@ -15,8 +15,8 @@ icmi2025/
 indranil-banerjee.jpg
 w16 berm medtech center image.png
 
-# Raw media library (organised originals; web versions live in public/)
-medtech-media/
+# Raw video master exceeds GitHub's 100MB limit (optimized web version is in public/videos/)
+medtech-media/vedio/
 
 # Python cache
 __pycache__/
