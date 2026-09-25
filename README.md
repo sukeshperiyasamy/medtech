@@ -316,7 +316,18 @@ One page with every photo from the archive in a justified grid, filterable by ye
 To add photos:
 
 1. Put the new files in `medtech-media/img/` and run `scripts/organise-media.py --apply`.
-2. Run `python scripts/build-gallery.py` for a dry run that reports duplicates and broken files, then add `--apply`. This grades the photos, writes 1600px web copies to `public/images/gallery/`, and regenerates `data/gallery-manifest.json`.
+2. Run `python scripts/build-gallery.py` for a dry run that reports duplicates and broken files, then add `--apply`. This colour-corrects every photo, writes 1600px web copies to `public/images/gallery/`, and regenerates `data/gallery-manifest.json`.
+
+   The correction (`scripts/colour_correct.py`) works photo by photo, because most gallery photos are phone shots under mixed indoor light:
+
+   - white balance from bright neutral surfaces (walls, ceilings, screens)
+   - auto-levels, to restore blacks and whites
+   - exposure normalisation
+   - gentle contrast
+   - extra saturation only for dull shots
+
+   Designed posters listed in `GRAPHICS` in `build-gallery.py` are only resized.
+   Add new posters to that list.
 3. Optionally, in `data/gallery.ts`:
    - set alt text for the new folder in `ALT`
    - add a confirmed event name in `EVENT`

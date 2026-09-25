@@ -7,7 +7,8 @@ Build the website gallery from the media archive.
 Reads every photo under medtech-media/img/ (organised by scripts/organise-media.py),
 skips files that cannot be decoded and exact / pixel-identical duplicates, then writes:
 
-  public/images/gallery/<name>.jpg   graded web copies, long edge 1600px (via process-photos.grade)
+  public/images/gallery/<name>.jpg   colour-corrected web copies, long edge 1600px
+                                     (scripts/colour_correct.py; designed posters are only resized)
   data/gallery-manifest.json         [{ file, folder, width, height, date, color }]
 
 Originals are never modified. Re-run after adding photos to the archive.
@@ -27,11 +28,18 @@ OUT = ROOT / "public" / "images" / "gallery"
 MANIFEST = ROOT / "data" / "gallery-manifest.json"
 LONG_EDGE = 1600
 
-# Reuse the house grade from process-photos.py so the gallery matches the rest of the site.
-spec = importlib.util.spec_from_file_location("pp", ROOT / "scripts" / "process-photos.py")
-pp = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(pp)
-pp.LONG_EDGE = LONG_EDGE
+# Per-photo colour correction (white balance, levels, exposure, contrast, saturation).
+spec = importlib.util.spec_from_file_location("cc", ROOT / "scripts" / "colour_correct.py")
+cc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(cc)
+QUALITY = 80
+
+# Designed graphics (posters, announcements) keep their original colours.
+GRAPHICS = {
+    "2026-08-02_21-24-47",  # IIT Jodhpur Foundation Day 2026 announcement
+    "2025-12-26_14-43-20",  # Genpact Master Student Fellowships poster
+    "ibro-exchange-fellowship-2026",  # IBRO Exchange Fellowships 2026 poster
+}
 
 
 def pixel_hash(im: Image.Image) -> str:
@@ -80,8 +88,9 @@ def main():
     for f, im in keep:
         m = re.match(r"(\d{4}-\d\d-\d\d)", f.name)
         name = f"{f.stem}.jpg" if m else f"{f.parent.name}-{f.stem}.jpg"
-        graded = pp.grade(im)
-        graded.save(OUT / name, quality=pp.QUALITY, optimize=True, progressive=True)
+        fix = cc.passthrough if f.stem in GRAPHICS else cc.correct
+        graded = fix(im, LONG_EDGE)
+        graded.save(OUT / name, quality=QUALITY, optimize=True, progressive=True)
         manifest.append(
             {
                 "file": name,
