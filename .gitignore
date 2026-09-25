@@ -14,3 +14,10 @@ icmi2025/
 # Raw source images (web versions live in public/images)
 indranil-banerjee.jpg
 w16 berm medtech center image.png
+
+# Raw media library (organised originals; web versions live in public/)
+medtech-media/
+
+# Python cache
+__pycache__/
+*.pyc

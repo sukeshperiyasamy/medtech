@@ -1,12 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { MoreLink } from "@/components/ui/MoreLink";
-import { PhotoMarquee } from "@/components/gallery/PhotoMarquee";
-import { getGallery, getNews } from "@/lib/data";
+import { FromTheGallery } from "@/components/gallery/FromTheGallery";
+import { getNews } from "@/lib/data";
 import { formatDateRange } from "@/lib/utils";
 
 export async function HomeNews({ index }: { index?: string }) {
-  const [all, photos] = await Promise.all([getNews(), getGallery("icmi-2025")]);
+  const all = await getNews();
   const items = all.slice(0, 3);
   return (
     <section id="news" aria-labelledby="home-news-title" className="section-y border-t border-line">
@@ -19,6 +19,7 @@ export async function HomeNews({ index }: { index?: string }) {
           </p>
           <h2 id="home-news-title" className="text-h2 text-ink">From the Centre.</h2>
           <MoreLink href="/news" className="mt-8">All news &amp; events</MoreLink>
+          <MoreLink href="/achievements" className="mt-3 flex">Achievements</MoreLink>
         </Reveal>
 
         <ul className="border-t border-ink lg:col-span-8">
@@ -48,18 +49,7 @@ export async function HomeNews({ index }: { index?: string }) {
         </ul>
       </div>
 
-      {photos.length > 0 && (
-        <div className="mt-20 lg:mt-24">
-          <div className="container-x mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="eyebrow">In pictures</p>
-              <p className="mt-2 text-h3 text-ink">ICMI 2025 — Indian Conference on MedTech Innovations</p>
-            </div>
-            <MoreLink href="/news#icmi-2025">Full gallery</MoreLink>
-          </div>
-          <PhotoMarquee images={photos} title="ICMI 2025" />
-        </div>
-      )}
+      <FromTheGallery />
     </section>
   );
 }

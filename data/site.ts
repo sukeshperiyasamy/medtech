@@ -67,9 +67,17 @@ export const site: SiteConfig = {
       children: [
         { label: "Faculty & staff", href: "/people", description: "Leadership, affiliated and visiting faculty" },
         { label: "Students & alumni", href: "/students", description: "Every cohort since 2020" },
+        { label: "Achievements", href: "/achievements", description: "Medals, fellowships and awards" },
       ],
     },
-    { label: "News", href: "/news" },
+    {
+      label: "News",
+      href: "/news",
+      children: [
+        { label: "News & events", href: "/news", description: "Conferences, admissions and announcements" },
+        { label: "Gallery", href: "/gallery", description: "All photographs from the Centre" },
+      ],
+    },
   ],
   announcement: {
     tag: "Admissions 2026–27",

@@ -17,8 +17,10 @@ import { metrics } from "@/data/metrics";
 import { pathways } from "@/data/collaboration";
 import { startups, trlScale } from "@/data/startups";
 import { students } from "@/data/students";
-import { centreBuilding, gallery } from "@/data/media";
+import { centreBuilding, centreVideo, gallery } from "@/data/media";
+import { FEATURED_ORDER, galleryImages } from "@/data/gallery";
 import { verticals } from "@/data/verticals";
+import { achievements } from "@/data/achievements";
 import { digitalHealth } from "@/data/digital-health";
 import type { Person, PersonCategory } from "@/lib/types";
 
@@ -54,11 +56,26 @@ export const getStudents = async (programId?: string) =>
   programId ? students.filter((s) => s.programId === programId) : students;
 
 export const getVerticals = async () => verticals;
+
+/** Published achievements, newest first. */
+export const getAchievements = async () =>
+  achievements
+    .filter((a) => a.status === "published")
+    .sort((a, b) => (b.date ?? `${b.year}`).localeCompare(a.date ?? `${a.year}`));
 export const getCentrePhoto = async () => centreBuilding;
+export const getCentreVideo = async () => centreVideo;
 export const getDigitalHealth = async () => digitalHealth;
 
+/** The Centre photo collection (newest first). */
+export const getGalleryImages = async () => galleryImages;
+export const getFeaturedGalleryImages = async (limit = 5) =>
+  galleryImages
+    .filter((g) => g.featured)
+    .sort((a, b) => FEATURED_ORDER.indexOf(a.id) - FEATURED_ORDER.indexOf(b.id))
+    .slice(0, limit);
+
 export const getGallery = async (eventId?: string) =>
-  eventId ? gallery.filter((g) => g.eventId === eventId) : gallery;
+  eventId ? gallery.filter((g) => g.event === eventId) : gallery;
 
 export const getNews = async () => [...news].sort((a, b) => b.date.localeCompare(a.date));
 

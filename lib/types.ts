@@ -227,6 +227,51 @@ export interface StartupProduct {
   image?: Media;
 }
 
+export type AchievementCategory =
+  | "Medal"
+  | "Award"
+  | "Fellowship"
+  | "Selection"
+  | "Grant"
+  | "Investment"
+  | "Patent"
+  | "Competition"
+  | "Recognition";
+
+export interface AchievementRecipient {
+  /** Name as shown on the official source. */
+  name: string;
+  /** Roll number in data/students.ts, when the recipient is a student. */
+  studentId?: string;
+  /** Person id in data/people.ts, when the recipient is faculty/staff. */
+  personId?: string;
+}
+
+/** A medal, fellowship, award or recognition earned by the Centre's people. */
+export interface Achievement extends BaseRecord {
+  title: string;
+  /** Short label for badges, e.g. "Silver Medal". Defaults to `title`. */
+  shortTitle?: string;
+  /** Startup / venture the achievement belongs to, if any. */
+  venture?: string;
+  category: AchievementCategory;
+  /** Who awarded it, e.g. "IIT Jodhpur · 10th Convocation". Omit when the source does not say. */
+  awardedBy?: string;
+  /** ISO date when known; otherwise only `year`. */
+  date?: string;
+  year: number;
+  level?: "Institute" | "National" | "International";
+  audience: "Student" | "Faculty" | "Centre";
+  recipients: AchievementRecipient[];
+  summary?: string;
+  /** Extra facts from the source, e.g. host institution, project title, mentors. */
+  details?: { label: string; value: string }[];
+  image?: Media & { width: number; height: number };
+  link?: Link;
+  /** Where the fact comes from when there is no public URL (e.g. an internal announcement). */
+  sourceNote?: string;
+}
+
 /** A vertical (sub-unit) of the Medical Technology Centre. */
 export interface Vertical {
   id: string;
@@ -266,13 +311,26 @@ export interface DigitalHealthContent {
 }
 
 /** A photograph in an event/media gallery. */
-export interface GalleryImage extends Media {
+/**
+ * One photograph. Flat and ID-keyed so a future admin can add / edit / delete images.
+ * Only verified metadata is filled in — `event` and `caption` stay empty when unknown.
+ */
+export interface GalleryImage {
   id: string;
-  /** Links the image to a NewsItem / event id, e.g. "icmi-2025". */
-  eventId: string;
-  caption: string;
+  src: string;
+  alt: string;
   width: number;
   height: number;
+  /** ISO date (from the export timestamp or camera EXIF). */
+  date?: string;
+  category?: string;
+  /** Event name, only when confirmed (e.g. by visible signage), or a NewsItem id. */
+  event?: string;
+  caption?: string;
+  /** Dominant colour — shown while the image loads. */
+  color?: string;
+  /** Picked for the homepage "From the Gallery" section. */
+  featured?: boolean;
 }
 
 export interface Startup extends BaseRecord {

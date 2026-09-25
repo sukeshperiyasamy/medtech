@@ -1,10 +1,20 @@
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
-import { getAllPrograms, getSite, getStudents } from "@/lib/data";
+import { getAchievements, getAllPrograms, getSite, getStudents } from "@/lib/data";
 import { StudentRegister } from "./StudentRegister";
 
 export async function StudentsSection({ index, heading = true }: SectionProps = {}) {
-  const [students, programs, site] = await Promise.all([getStudents(), getAllPrograms(), getSite()]);
+  const [students, programs, site, achievements] = await Promise.all([
+    getStudents(),
+    getAllPrograms(),
+    getSite(),
+    getAchievements(),
+  ]);
+  // studentId → short award labels, e.g. "Silver Medal 2024"
+  const awards: Record<string, string[]> = {};
+  for (const a of achievements)
+    for (const r of a.recipients)
+      if (r.studentId) (awards[r.studentId] ??= []).push(`${(a.shortTitle ?? a.title).replace(/ \d{4}$/, "")} ${a.year}`);
   const years = students.map((s) => s.cohortYear);
   // Programme status belongs to the programme, never next to a student's name.
   const meta = programs.map((p) => ({
@@ -29,7 +39,7 @@ export async function StudentsSection({ index, heading = true }: SectionProps = 
         />
         )}
         <div className="mt-14 lg:mt-20">
-          <StudentRegister students={students} programs={meta} />
+          <StudentRegister students={students} programs={meta} awards={awards} />
         </div>
 
         <div className="mt-14 grid gap-6 border border-line bg-paper p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center">

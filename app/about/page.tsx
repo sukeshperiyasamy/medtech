@@ -2,9 +2,10 @@ import Image from "next/image";
 import { Mail } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { VerticalsSection } from "@/components/verticals/VerticalsSection";
+import { CentreVideo } from "@/components/about/CentreVideo";
 import { Reveal } from "@/components/ui/Reveal";
 import { MoreLink } from "@/components/ui/MoreLink";
-import { getCentrePhoto, getPeople, getSite } from "@/lib/data";
+import { getCentrePhoto, getCentreVideo, getPeople, getSite } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 import { isRemote } from "@/lib/utils";
 
@@ -20,6 +21,7 @@ export default async function AboutPage() {
     getPeople("Leadership"),
     getCentrePhoto(),
   ]);
+  const video = await getCentreVideo();
   const iitj = site.institutions[0];
 
   return (
@@ -60,6 +62,7 @@ export default async function AboutPage() {
       </figure>
 
       <VerticalsSection index="01" />
+      <CentreVideo index="02" src={video.src} poster={video.poster} duration={video.duration} />
 
       <section
         aria-labelledby="leadership-title"
@@ -68,7 +71,7 @@ export default async function AboutPage() {
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <p className="eyebrow mb-5 flex items-center gap-3">
-              <span className="text-blue">02</span>
+              <span className="text-blue">03</span>
               <span aria-hidden className="h-px w-8 bg-line-strong" />
               <span>Leadership</span>
             </p>

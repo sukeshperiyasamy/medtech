@@ -91,6 +91,7 @@ npm run start
 | `npm run format` | Prettier over the whole project. |
 | `npx tsc --noEmit` | Type-check without building. |
 | `python scripts/process-photos.py <folder> <event-slug>` | Converts and colour-grades event photos. See [Images and photography](#images-and-photography). |
+| `python scripts/organise-media.py medtech-media/img [--apply]` | Renames exported photos by capture date and sorts them into event folders (dry run without `--apply`). |
 
 Before pushing, run `npx tsc --noEmit`, `npm run lint` and `npm run build`. All three should pass cleanly.
 
@@ -112,8 +113,10 @@ The homepage shows **who** the Centre is, **what** it does, **how** it works, **
 │   └── /startups/[slug]   Individual venture profile
 ├── /programs         Master's and PhD (#masters, #phd) · discontinued programmes  (flat URL, part of vertical 01)
 ├── /people           Leadership, affiliated faculty, visiting faculty, staff
-│   └── /students     Student & alumni register (every cohort since 2020)
+│   ├── /students     Student & alumni register (every cohort since 2020)
+│   └── /achievements Medals, fellowships and awards (linked to the student register)
 ├── /news             News & events · ICMI 2025 gallery (#icmi-2025)
+│   └── /gallery      All Centre photographs (justified grid, year filters, viewer)
 ├── /contact          Collaboration pathways, contact details, address
 ├── /sitemap.xml
 └── /robots.txt
@@ -227,6 +230,7 @@ Every edit below happens in `data/`. No component changes are needed.
 | Startups / ventures | `data/startups.ts` | Profile, product, `trl` (1–9), `trlEvidence`, founders, `mentorIds`, `funding` awards, links. |
 | Funding opportunities | `data/grants.ts` | Add real, dated calls with `grantStatus` and `officialUrl`. |
 | News and events | `data/news.ts` | `featured: true` puts an item first. `image` sets its photo. |
+| Achievements (medals, fellowships, awards) | `data/achievements.ts` | One entry per achievement, from an official source (certificate, convocation screen, announcement). Link recipients by roll number (`studentId`) or people id (`personId`); the page shows their programme/cohort and the register shows a badge. |
 | Event photos | `data/media.ts` | One `GalleryImage` per photo, linked by `eventId` to a news item `id`. |
 | Impact numbers | `data/metrics.ts` | `value: null` shows "Awaiting verified data". Never enter an estimate. |
 | Pipeline copy | `data/pipeline.ts` | Nine stages, each with a question, description, "who" and accent colour. |
@@ -294,6 +298,51 @@ This keeps every event visually consistent.
 4. Keep the originals out of git. Add the folder to `.gitignore`, as was done for `icmi2025/`.
 
 `next/image` then serves AVIF/WebP at the right size for each device.
+
+### Media library
+
+Raw photos and video live in `medtech-media/` (ignored by git):
+
+- **Photos** are in `medtech-media/img/`, one folder per event, named `YYYY-MM-DD_event-name/` (e.g. `2024-08-03_orientation-batch-2024/`). Each file is named by capture time: `YYYY-MM-DD_HH-MM-SS.jpg`.
+- **Dates** come from the WhatsApp export name or the camera EXIF data. Photos with no date go to `undated/`.
+- **`_rename-log.csv`** records every original → new name.
+- **To file new exports**, drop them into `medtech-media/img/`, add their dates to `EVENTS` in `scripts/organise-media.py`, then run it.
+- **Before publishing a photo on the site**, grade it with `process-photos.py` and register it in `data/media.ts`.
+
+### Gallery (`/gallery`)
+
+One page with every photo from the archive in a justified grid, filterable by year, with the full-screen viewer.
+
+To add photos:
+
+1. Put the new files in `medtech-media/img/` and run `scripts/organise-media.py --apply`.
+2. Run `python scripts/build-gallery.py` for a dry run that reports duplicates and broken files, then add `--apply`. This grades the photos, writes 1600px web copies to `public/images/gallery/`, and regenerates `data/gallery-manifest.json`.
+3. Optionally, in `data/gallery.ts`:
+   - set alt text for the new folder in `ALT`
+   - add a confirmed event name in `EVENT`
+   - change the homepage picks in `FEATURED_ORDER`
+
+On the page:
+
+- Only photos near the viewport load; the rest lazy-load while scrolling.
+- The homepage "From the gallery" section loads just its 5 featured photos.
+- Event names and captions appear only where confirmed.
+
+### Video
+
+The Centre walkthrough (`public/videos/medtech-centre-walkthrough.mp4`) is a web encode of the original 4K file:
+
+- 720×1280, 30 fps, H.264, about 8 MB, with fast-start streaming.
+- A poster frame sits next to it.
+- It is shown on `/about` with `preload="none"`, so nothing downloads until someone presses play, and it never autoplays with sound.
+
+To encode another video the same way:
+
+```bash
+ffmpeg -i input.mp4 -vf "scale=720:1280:flags=lanczos,fps=30" -c:v libx264 -preset slow -crf 31 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart public/videos/name.mp4
+```
+
+(For landscape videos, use `scale=1280:720`.)
 
 ### Where photos appear
 

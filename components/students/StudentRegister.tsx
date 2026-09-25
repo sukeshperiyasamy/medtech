@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, X } from "lucide-react";
+import Link from "next/link";
+import { Award, Search, X } from "lucide-react";
 import type { Student } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +21,16 @@ const COLOR: Record<string, string> = {
 
 const INITIAL_YEARS = 2;
 
-export function StudentRegister({ students, programs }: { students: Student[]; programs: ProgramMeta[] }) {
+export function StudentRegister({
+  students,
+  programs,
+  awards = {},
+}: {
+  students: Student[];
+  programs: ProgramMeta[];
+  /** studentId → award labels, linked to /achievements. */
+  awards?: Record<string, string[]>;
+}) {
   const [program, setProgram] = useState<string>("all");
   const [year, setYear] = useState<number | null>(null);
   const [q, setQ] = useState("");
@@ -179,6 +189,16 @@ export function StudentRegister({ students, programs }: { students: Student[]; p
                       {s.rollNumber}
                       {program === "all" && <span className="font-sans"> · {label(s.programId)}</span>}
                     </span>
+                    {awards[s.id]?.map((w) => (
+                      <Link
+                        key={w}
+                        href="/achievements"
+                        className="mt-1.5 inline-flex items-center gap-1 rounded-xs border border-blue/25 bg-blue-soft px-1.5 py-0.5 text-[0.72rem] text-blue hover:border-blue"
+                      >
+                        <Award aria-hidden className="size-3" />
+                        {w}
+                      </Link>
+                    ))}
                   </span>
                 </li>
               ))}

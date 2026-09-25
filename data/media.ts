@@ -10,7 +10,7 @@ const icmi = (
   portrait = false,
 ): GalleryImage => ({
   id: `icmi-2025-${n}`,
-  eventId: "icmi-2025",
+  event: "icmi-2025",
   src: `/images/icmi-2025/icmi-2025-${n}-${slug}.jpg`,
   width: portrait ? 1500 : 2000,
   height: portrait ? 2000 : 1500,
@@ -38,10 +38,20 @@ export const gallery: GalleryImage[] = [
 /** The Centre's building entrance (supplied by the department, Sep 2026). */
 export const centreBuilding: GalleryImage = {
   id: "centre-building",
-  eventId: "centre",
+  event: "centre",
   src: "/images/centre/medtech-centre-w16-berm.jpg",
   width: 1448,
   height: 1086,
   caption: "Medical Technology Centre, W16 Berm, IIT Jodhpur",
   alt: "Entrance of the Medical Technology Centre building at IIT Jodhpur: sandstone façade, signage above double doors, and a 'W16 Berm' location board",
+};
+
+/** Walkthrough film of the Centre (supplied Sep 2026; web encode 720×1280, ~8 MB). */
+export const centreVideo = {
+  id: "centre-walkthrough",
+  src: "/videos/medtech-centre-walkthrough.mp4",
+  poster: "/videos/medtech-centre-walkthrough-poster.jpg",
+  duration: "1:09",
+  width: 720,
+  height: 1280,
 };

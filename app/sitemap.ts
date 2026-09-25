@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getStartups } from "@/lib/data";
 import { absoluteUrl } from "@/lib/seo";
 
-const ROUTES = ["/", "/about", "/medical-technologies", "/digital-health", "/research", "/funding", "/startups", "/programs", "/people", "/students", "/news", "/contact"];
+const ROUTES = ["/", "/about", "/medical-technologies", "/digital-health", "/research", "/funding", "/startups", "/programs", "/people", "/students", "/achievements", "/news", "/gallery", "/contact"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const ventures = (await getStartups()).map((s) => `/startups/${s.slug}`);
