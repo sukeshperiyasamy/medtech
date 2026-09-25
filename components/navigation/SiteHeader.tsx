@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
@@ -55,7 +56,10 @@ function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
         )}
       >
         {item.label}
-        <ChevronDown aria-hidden className={cn("size-3.5 transition-transform duration-300", open && "rotate-180")} />
+        <ChevronDown
+          aria-hidden
+          className={cn("size-3.5 transition-transform duration-300", open && "rotate-180")}
+        />
         <span
           aria-hidden
           className={cn(
@@ -81,8 +85,12 @@ function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
                     onClick={() => setOpen(false)}
                     className="group block px-3 py-2.5 transition-colors hover:bg-paper"
                   >
-                    <span className="block text-[0.92rem] text-ink group-hover:text-blue">{c.label}</span>
-                    {c.description && <span className="mt-0.5 block text-xs text-muted">{c.description}</span>}
+                    <span className="block text-[0.92rem] text-ink group-hover:text-blue">
+                      {c.label}
+                    </span>
+                    {c.description && (
+                      <span className="mt-0.5 block text-xs text-muted">{c.description}</span>
+                    )}
                   </Link>
                 </li>
               ))}
@@ -94,11 +102,22 @@ function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
   );
 }
 
+const noopSubscribe = () => () => {};
+
 export function SiteHeader({ site }: { site: SiteConfig }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(72);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Portal target (document.body) only exists on the client; false during SSR/hydration.
+  const mounted = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -125,12 +144,23 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
   }, [open]);
 
   const close = () => setOpen(false);
+  const toggle = () => {
+    // The menu is portalled to <body> (a backdrop-filter on the header would otherwise
+    // become the containing block for position:fixed and collapse the panel), so it is
+    // positioned from the header's real bottom edge, which moves with the announcement bar.
+    if (!open && headerRef.current)
+      setMenuTop(Math.round(headerRef.current.getBoundingClientRect().bottom));
+    setOpen((o) => !o);
+  };
 
   return (
     <header
+      ref={headerRef}
       className={cn(
         "sticky top-0 z-50 transition-[background-color,border-color] duration-500",
-        scrolled || open ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-transparent",
+        scrolled || open
+          ? "border-b border-line bg-white/90 backdrop-blur-md"
+          : "border-b border-transparent",
       )}
     >
       <div className="container-x flex h-[72px] items-center justify-between gap-6">
@@ -177,7 +207,7 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
           <button
             ref={toggleRef}
             type="button"
-            onClick={() => setOpen((o) => !o)}
+            onClick={toggle}
             aria-expanded={open}
             aria-controls="mobile-menu"
             className="inline-flex size-10 items-center justify-center rounded-sm border border-line text-ink lg:hidden"
@@ -188,15 +218,20 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
+      {mounted &&
+        createPortal(
+          // Always mounted; visibility is pure CSS so a closed menu can never linger as an
+          // invisible layer that blocks taps, and `invisible` removes it from focus order.
+          <div
             id="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto border-t border-line bg-white lg:hidden"
+            style={{ top: menuTop }}
+            className={cn(
+              "fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line bg-white duration-300 lg:hidden",
+              // Opening: visible immediately, opacity fades in. Closing: fade, then hide.
+              open
+                ? "visible opacity-100 transition-opacity"
+                : "pointer-events-none invisible opacity-0 transition-[opacity,visibility]",
+            )}
           >
             <nav aria-label="Mobile" className="container-x flex min-h-full flex-col pb-10 pt-2">
               <ul>
@@ -205,7 +240,10 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                     <Link
                       href={item.href}
                       onClick={close}
-                      className={cn("text-2xl tracking-[-0.02em]", isActive(item, pathname) ? "text-blue" : "text-ink")}
+                      className={cn(
+                        "text-2xl tracking-[-0.02em]",
+                        isActive(item, pathname) ? "text-blue" : "text-ink",
+                      )}
                     >
                       {item.label}
                     </Link>
@@ -213,7 +251,11 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                       <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
                         {item.children.map((c) => (
                           <li key={c.href}>
-                            <Link href={c.href} onClick={close} className="text-[0.95rem] text-muted hover:text-ink">
+                            <Link
+                              href={c.href}
+                              onClick={close}
+                              className="text-[0.95rem] text-muted hover:text-ink"
+                            >
                               {c.label}
                             </Link>
                           </li>
@@ -224,17 +266,24 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                 ))}
               </ul>
               <div className="mt-auto pt-10">
-                <Link href="/contact" onClick={close} className="flex h-12 items-center justify-center rounded-sm bg-ink text-white">
+                <Link
+                  href="/contact"
+                  onClick={close}
+                  className="flex h-12 items-center justify-center rounded-sm bg-ink text-white"
+                >
                   Contact the Center
                 </Link>
-                <a href={`mailto:${site.email}`} className="mt-4 flex items-center justify-center gap-1 text-sm text-muted">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="mt-4 flex items-center justify-center gap-1 text-sm text-muted"
+                >
                   {site.email} <ArrowUpRight className="size-3.5" aria-hidden />
                 </a>
               </div>
             </nav>
-          </motion.div>
+          </div>,
+          document.body,
         )}
-      </AnimatePresence>
     </header>
   );
 }

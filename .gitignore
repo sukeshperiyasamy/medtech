@@ -7,3 +7,6 @@ next-env.d.ts
 
 # Original event photos (HEIC masters) - web versions live in public/images
 icmi2025/
+
+# Python venv for scripts/process-photos.py
+.venv-photos/
