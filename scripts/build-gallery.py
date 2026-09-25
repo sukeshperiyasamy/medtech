@@ -42,6 +42,13 @@ GRAPHICS = {
 }
 
 
+# Photos excluded from the web gallery.
+EXCLUDE = {
+    "2026-09-08_18-38-00",  # Duplicate photo
+    "2026-08-08_11-34-51",  # Excluded photo
+}
+
+
 def pixel_hash(im: Image.Image) -> str:
     """Hash of a small greyscale rendition — identical for re-encoded copies of one photo."""
     return hashlib.md5(im.convert("L").resize((24, 24), Image.LANCZOS).tobytes()).hexdigest()
@@ -58,6 +65,9 @@ def main():
     seen_bytes, seen_pixels, keep, skipped = {}, {}, [], []
 
     for f in files:
+        if f.stem in EXCLUDE:
+            skipped.append((f, "manually excluded"))
+            continue
         data = f.read_bytes()
         md5 = hashlib.md5(data).hexdigest()
         if md5 in seen_bytes:
