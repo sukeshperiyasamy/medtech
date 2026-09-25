@@ -70,7 +70,7 @@ export const programs: Program[] = [
     availability: "discontinued",
     intakeYears: "2020–2025",
     overview:
-      "No longer offered for new admissions. Students were admitted to the Dual Degree in Medical Technologies from 2020 to 2025; their cohorts remain part of the Center's student register.",
+      "No longer offered for new admissions. Students were admitted to the Dual Degree in Medical Technologies from 2020 to 2025; their cohorts remain part of the Centre's student register.",
     cohortsUrl: "https://www.iitj.ac.in/medical-technologies/en/dual-degree-medical-technologies",
   },
 ];

@@ -18,7 +18,7 @@ const draw = (delay: number) => ({
   transition: { duration: 1.1, delay, ease },
 });
 
-/** Signature diagram: two institutions converge on the Center. */
+/** Signature diagram: two institutions converge on the joint Medical Technologies Program. */
 function DesktopDiagram({ site }: { site: SiteConfig }) {
   const [iitj, aiims] = site.institutions;
   const cy = 250;
@@ -31,7 +31,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
       <title id="partner-svg-title">
         IIT Jodhpur contributes engineering, technology, AI and systems; AIIMS Jodhpur contributes
         clinical expertise, medical needs and validation. Both converge on the Medical Technologies
-        Center, which produces joint programmes, translational R&amp;D and entrepreneurship.
+        Program, which produces joint programmes, translational R&amp;D and entrepreneurship.
       </title>
 
       {/* Institutions */}
@@ -69,7 +69,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
         </g>
       ))}
 
-      {/* Center node */}
+      {/* Program node */}
       <motion.g
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -79,7 +79,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
         <rect x={480} y={cy - 54} width={240} height={108} fill="#fff" stroke="#111827" strokeWidth={1.2} />
         <rect x={480} y={cy - 54} width={240} height={4} fill="#2563eb" />
         <text x={600} y={cy - 8} textAnchor="middle" fontSize={19} fill="#111827" fontWeight={500} letterSpacing="-0.01em">Medical Technologies</text>
-        <text x={600} y={cy + 16} textAnchor="middle" fontSize={19} fill="#111827" fontWeight={500} letterSpacing="-0.01em">Center</text>
+        <text x={600} y={cy + 16} textAnchor="middle" fontSize={19} fill="#111827" fontWeight={500} letterSpacing="-0.01em">Program</text>
         <text x={600} y={cy + 40} textAnchor="middle" className="font-mono" fontSize={10} letterSpacing="0.08em" fill="#64748b">IITJ × AIIMS</text>
       </motion.g>
 
@@ -151,7 +151,7 @@ function MobileDiagram({ site }: { site: SiteConfig }) {
       <Connector color="#2563eb" />
       <div className="border border-ink bg-white px-5 py-6 text-center">
         <span aria-hidden className="mx-auto mb-4 block h-1 w-12 bg-blue" />
-        <p className="text-xl font-medium tracking-[-0.01em] text-ink">Medical Technologies Center</p>
+        <p className="text-xl font-medium tracking-[-0.01em] text-ink">Medical Technologies Program</p>
         <p className="eyebrow mt-2">{OUT.join(" · ")}</p>
       </div>
       <Connector color="#14b8a6" />

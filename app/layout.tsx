@@ -21,11 +21,11 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const title = `${site.name} — ${site.partners}`;
+const title = `${site.name} — ${site.parent}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: title, template: `%s — ${site.name}, ${site.partners}` },
+  title: { default: title, template: `%s — ${site.name}, ${site.parent}` },
   description: site.description,
   alternates: { canonical: site.url },
   keywords: [
@@ -59,7 +59,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   name: site.name,
-  alternateName: "Medical Technology Centre, IIT Jodhpur",
+  alternateName: "MedTech Centre, IIT Jodhpur",
   url: site.officialUrl,
   email: site.email,
   telephone: site.phone,
@@ -73,11 +73,15 @@ const jsonLd = {
     addressCountry: "IN",
   },
   parentOrganization: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Jodhpur", url: "https://www.iitj.ac.in" },
-  memberOf: {
-    "@type": "MedicalOrganization",
-    name: "All India Institute of Medical Sciences Jodhpur",
-    url: "https://aiimsjodhpur.edu.in/",
-  },
+  // The Centre's verticals. AIIMS Jodhpur partners in the Medical Technologies Program.
+  subOrganization: [
+    {
+      "@type": "EducationalOrganization",
+      name: "Medical Technologies Program (IIT Jodhpur × AIIMS Jodhpur)",
+      url: `${site.url}/medical-technologies`,
+    },
+    { "@type": "ResearchOrganization", name: "Centre for Digital Health, IIT Jodhpur", url: "https://www.iitj.ac.in/cdh" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

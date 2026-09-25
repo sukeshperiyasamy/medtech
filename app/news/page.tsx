@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "News & Events",
-  "Conferences, admissions and announcements from the Medical Technologies Center, IIT Jodhpur × AIIMS Jodhpur.",
+  "Conferences, admissions and announcements from the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
   "/news",
 );
 
@@ -14,7 +14,7 @@ export default function NewsPage() {
       <PageHeader
         crumbs={[{ label: "News & events" }]}
         label="News & events"
-        title="From the Center."
+        title="From the Centre."
         intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
       />
       <NewsSection heading={false} />

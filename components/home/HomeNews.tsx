@@ -17,7 +17,7 @@ export async function HomeNews({ index }: { index?: string }) {
             <span aria-hidden className="h-px w-8 bg-line-strong" />
             <span>News &amp; events</span>
           </p>
-          <h2 id="home-news-title" className="text-h2 text-ink">From the Center.</h2>
+          <h2 id="home-news-title" className="text-h2 text-ink">From the Centre.</h2>
           <MoreLink href="/news" className="mt-8">All news &amp; events</MoreLink>
         </Reveal>
 

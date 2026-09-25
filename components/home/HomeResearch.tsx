@@ -20,7 +20,7 @@ export async function HomeResearch({ index }: { index?: string }) {
             <h2 id="home-research-title" className="text-h2 text-ink">Research that starts at the bedside.</h2>
             <p className="mt-6 max-w-sm text-muted">
               Six themes spanning sensing, imaging, robotics, materials, design and health systems —
-              drawn from the expertise of the Center&rsquo;s faculty.
+              drawn from the expertise of the Centre&rsquo;s faculty.
             </p>
             <MoreLink href="/research" className="mt-8">Explore research</MoreLink>
           </div>

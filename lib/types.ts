@@ -1,5 +1,5 @@
 /**
- * Content models for the Medical Technologies Center.
+ * Content models for the Medical Technology Centre.
  *
  * These shapes are intentionally flat and ID-keyed so they map one-to-one onto
  * future PostgreSQL tables / CMS collections. UI components only ever depend on
@@ -189,7 +189,7 @@ export interface Student {
   programId: string;
   /** Year of admission, as listed on the official cohort pages. */
   cohortYear: number;
-  /** Unknown until confirmed by the Center — never inferred from the cohort year. */
+  /** Unknown until confirmed by the Centre — never inferred from the cohort year. */
   status?: "current" | "alumni";
   photo?: Media;
   profileUrl?: string;
@@ -225,6 +225,44 @@ export interface StartupProduct {
   name: string;
   description: string;
   image?: Media;
+}
+
+/** A vertical (sub-unit) of the Medical Technology Centre. */
+export interface Vertical {
+  id: string;
+  name: string;
+  /** Short tagline, official where one exists. */
+  tagline: string;
+  summary: string;
+  /** Institutions running it — shown as logos. */
+  institutions: Institution[];
+  highlights: string[];
+  href: string;
+  officialUrl?: string;
+  sourceUrl: string;
+}
+
+export interface Partner {
+  name: string;
+  description: string;
+  url?: string;
+}
+
+/** Official content of the Centre for Digital Health (iitj.ac.in/cdh). */
+export interface DigitalHealthContent {
+  tagline: string;
+  intro: string[];
+  vision: string;
+  mission: string[];
+  alignedWith: string[];
+  capacityBuilding: { intro: string; upcomingPrograms: string[]; audiences: string[] };
+  researchAreas: string[];
+  openSource: { goal: string; activities: string[] };
+  partners: Partner[];
+  knowledgePartner: Partner;
+  coordinator: { name: string; role: string; email: string; phone: string };
+  officialUrl: string;
+  sources: string[];
 }
 
 /** A photograph in an event/media gallery. */
@@ -297,7 +335,8 @@ export interface NavItem {
 export interface SiteConfig {
   name: string;
   shortName: string;
-  partners: string;
+  /** Parent institution — the Centre belongs to IIT Jodhpur. */
+  parent: string;
   tagline: string;
   description: string;
   url: string;

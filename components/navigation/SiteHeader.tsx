@@ -271,7 +271,7 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                   onClick={close}
                   className="flex h-12 items-center justify-center rounded-sm bg-ink text-white"
                 >
-                  Contact the Center
+                  Contact the Centre
                 </Link>
                 <a
                   href={`mailto:${site.email}`}

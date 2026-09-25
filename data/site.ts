@@ -2,18 +2,19 @@ import type { SiteConfig } from "@/lib/types";
 
 // Source: https://www.iitj.ac.in/medical-technologies/en/contact
 export const site: SiteConfig = {
-  name: "Medical Technologies Center",
-  shortName: "MedTech Center",
-  partners: "IIT Jodhpur × AIIMS Jodhpur",
+  name: "Medical Technology Centre",
+  shortName: "MedTech Centre",
+  parent: "IIT Jodhpur",
   tagline: "Engineering the future of medicine",
-  // Official programme positioning, from the IIT Jodhpur Medical Technologies home page.
+  // The Centre is an IIT Jodhpur centre; its verticals are the Medical Technologies Program
+  // (jointly with AIIMS Jodhpur) and the Centre for Digital Health (per the Head, Sep 2026).
   description:
-    "A multi-disciplinary program to produce deep-tech innovators in the field of Medical Technologies — jointly offered by IIT Jodhpur and AIIMS Jodhpur.",
+    "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program, run jointly with AIIMS Jodhpur, and the Centre for Digital Health.",
   url: "https://www.iitj.ac.in/medical-technologies",
   email: "office_medtechcentre@iitj.ac.in",
   phone: "0291 280 1044",
   address: [
-    "Medical Technology Centre",
+    "Medical Technology Centre, W16 Berm",
     "Indian Institute of Technology Jodhpur",
     "NH 62, Nagaur Road, Karwar",
     "Jodhpur 342030, Rajasthan, India",
@@ -37,10 +38,19 @@ export const site: SiteConfig = {
       },
     },
   ],
-  // TODO(content): add official social profiles once confirmed by the Center.
+  // TODO(content): add official social profiles once confirmed by the Centre.
   social: [],
   nav: [
     { label: "About", href: "/about" },
+    {
+      label: "Verticals",
+      href: "/medical-technologies",
+      children: [
+        { label: "Medical Technologies Program", href: "/medical-technologies", description: "Joint programme with AIIMS Jodhpur" },
+        { label: "Programmes & admissions", href: "/programs", description: "Master's and PhD in Medical Technologies" },
+        { label: "Centre for Digital Health", href: "/digital-health", description: "Health equity through digital transformation" },
+      ],
+    },
     {
       label: "Research",
       href: "/research",
@@ -51,7 +61,6 @@ export const site: SiteConfig = {
       ],
     },
     { label: "Startups", href: "/startups" },
-    { label: "Programs", href: "/programs" },
     {
       label: "People",
       href: "/people",

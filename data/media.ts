@@ -34,3 +34,14 @@ export const gallery: GalleryImage[] = [
   icmi("13", "group-photo", "Delegates and participants", "Large group photograph of conference delegates and participants on building steps"),
   icmi("14", "team", "Participants", "A group of conference participants standing together in formal attire"),
 ];
+
+/** The Centre's building entrance (supplied by the department, Sep 2026). */
+export const centreBuilding: GalleryImage = {
+  id: "centre-building",
+  eventId: "centre",
+  src: "/images/centre/medtech-centre-w16-berm.jpg",
+  width: 1448,
+  height: 1086,
+  caption: "Medical Technology Centre, W16 Berm, IIT Jodhpur",
+  alt: "Entrance of the Medical Technology Centre building at IIT Jodhpur: sandstone façade, signage above double doors, and a 'W16 Berm' location board",
+};

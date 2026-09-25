@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Faculty & Staff",
-  "Leadership, affiliated faculty, visiting faculty and staff of the Medical Technologies Center, IIT Jodhpur × AIIMS Jodhpur.",
+  "Leadership, affiliated faculty, visiting faculty and staff of the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
   "/people",
 );
 
@@ -16,7 +16,7 @@ export default function PeoplePage() {
         crumbs={[{ label: "People" }, { label: "Faculty & staff" }]}
         label="People"
         title="An interdisciplinary faculty."
-        intro="Engineers, scientists, designers and public-health researchers affiliated with the Center."
+        intro="Engineers, scientists, designers and public-health researchers affiliated with the Centre."
       >
         <MoreLink href="/students" className="mt-8">Students &amp; alumni</MoreLink>
       </PageHeader>

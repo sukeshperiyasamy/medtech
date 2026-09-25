@@ -10,3 +10,7 @@ icmi2025/
 
 # Python venv for scripts/process-photos.py
 .venv-photos/
+
+# Raw source images (web versions live in public/images)
+indranil-banerjee.jpg
+w16 berm medtech center image.png

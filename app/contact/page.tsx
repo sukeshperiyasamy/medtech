@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Contact & Collaborate",
-  "Contact the Medical Technologies Center — collaborative research, clinical needs, industry partnerships, translation and funding.",
+  "Contact the Medical Technology Centre — collaborative research, clinical needs, industry partnerships, translation and funding.",
   "/contact",
 );
 

@@ -29,7 +29,7 @@ export async function StartupsSection({ index, heading = true }: SectionProps = 
           index={index}
           label="Student & Faculty Ventures"
           title="From classroom to company."
-          intro="Ventures founded by the Center's students and faculty — their products, how ready the technology is, the teams behind them and the funding they have won."
+          intro="Ventures founded by the Centre's students and faculty — their products, how ready the technology is, the teams behind them and the funding they have won."
         />
         )}
         {hasSamples && (

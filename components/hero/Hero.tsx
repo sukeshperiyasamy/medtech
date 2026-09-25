@@ -22,7 +22,7 @@ export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
       />
       <div className="container-x relative pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-28">
         <p className="anim-fade-up eyebrow mb-8 flex flex-wrap items-center gap-x-3 gap-y-1 lg:mb-10">
-          <span className="text-ink">{site.partners}</span>
+          <span className="text-ink">{site.parent}</span>
           <span aria-hidden className="h-px w-6 bg-line-strong" />
           <span>{site.name}</span>
         </p>
@@ -56,12 +56,12 @@ export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
           style={{ animationDelay: "0.55s" }}
         >
           <p className="text-lead max-w-[38rem] text-ink-2 lg:col-span-7">
-            Where clinical insight meets deep-tech innovation. A multi-disciplinary programme, jointly
-            offered by IIT Jodhpur and AIIMS Jodhpur, to produce deep-tech innovators in medical
-            technologies.
+            Where clinical insight meets deep-tech innovation. The Medical Technology Centre at IIT
+            Jodhpur is home to the Medical Technologies Program, run jointly with AIIMS Jodhpur, and
+            the Centre for Digital Health.
           </p>
           <div className="flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
-            <ButtonLink href="/research">Explore research</ButtonLink>
+            <ButtonLink href="#verticals">Explore our verticals</ButtonLink>
             <ButtonLink href="/startups" variant="secondary">
               Meet our startups
             </ButtonLink>

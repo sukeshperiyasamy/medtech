@@ -1,6 +1,6 @@
 import type { Startup, TRL } from "@/lib/types";
 
-// ⚠ SAMPLE DATA. The official website does not yet list the Center's student-led
+// ⚠ SAMPLE DATA. The official website does not yet list the Centre's student-led
 // startups. These three slots demonstrate the showcase (profile, product, TRL, team,
 // funding) and are labelled "Sample" on the page. Replace with verified entries —
 // confirm every grant/investment with the founders before publishing.

@@ -1,6 +1,6 @@
 import type { PipelineStage } from "@/lib/types";
 
-// The Center's translational model, expressed as editorial copy (not factual claims).
+// The Centre's translational model, expressed as editorial copy (not factual claims).
 export const pipeline: PipelineStage[] = [
   { id: "need", index: 1, title: "Clinical Need", question: "What problem do patients and clinicians actually face?", description: "Unmet needs are identified at the bedside — through clinical immersion at AIIMS Jodhpur — before a single line is drawn.", who: "Clinicians · Students", accent: "blue" },
   { id: "research", index: 2, title: "Research", question: "What does the science already say?", description: "The need becomes a research question, investigated across medicine, engineering, materials and data.", who: "Faculty · PhD scholars", accent: "cyan" },

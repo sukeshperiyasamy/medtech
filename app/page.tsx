@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero/Hero";
+import { VerticalsSection } from "@/components/verticals/VerticalsSection";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeResearch } from "@/components/home/HomeResearch";
 import { HomeVentures } from "@/components/home/HomeVentures";
@@ -10,7 +11,7 @@ import { ClosingCta } from "@/components/footer/ClosingCta";
 import { getCollaborationPathways, getPeople, getPrograms, getSite } from "@/lib/data";
 
 /**
- * The homepage presents the Center's identity — who, what, how, what comes out of it,
+ * The homepage presents the Centre's identity — who, what, how, what comes out of it,
  * and how to engage. Full collections live on their own pages.
  */
 export default async function HomePage() {
@@ -22,22 +23,23 @@ export default async function HomePage() {
   ]);
 
   const heroFacts = [
-    { label: "Jointly offered", value: "IIT Jodhpur & AIIMS Jodhpur" },
-    { label: "Cohort model", value: "Equal seats — medical & engineering" },
-    { label: "Programmes", value: programs.map((p) => p.shortTitle).join(" · ") },
+    { label: "A centre of", value: "IIT Jodhpur" },
+    { label: "Verticals", value: "Medical Technologies · Digital Health" },
+    { label: "Clinical partner", value: "AIIMS Jodhpur" },
     { label: "Affiliated faculty", value: `${faculty.length} at IIT Jodhpur` },
   ];
 
   return (
     <main id="main">
       <Hero site={site} facts={heroFacts} />
-      <HomeAbout index="01" />
-      <HomeResearch index="02" />
-      <HomeVentures index="03" />
+      <VerticalsSection index="01" showPhoto />
+      <HomeAbout index="02" />
+      <HomeResearch index="03" />
+      <HomeVentures index="04" />
       <FundingCallout />
-      <ImpactSection index="04" />
-      <HomePrograms index="05" />
-      <HomeNews index="06" />
+      <ImpactSection index="05" />
+      <HomePrograms index="06" />
+      <HomeNews index="07" />
       <ClosingCta site={site} programs={programs} pathways={pathways} />
     </main>
   );

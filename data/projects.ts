@@ -1,6 +1,6 @@
 import type { Project } from "@/lib/types";
 
-// ⚠ SAMPLE DATA. The official website does not yet list Center projects. These three
+// ⚠ SAMPLE DATA. The official website does not yet list Centre projects. These three
 // slots show how verified projects will be presented; they name no researchers and
 // claim no results. Each is labelled "Sample" on the page. Replace before launch.
 export const projects: Project[] = [

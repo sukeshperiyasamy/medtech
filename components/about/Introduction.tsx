@@ -22,7 +22,7 @@ export function Introduction({ site, programs, index }: { site: SiteConfig; prog
                   <span aria-hidden className="h-px w-8 bg-line-strong" />
                 </>
               )}
-              <span>The Center</span>
+              <span>The programme</span>
             </p>
           </Reveal>
           <Reveal delay={0.1}>

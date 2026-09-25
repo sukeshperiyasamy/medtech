@@ -29,13 +29,13 @@ export async function InnovationSection({ index, heading = true }: SectionProps 
         )}
         {hasSamples && (
           <SampleNote className="mt-10 max-w-3xl">
-            The official website does not yet list Center projects. These entries show how verified
+            The official website does not yet list Centre projects. These entries show how verified
             projects will be presented and must be replaced before launch.
           </SampleNote>
         )}
         {rows.length === 0 && (
           <div className="mt-14">
-            <EmptyState title="Project profiles are being prepared." body="Verified Center projects — with their clinical problem, technology and stage — will be published here." />
+            <EmptyState title="Project profiles are being prepared." body="Verified Centre projects — with their clinical problem, technology and stage — will be published here." />
           </div>
         )}
         <div className="mt-14 space-y-16 lg:space-y-24">

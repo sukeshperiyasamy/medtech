@@ -22,7 +22,7 @@ export async function PipelineSection({ index, heading = true }: SectionProps = 
                 <br className="hidden sm:block" /> to a working technology.
               </>
             }
-            intro="The Center's translational model in nine stages. Scroll to move through it — each stage names the question being answered, and who answers it."
+            intro="The programme's translational model in nine stages. Scroll to move through it — each stage names the question being answered, and who answers it."
           />
         </div>
       )}

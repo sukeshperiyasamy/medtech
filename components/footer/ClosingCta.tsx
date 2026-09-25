@@ -35,7 +35,7 @@ export function ClosingCta({
             ))}
           </ul>
           <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-            <ButtonLink href="/contact">Contact the Center</ButtonLink>
+            <ButtonLink href="/contact">Contact the Centre</ButtonLink>
             {admission && (
               <ButtonLink href={admission.url} variant="secondary">
                 Admissions

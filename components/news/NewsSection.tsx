@@ -21,7 +21,7 @@ export async function NewsSection({ index, heading = true }: SectionProps = {}) 
             id="news-title"
             index={index}
             label="News & events"
-            title="From the Center."
+            title="From the Centre."
             intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
           />
         )}

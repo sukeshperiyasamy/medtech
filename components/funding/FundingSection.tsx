@@ -67,7 +67,7 @@ export async function FundingSection({ index, heading = true }: SectionProps = {
             {grants.length ? (
               <FundingExplorer grants={grants} categories={CATEGORIES} />
             ) : (
-              <EmptyState title="Funding listings are being compiled." body="Current, verified calls will be listed here with eligibility, amount and deadline. Meanwhile, contact the Center office for guidance." email={site.email} subject="Funding opportunities" />
+              <EmptyState title="Funding listings are being compiled." body="Current, verified calls will be listed here with eligibility, amount and deadline. Meanwhile, contact the Centre office for guidance." email={site.email} subject="Funding opportunities" />
             )}
           </div>
         </div>

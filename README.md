@@ -1,8 +1,15 @@
-# Medical Technologies Center — IIT Jodhpur × AIIMS Jodhpur
+# Medical Technology Centre — IIT Jodhpur
 
-The website of the **Medical Technologies Center**, a joint initiative of **IIT Jodhpur** and **AIIMS Jodhpur** that brings medical and engineering graduates together to turn clinical needs into validated medical technologies.
+The website of the **Medical Technology Centre, IIT Jodhpur**. The Centre belongs to IIT Jodhpur and brings the institute's medical technology work under one umbrella, with two verticals:
 
-The site presents the Center as a medical technology innovation ecosystem, built around one translational model:
+| Vertical | Run by | Page |
+| --- | --- | --- |
+| **Medical Technologies Program**: Master's and PhD in Medical Technologies, ICMI | IIT Jodhpur × **AIIMS Jodhpur** (joint) | `/medical-technologies` |
+| **Centre for Digital Health**: "Health Equity through Digital Transformation" | IIT Jodhpur | `/digital-health` |
+
+The AIIMS Jodhpur collaboration belongs to the Medical Technologies Program, so the header carries the IIT Jodhpur identity only, and the IITJ × AIIMS lockup appears with the program.
+
+The program is built around one translational model:
 
 ```text
 Clinical Need → Research → Ideation → Engineering → Prototype → Validation → Funding → Translation → Impact
@@ -89,17 +96,21 @@ Before pushing, run `npx tsc --noEmit`, `npm run lint` and `npm run build`. All 
 
 ## Site map
 
-The homepage shows **who** the Center is, **what** it does, **how** it works, **what comes out of it** and **how to engage**. Full collections live on their own pages.
+The homepage shows **who** the Centre is, **what** it does, **how** it works, **what comes out of it** and **how to engage**. Full collections live on their own pages.
 
 ```text
-/                     Home — hero, about + pipeline strip, research, ventures, funding callout,
-                      impact, programmes, news + ICMI photo strip, collaboration
-├── /about            The Center · IIT Jodhpur × AIIMS Jodhpur diagram · full scroll-driven pipeline
+/                     Home — hero, the two verticals, program + pipeline strip, research, ventures,
+                      funding callout, impact, programmes, news + ICMI photo strip, collaboration
+├── /about            The Centre · its verticals · leadership
+├── /medical-technologies   Vertical 01 (IITJ × AIIMS): the programme, IITJ × AIIMS diagram,
+│                           full scroll-driven pipeline, programmes, ICMI
+├── /digital-health   Vertical 02: Centre for Digital Health (vision, mission, research,
+│                     capacity building, open source, partnerships, contact)
 ├── /research         Research themes (#<theme-id> deep links) · innovation projects (#innovation)
 │   └── /funding      Funding & grants explorer
 ├── /startups         Student & Faculty Ventures
 │   └── /startups/[slug]   Individual venture profile
-├── /programs         Master's and PhD (#masters, #phd) · discontinued programmes
+├── /programs         Master's and PhD (#masters, #phd) · discontinued programmes  (flat URL, part of vertical 01)
 ├── /people           Leadership, affiliated faculty, visiting faculty, staff
 │   └── /students     Student & alumni register (every cohort since 2020)
 ├── /news             News & events · ICMI 2025 gallery (#icmi-2025)
@@ -108,7 +119,7 @@ The homepage shows **who** the Center is, **what** it does, **how** it works, **
 └── /robots.txt
 ```
 
-Navigation: **About · Research ▾ (Research areas, Innovation, Funding) · Startups · Programs · People ▾ (Faculty & staff, Students & alumni) · News · [Contact]**. It is defined in `data/site.ts`.
+Navigation: **About · Verticals ▾ (Medical Technologies Program, Programmes & admissions, Centre for Digital Health) · Research ▾ (Research areas, Innovation, Funding) · Startups · People ▾ (Faculty & staff, Students & alumni) · News · [Contact]**. It is defined in `data/site.ts`. URLs are intentionally flat (e.g. `/programs`, not `/medical-technologies/programs`).
 
 ## Project structure
 
@@ -123,6 +134,8 @@ app/                        Routes (App Router). One folder per page.
 components/
   home/                     Homepage-only sections (compact previews of each area)
   hero/                     Homepage hero
+  verticals/                The Centre's two verticals, side by side (homepage, /about)
+  digital-health/           Centre for Digital Health page sections
   about/                    Introduction, IIT Jodhpur × AIIMS Jodhpur diagram
   pipeline/                 Clinical Need → Impact story (GSAP sticky + mobile timeline)
   research/                 Research explorer
@@ -203,7 +216,9 @@ Every edit below happens in `data/`. No component changes are needed.
 
 | To change… | Edit | Notes |
 | --- | --- | --- |
-| Name, contact, address, nav, announcement bar, institution links | `data/site.ts` | The announcement bar reads `announcement`; remove it to hide the bar. |
+| Name, parent institution, contact, address, nav, announcement bar, institution links | `data/site.ts` | The announcement bar reads `announcement`; remove it to hide the bar. |
+| The two verticals (homepage and `/about`) | `data/verticals.ts` | Name, official tagline, summary, institutions (logos), highlights, link. |
+| Centre for Digital Health page | `data/digital-health.ts` | Official CDH content: vision, mission, research areas, upcoming programmes, open source, partners, coordinator. |
 | Head, faculty, visiting faculty, staff | `data/people.ts` | One row per person. Photos are loaded from iitj.ac.in URLs. |
 | Students (per programme, per cohort year) | `data/students.ts` | Add a line `"ROLLNO|Name"` under the right programme and year. Counts, chart and the Impact figure update automatically. |
 | Programmes | `data/programs.ts` | `availability: "offered" \| "discontinued"`. Discontinued programmes disappear from current listings but keep their cohorts. |
@@ -320,8 +335,8 @@ Defined as Tailwind v4 tokens in `app/globals.css`.
   - `bg-grid` / `bg-grid-fine`: scientific grid backgrounds.
   - `link-line`: animated underline.
 - **Signature elements:**
-  - numbered section labels (`01 — About the Center`)
-  - the IIT Jodhpur → Center ← AIIMS Jodhpur lockup
+  - numbered section labels (`01 — About the Centre`)
+  - the IIT Jodhpur → Centre ← AIIMS Jodhpur lockup
   - the nine-stage pipeline
   - the TRL measurement scale (a ruled axis with a marker and phase brackets rather than a progress bar)
 
@@ -392,7 +407,7 @@ Next.js  →  API  →  PostgreSQL  →  Admin panel (/admin)
 
 ## Outstanding content
 
-Needed from the Center before launch:
+Needed from the Centre before launch:
 
 - [ ] Verified **startup** profiles: product, TRL with evidence, founders and photos, mentors, grants and funding received
 - [ ] Verified **projects** for the Innovation section

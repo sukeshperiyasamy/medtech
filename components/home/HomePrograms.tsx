@@ -16,6 +16,10 @@ export async function HomePrograms({ index }: { index?: string }) {
             <span>Programmes</span>
           </p>
           <h2 id="home-programs-title" className="text-h2 text-ink">Doctors and engineers, in the same classroom.</h2>
+          <p className="mt-6 max-w-sm text-muted">
+            Master&rsquo;s and PhD in Medical Technologies, offered jointly by IIT Jodhpur and AIIMS
+            Jodhpur — and upcoming programmes in Digital Health.
+          </p>
           <MoreLink href="/programs" className="mt-8">Programme details</MoreLink>
         </Reveal>
 
@@ -46,6 +50,21 @@ export async function HomePrograms({ index }: { index?: string }) {
               </Reveal>
             );
           })}
+          <li className="grid gap-4 py-7 sm:grid-cols-[9rem_1fr_auto] sm:gap-8">
+            <p className="eyebrow pt-1.5">Digital Health</p>
+            <div>
+              <h3 className="text-[1.45rem] leading-tight tracking-[-0.02em] text-ink">
+                <Link href="/digital-health#cdh-programs" className="hover:text-blue">Programmes in Digital Health</Link>
+              </h3>
+              <p className="mt-2 max-w-xl text-[0.95rem] text-muted">
+                Certificate, Diploma, MBA, M.Tech and MS (Research) programmes from the Centre for
+                Digital Health.
+              </p>
+            </div>
+            <span className="self-start rounded-xs border border-blue/30 bg-blue-soft px-2 py-1 font-mono text-[0.66rem] uppercase tracking-[0.06em] text-blue">
+              Upcoming
+            </span>
+          </li>
         </ul>
       </div>
     </section>

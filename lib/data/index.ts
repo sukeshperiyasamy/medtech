@@ -17,7 +17,9 @@ import { metrics } from "@/data/metrics";
 import { pathways } from "@/data/collaboration";
 import { startups, trlScale } from "@/data/startups";
 import { students } from "@/data/students";
-import { gallery } from "@/data/media";
+import { centreBuilding, gallery } from "@/data/media";
+import { verticals } from "@/data/verticals";
+import { digitalHealth } from "@/data/digital-health";
 import type { Person, PersonCategory } from "@/lib/types";
 
 /**
@@ -50,6 +52,10 @@ export const getStartup = async (slug: string) =>
 export const getTrlScale = async () => trlScale;
 export const getStudents = async (programId?: string) =>
   programId ? students.filter((s) => s.programId === programId) : students;
+
+export const getVerticals = async () => verticals;
+export const getCentrePhoto = async () => centreBuilding;
+export const getDigitalHealth = async () => digitalHealth;
 
 export const getGallery = async (eventId?: string) =>
   eventId ? gallery.filter((g) => g.eventId === eventId) : gallery;

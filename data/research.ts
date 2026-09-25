@@ -1,8 +1,8 @@
 import type { ResearchArea } from "@/lib/types";
 
 // Research themes are *derived* from the officially listed research interests of the
-// Center's affiliated faculty (see data/people.ts). They are editorial groupings,
-// not an official taxonomy — confirm naming with the Center before launch.
+// Centre's affiliated faculty (see data/people.ts). They are editorial groupings,
+// not an official taxonomy — confirm naming with the Centre before launch.
 const SRC = "https://www.iitj.ac.in/People?dept=Medical-Technologies";
 
 const area = (a: Omit<ResearchArea, "status" | "provenance" | "sourceUrl" | "slug">): ResearchArea => ({

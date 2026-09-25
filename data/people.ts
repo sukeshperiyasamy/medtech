@@ -35,18 +35,35 @@ function build(category: Person["category"], rows: Row[]): Person[] {
   }));
 }
 
-export const leadership: Person[] = build("Leadership", [
+// Coordinator of the Centre for Digital Health — source: https://www.iitj.ac.in/cdh/en/contact
+const cdhCoordinator: Person = {
+  id: "cdh-coordinator",
+  slug: "indranil-banerjee",
+  status: "published",
+  provenance: "verified",
+  sourceUrl: "https://www.iitj.ac.in/cdh/en/contact",
+  name: "Indranil Banerjee",
+  designation: "Coordinator, Centre for Digital Health",
+  category: "Leadership",
+  institution: "IIT Jodhpur",
+  email: "coordinator_cdh@iitj.ac.in",
+  phone: "0291 280 1214",
+  photo: { src: "/images/people/indranil-banerjee.jpg", alt: "Portrait of Indranil Banerjee" },
+  researchInterests: [],
+};
+
+export const leadership: Person[] = [...build("Leadership", [
   [
     "head",
     "Raviraj Vankayala",
-    "Head, Medical Technology Center",
+    "Head, Medical Technology Centre",
     "head_medtechcentre@iitj.ac.in",
     "0291 280 1110",
     "09-2026/Raviraj-Vankayla-639238779450517846.jpg",
     "PhD, National Tsing Hua University",
     ["Nanobiotechnology", "Biomaterials", "Drug Delivery", "Theranostics", "Photomedicine"],
   ],
-]);
+]), cdhCoordinator];
 
 export const faculty: Person[] = build("Faculty", [
   ["ajay-agarwal", "Ajay Agarwal", "Professor", "ajayagarwal@iitj.ac.in", "0291 280 1378", "03-2026/Ajay-Agarwal-639081493814332828.jpg", "PhD, BITS Pilani", ["Microelectronics", "Micro- and Nano-technologies", "Sensors", "Microfluidics", "Point-of-care devices", "Early diagnostics"]],

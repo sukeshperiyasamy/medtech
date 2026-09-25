@@ -15,16 +15,15 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
     <footer className="border-t border-line bg-white">
       <div className="container-x grid gap-12 py-16 lg:grid-cols-12 lg:py-20">
         <div className="lg:col-span-4">
-          <div className="flex items-center gap-3">
-            {site.institutions.map((inst, i) => (
-              <span key={inst.name} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden className="font-mono text-xs text-muted">×</span>}
-                <Image src={inst.logo.src} alt={inst.logo.alt} width={48} height={48} className="h-12 w-auto" />
-              </span>
-            ))}
-          </div>
+          <Image
+            src={site.institutions[0].logo.src}
+            alt={site.institutions[0].logo.alt}
+            width={48}
+            height={53}
+            className="h-12 w-auto"
+          />
           <p className="mt-6 text-xl font-medium tracking-[-0.015em] text-ink">{site.name}</p>
-          <p className="eyebrow mt-1">{site.partners}</p>
+          <p className="eyebrow mt-1">{site.parent}</p>
           <address className="mt-6 text-[0.93rem] not-italic leading-relaxed text-muted">
             {site.address.map((l) => (
               <span key={l} className="block">{l}</span>
@@ -91,7 +90,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
       </div>
       <div className="border-t border-line">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-muted sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} Medical Technologies Center, IIT Jodhpur × AIIMS Jodhpur.</p>
+          <p>© {new Date().getFullYear()} Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.</p>
           <p>Institutional information sourced from official IIT Jodhpur pages.</p>
         </div>
       </div>

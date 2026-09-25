@@ -25,7 +25,7 @@ export async function ResearchSection({ index, heading = true }: SectionProps = 
           index={index}
           label="Research"
           title="Research that starts at the bedside."
-          intro="Six themes, drawn from the published expertise of the Center's affiliated faculty — spanning sensing, imaging, robotics, materials, design and health systems."
+          intro="Six themes, drawn from the published expertise of the Centre's affiliated faculty — spanning sensing, imaging, robotics, materials, design and health systems."
         />
         )}
         <div className="mt-14 lg:mt-20">
