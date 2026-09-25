@@ -1,8 +1,8 @@
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { getPeopleByIds, getResearchAreas } from "@/lib/data";
 import { ResearchExplorer, type ResolvedArea } from "./ResearchExplorer";
 
-export async function ResearchSection() {
+export async function ResearchSection({ index, heading = true }: SectionProps = {}) {
   const areas = await getResearchAreas();
   const resolved: ResolvedArea[] = await Promise.all(
     areas.map(async (a) => ({
@@ -17,15 +17,17 @@ export async function ResearchSection() {
   );
 
   return (
-    <section id="research" aria-labelledby="research-title" className="section-y">
+    <section id="research" aria-labelledby={heading ? "research-title" : undefined} className="section-y">
       <div className="container-x">
+        {heading && (
         <SectionHeading
           id="research-title"
-          index="03"
+          index={index}
           label="Research"
           title="Research that starts at the bedside."
           intro="Six themes, drawn from the published expertise of the Center's affiliated faculty — spanning sensing, imaging, robotics, materials, design and health systems."
         />
+        )}
         <div className="mt-14 lg:mt-20">
           <ResearchExplorer areas={resolved} />
         </div>

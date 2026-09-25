@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import type { Program } from "@/lib/types";
@@ -12,6 +12,17 @@ export function ProgramTabs({ programs }: { programs: Program[] }) {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const p = programs[active];
+
+  // Deep links such as /programs#phd select that programme.
+  useEffect(() => {
+    const sync = () => {
+      const i = programs.findIndex((x) => x.id === window.location.hash.slice(1));
+      if (i >= 0) setActive(i);
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [programs]);
 
   const onKey = (e: React.KeyboardEvent, i: number) => {
     const n = programs.length;

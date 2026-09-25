@@ -1,23 +1,25 @@
-import { AnnouncementBar } from "@/components/navigation/AnnouncementBar";
-import { SiteHeader } from "@/components/navigation/SiteHeader";
 import { Hero } from "@/components/hero/Hero";
-import { Introduction } from "@/components/about/Introduction";
-import { Partnership } from "@/components/about/Partnership";
-import { ResearchSection } from "@/components/research/ResearchSection";
-import { PipelineSection } from "@/components/pipeline/PipelineSection";
-import { InnovationSection } from "@/components/innovation/InnovationSection";
-import { FundingSection } from "@/components/funding/FundingSection";
+import { HomeAbout } from "@/components/home/HomeAbout";
+import { HomeResearch } from "@/components/home/HomeResearch";
+import { HomeVentures } from "@/components/home/HomeVentures";
+import { FundingCallout } from "@/components/home/FundingCallout";
 import { ImpactSection } from "@/components/impact/ImpactSection";
-import { ProgramsSection } from "@/components/programs/ProgramsSection";
-import { PeopleSection } from "@/components/people/PeopleSection";
-import { CollaborationSection } from "@/components/collaboration/CollaborationSection";
-import { NewsSection } from "@/components/news/NewsSection";
+import { HomePrograms } from "@/components/home/HomePrograms";
+import { HomeNews } from "@/components/home/HomeNews";
 import { ClosingCta } from "@/components/footer/ClosingCta";
-import { SiteFooter } from "@/components/footer/SiteFooter";
-import { getPeople, getPrograms, getSite } from "@/lib/data";
+import { getCollaborationPathways, getPeople, getPrograms, getSite } from "@/lib/data";
 
+/**
+ * The homepage presents the Center's identity — who, what, how, what comes out of it,
+ * and how to engage. Full collections live on their own pages.
+ */
 export default async function HomePage() {
-  const [site, programs, faculty] = await Promise.all([getSite(), getPrograms(), getPeople("Faculty")]);
+  const [site, programs, faculty, pathways] = await Promise.all([
+    getSite(),
+    getPrograms(),
+    getPeople("Faculty"),
+    getCollaborationPathways(),
+  ]);
 
   const heroFacts = [
     { label: "Jointly offered", value: "IIT Jodhpur & AIIMS Jodhpur" },
@@ -27,25 +29,16 @@ export default async function HomePage() {
   ];
 
   return (
-    <>
-      <AnnouncementBar announcement={site.announcement} />
-      <SiteHeader site={site} />
-      <main id="main">
-        <Hero site={site} facts={heroFacts} />
-        <Introduction site={site} programs={programs} />
-        <Partnership site={site} />
-        <ResearchSection />
-        <PipelineSection />
-        <InnovationSection />
-        <FundingSection />
-        <ImpactSection />
-        <ProgramsSection />
-        <PeopleSection />
-        <CollaborationSection />
-        <NewsSection />
-        <ClosingCta site={site} programs={programs} />
-      </main>
-      <SiteFooter site={site} />
-    </>
+    <main id="main">
+      <Hero site={site} facts={heroFacts} />
+      <HomeAbout index="01" />
+      <HomeResearch index="02" />
+      <HomeVentures index="03" />
+      <FundingCallout />
+      <ImpactSection index="04" />
+      <HomePrograms index="05" />
+      <HomeNews index="06" />
+      <ClosingCta site={site} programs={programs} pathways={pathways} />
+    </main>
   );
 }

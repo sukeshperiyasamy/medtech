@@ -1,25 +1,27 @@
 import { ArrowUpRight } from "lucide-react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { getNews, getSite } from "@/lib/data";
 import { formatDateRange } from "@/lib/utils";
 
-export async function NewsSection() {
+export async function NewsSection({ index, heading = true }: SectionProps = {}) {
   const [items, site] = await Promise.all([getNews(), getSite()]);
   const featured = items.find((n) => n.featured) ?? items[0];
   const rest = items.filter((n) => n.id !== featured.id);
 
   return (
-    <section id="news" aria-labelledby="news-title" className="section-y border-t border-line">
+    <section id="news" aria-labelledby={heading ? "news-title" : undefined} className="section-y border-t border-line">
       <div className="container-x">
+        {heading && (
         <SectionHeading
           id="news-title"
-          index="11"
+          index={index}
           label="News & events"
           title="From the Center."
           intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
         />
+        )}
 
         <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-10">
           <Reveal as="article" className="lg:col-span-7">

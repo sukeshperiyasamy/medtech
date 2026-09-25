@@ -160,7 +160,7 @@ function MobileDiagram({ site }: { site: SiteConfig }) {
   );
 }
 
-export function Partnership({ site }: { site: SiteConfig }) {
+export function Partnership({ site, index }: { site: SiteConfig; index?: string }) {
   const points = [
     { t: "IIT Jodhpur", d: "Engineering depth — sensors, electronics, robotics, materials, AI and systems — and the labs to build with it." },
     { t: "AIIMS Jodhpur", d: "Clinical expertise, first-hand medical needs, and the clinical setting in which technologies are tested and validated." },
@@ -171,7 +171,7 @@ export function Partnership({ site }: { site: SiteConfig }) {
       <div className="container-x">
         <SectionHeading
           id="partnership-title"
-          index="02"
+          index={index}
           label="IIT Jodhpur × AIIMS Jodhpur"
           title={<>Two institutions. One translational loop.</>}
           intro="An engineering institute and a medical institute, designing the curriculum and the research together — so that medicine sets the problem and engineering answers it."

@@ -1,34 +1,54 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import type { SectionProps } from "@/components/ui/SectionHeading";
 import { getCollaborationPathways, getSite } from "@/lib/data";
 import { pad2 } from "@/lib/utils";
 
-export async function CollaborationSection() {
+export async function CollaborationSection({ index, heading = true }: SectionProps = {}) {
   const [pathways, site] = await Promise.all([getCollaborationPathways(), getSite()]);
   return (
-    <section id="collaborate" aria-labelledby="collab-title" className="section-y">
+    <section id="collaborate" aria-labelledby={heading ? "collab-title" : undefined} className="section-y">
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
-            <Reveal>
-              <p className="eyebrow mb-5 flex items-center gap-3">
-                <span className="text-blue">10</span>
-                <span aria-hidden className="h-px w-8 bg-line-strong" />
-                <span>Collaborate</span>
-              </p>
-              <h2 id="collab-title" className="text-h2 max-w-[14ch] text-ink">
-                Build the future of healthcare with us.
-              </h2>
-              <p className="text-lead mt-6 max-w-md text-muted">
-                Five ways in — whichever side of the clinic, lab or market you are coming from.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1} className="mt-10 border-t border-line pt-6 text-[0.95rem]">
+            {heading && (
+              <Reveal>
+                <p className="eyebrow mb-5 flex items-center gap-3">
+                  {index && (
+                    <>
+                      <span className="text-blue">{index}</span>
+                      <span aria-hidden className="h-px w-8 bg-line-strong" />
+                    </>
+                  )}
+                  <span>Collaborate</span>
+                </p>
+                <h2 id="collab-title" className="text-h2 max-w-[14ch] text-ink">
+                  Build the future of healthcare with us.
+                </h2>
+                <p className="text-lead mt-6 max-w-md text-muted">
+                  Five ways in — whichever side of the clinic, lab or market you are coming from.
+                </p>
+              </Reveal>
+            )}
+            <Reveal delay={0.1} className={heading ? "mt-10 border-t border-line pt-6 text-[0.95rem]" : "border-t border-ink pt-6 text-[0.95rem]"}>
               <p className="eyebrow mb-3">Contact the Center</p>
               <a href={`mailto:${site.email}`} className="link-line text-lg text-ink">
                 {site.email}
               </a>
               <p className="mt-1 text-muted">{site.phone}</p>
+              {!heading && (
+                <>
+                  <address className="mt-8 not-italic leading-relaxed text-ink-2">
+                    {site.address.map((l) => (
+                      <span key={l} className="block">{l}</span>
+                    ))}
+                  </address>
+                  <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-ink hover:text-blue">
+                    Directions <ArrowUpRight aria-hidden className="size-3.5" />
+                    <span className="sr-only">(opens Google Maps)</span>
+                  </a>
+                </>
+              )}
             </Reveal>
           </div>
         </div>

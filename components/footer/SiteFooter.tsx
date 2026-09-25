@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { SiteConfig } from "@/lib/types";
 
@@ -40,14 +41,13 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
           <div>
             <p className="eyebrow mb-4">Explore</p>
             <ul className="space-y-2.5 text-[0.93rem]">
-              {site.nav.map((n) => (
-                <li key={n.href}>
-                  <a href={n.href} className="link-line text-ink-2 hover:text-ink">{n.label}</a>
-                </li>
-              ))}
-              <li>
-                <a href="#collaborate" className="link-line text-ink-2 hover:text-ink">Contact</a>
-              </li>
+              {[...site.nav.flatMap((n) => n.children ?? [n]), { label: "Startups", href: "/startups" }, { label: "Contact", href: "/contact" }]
+                .filter((n, i, all) => all.findIndex((m) => m.href === n.href) === i)
+                .map((n) => (
+                  <li key={n.href}>
+                    <Link href={n.href} className="link-line text-ink-2 hover:text-ink">{n.label}</Link>
+                  </li>
+                ))}
             </ul>
           </div>
           <div>

@@ -23,6 +23,7 @@ export const programs: Program[] = [
     title: "Master's in Medical Technologies",
     shortTitle: "Master's",
     degree: "Master's",
+    availability: "offered",
     overview:
       "For highly motivated professionals with a distinct flair for interdisciplinary research and innovation. Coursework is followed by a project enabling the creation of a futuristic device, process, product or protocol.",
     eligibility: SHARED_ELIGIBILITY,
@@ -43,6 +44,7 @@ export const programs: Program[] = [
     title: "PhD in Medical Technologies",
     shortTitle: "PhD",
     degree: "Doctoral",
+    availability: "offered",
     overview:
       "Doctoral research at the interface of engineering and medicine, jointly offered by IIT Jodhpur and AIIMS Jodhpur, with emphasis on translational R&D towards deployable techniques, technologies, devices and systems.",
     eligibility: SHARED_ELIGIBILITY,
@@ -63,8 +65,12 @@ export const programs: Program[] = [
     title: "Dual Degree in Medical Technologies",
     shortTitle: "Dual Degree",
     degree: "Dual Degree",
+    // Discontinued — no longer offered for new admissions (per the department, Sep 2026;
+    // the official site still lists its 2020–2025 cohorts).
+    availability: "discontinued",
+    intakeYears: "2020–2025",
     overview:
-      "An integrated route into Medical Technologies, with cohorts admitted every year since 2020. Programme details are to be published by the Center.",
+      "No longer offered for new admissions. Students were admitted to the Dual Degree in Medical Technologies from 2020 to 2025; their cohorts remain part of the Center's student register.",
     cohortsUrl: "https://www.iitj.ac.in/medical-technologies/en/dual-degree-medical-technologies",
   },
 ];

@@ -1,26 +1,28 @@
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { getPeople } from "@/lib/data";
 import { isRemote } from "@/lib/utils";
 import { PeopleDirectory } from "./PeopleDirectory";
 
-export async function PeopleSection() {
+export async function PeopleSection({ index, heading = true }: SectionProps = {}) {
   const [leaders, all] = await Promise.all([getPeople("Leadership"), getPeople()]);
   const head = leaders[0];
   const directory = all.filter((p) => p.category !== "Leadership");
 
   return (
-    <section id="people" aria-labelledby="people-title" className="section-y bg-paper">
+    <section id="people" aria-labelledby={heading ? "people-title" : undefined} className="section-y bg-paper">
       <div className="container-x">
+        {heading && (
         <SectionHeading
           id="people-title"
-          index="09"
+          index={index}
           label="People"
           title="An interdisciplinary faculty."
           intro="Engineers, scientists, designers and public-health researchers affiliated with the Center — with clinical faculty from AIIMS Jodhpur to be added."
         />
+        )}
 
         <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12">
           {head && (

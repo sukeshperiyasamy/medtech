@@ -1,5 +1,6 @@
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { SampleNote } from "@/components/ui/SampleNote";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { getGrants, getSite } from "@/lib/data";
@@ -16,18 +17,20 @@ const CATEGORIES: GrantCategory[] = [
   "International",
 ];
 
-export async function FundingSection() {
+export async function FundingSection({ index, heading = true }: SectionProps = {}) {
   const [grants, site] = await Promise.all([getGrants(), getSite()]);
   return (
-    <section id="funding" aria-labelledby="funding-title" className="section-y bg-paper">
+    <section id="funding" aria-labelledby={heading ? "funding-title" : undefined} className="section-y border-t border-line">
       <div className="container-x">
+        {heading && (
         <SectionHeading
           id="funding-title"
-          index="06"
+          index={index}
           label="Funding & grants"
           title="A funding desk for medical technology."
           intro="Government schemes, biotech and deep-tech programmes, start-up support and industry-sponsored research — gathered in one place so that validated work doesn't stall for lack of money."
         />
+        )}
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-3">
@@ -55,11 +58,17 @@ export async function FundingSection() {
           </Reveal>
 
           <div className="lg:col-span-9">
-            <SampleNote className="mb-8">
-              Rows below reference long-running national schemes to demonstrate the explorer. They are
-              not current calls — amounts, deadlines and status must be added from official notices.
-            </SampleNote>
-            <FundingExplorer grants={grants} categories={CATEGORIES} />
+            {grants.some((g) => g.provenance === "sample") && (
+              <SampleNote className="mb-8">
+                Rows below reference long-running national schemes to demonstrate the explorer. They
+                are not current calls — amounts, deadlines and status must be added from official notices.
+              </SampleNote>
+            )}
+            {grants.length ? (
+              <FundingExplorer grants={grants} categories={CATEGORIES} />
+            ) : (
+              <EmptyState title="Funding listings are being compiled." body="Current, verified calls will be listed here with eligibility, amount and deadline. Meanwhile, contact the Center office for guidance." email={site.email} subject="Funding opportunities" />
+            )}
           </div>
         </div>
       </div>

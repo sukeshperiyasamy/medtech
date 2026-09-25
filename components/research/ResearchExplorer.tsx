@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Plus } from "lucide-react";
@@ -42,6 +42,20 @@ export function ResearchExplorer({ areas }: { areas: ResolvedArea[] }) {
   const [active, setActive] = useState(0);
   const [openMobile, setOpenMobile] = useState<number | null>(0);
   const a = areas[active];
+
+  // Deep links such as /research#imaging-ai open that theme.
+  useEffect(() => {
+    const sync = () => {
+      const i = areas.findIndex((x) => x.id === window.location.hash.slice(1));
+      if (i < 0) return;
+      setActive(i);
+      setOpenMobile(i);
+      document.getElementById("research")?.scrollIntoView({ block: "start" });
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [areas]);
 
   return (
     <>

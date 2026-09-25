@@ -61,9 +61,9 @@ export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
             technologies.
           </p>
           <div className="flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
-            <ButtonLink href="#research">Explore research</ButtonLink>
-            <ButtonLink href="#innovation" variant="secondary">
-              Discover innovations
+            <ButtonLink href="/research">Explore research</ButtonLink>
+            <ButtonLink href="/startups" variant="secondary">
+              Meet our startups
             </ButtonLink>
           </div>
         </div>

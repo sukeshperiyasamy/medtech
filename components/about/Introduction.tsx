@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import type { Program, SiteConfig } from "@/lib/types";
 
-export function Introduction({ site, programs }: { site: SiteConfig; programs: Program[] }) {
+export function Introduction({ site, programs, index }: { site: SiteConfig; programs: Program[]; index?: string }) {
   const meta = [
     { k: "Jointly offered by", v: "IIT Jodhpur & AIIMS Jodhpur" },
     { k: "Programmes", v: programs.map((p) => p.shortTitle).join(" · ") },
@@ -16,8 +16,12 @@ export function Introduction({ site, programs }: { site: SiteConfig; programs: P
         <div className="lg:col-span-4">
           <Reveal>
             <p className="eyebrow flex items-center gap-3">
-              <span className="text-blue">01</span>
-              <span aria-hidden className="h-px w-8 bg-line-strong" />
+              {index && (
+                <>
+                  <span className="text-blue">{index}</span>
+                  <span aria-hidden className="h-px w-8 bg-line-strong" />
+                </>
+              )}
               <span>The Center</span>
             </p>
           </Reveal>

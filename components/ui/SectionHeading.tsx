@@ -1,8 +1,16 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
 
+/** Shared by page sections so they work both on the homepage and on dedicated pages. */
+export interface SectionProps {
+  /** Editorial index, e.g. "02". Omit for no number. */
+  index?: string;
+  /** Set false when the page header already titles this content. */
+  heading?: boolean;
+}
+
 interface Props {
-  index: string;
+  index?: string;
   label: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
@@ -24,8 +32,12 @@ export function SectionHeading({ index, label, title, intro, id, className, layo
     >
       <Reveal className={cn(layout === "split" && "lg:col-span-7")}>
         <p className="eyebrow mb-5 flex items-center gap-3">
-          <span className="text-blue">{index}</span>
-          <span aria-hidden className="h-px w-8 bg-line-strong" />
+          {index && (
+            <>
+              <span className="text-blue">{index}</span>
+              <span aria-hidden className="h-px w-8 bg-line-strong" />
+            </>
+          )}
           <span>{label}</span>
         </p>
         <h2 id={id} className="text-h2 text-ink">

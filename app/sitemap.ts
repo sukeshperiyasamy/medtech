@@ -1,8 +1,15 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/data/site";
+import { getStartups } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 
-// Phase 1 ships the homepage. Internal routes (/research, /programs, /people, /funding,
-// /innovation, /news, /contact …) are added here as they are built.
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: site.url, lastModified: new Date(), changeFrequency: "weekly", priority: 1 }];
+const ROUTES = ["/", "/about", "/research", "/funding", "/startups", "/programs", "/people", "/students", "/news", "/contact"];
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const ventures = (await getStartups()).map((s) => `/startups/${s.slug}`);
+  return [...ROUTES, ...ventures].map((path) => ({
+    url: absoluteUrl(path),
+    lastModified: new Date(),
+    changeFrequency: path === "/" || path === "/news" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : 0.7,
+  }));
 }

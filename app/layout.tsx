@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { MotionProvider } from "@/components/layout/MotionProvider";
+import { AnnouncementBar } from "@/components/navigation/AnnouncementBar";
+import { SiteHeader } from "@/components/navigation/SiteHeader";
+import { SiteFooter } from "@/components/footer/SiteFooter";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -24,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: title, template: `%s — ${site.name}, ${site.partners}` },
   description: site.description,
-  alternates: { canonical: "/" },
+  alternates: { canonical: site.url },
   keywords: [
     "Medical Technologies",
     "MedTech",
@@ -40,7 +43,7 @@ export const metadata: Metadata = {
     description: site.description,
     siteName: site.name,
     locale: "en_IN",
-    url: "/",
+    url: site.url,
   },
   twitter: { card: "summary_large_image", title, description: site.description },
   robots: { index: true, follow: true },
@@ -70,7 +73,11 @@ const jsonLd = {
     addressCountry: "IN",
   },
   parentOrganization: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Jodhpur", url: "https://www.iitj.ac.in" },
-  memberOf: { "@type": "MedicalOrganization", name: "All India Institute of Medical Sciences Jodhpur" },
+  memberOf: {
+    "@type": "MedicalOrganization",
+    name: "All India Institute of Medical Sciences Jodhpur",
+    url: "https://aiimsjodhpur.edu.in/",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -83,7 +90,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <AnnouncementBar announcement={site.announcement} />
+          <SiteHeader site={site} />
+          {children}
+          <SiteFooter site={site} />
+        </MotionProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -93,6 +93,10 @@ export interface Program extends BaseRecord {
   title: string;
   shortTitle: string;
   degree: string;
+  /** Discontinued programmes stay in the data for their cohorts and history. */
+  availability: "offered" | "discontinued";
+  /** e.g. "2020–2025" for a discontinued programme's admission years. */
+  intakeYears?: string;
   overview: string;
   eligibility?: string;
   duration?: string;
@@ -177,11 +181,72 @@ export interface NewsItem extends BaseRecord {
   featured?: boolean;
 }
 
-export interface Startup extends BaseRecord {
+export interface Student {
+  /** Roll number doubles as the stable ID. */
+  id: string;
+  rollNumber: string;
+  name: string;
+  programId: string;
+  /** Year of admission, as listed on the official cohort pages. */
+  cohortYear: number;
+  /** Unknown until confirmed by the Center — never inferred from the cohort year. */
+  status?: "current" | "alumni";
+  photo?: Media;
+  profileUrl?: string;
+  /** For alumni: current role / organisation, once provided by the alumnus. */
+  currentRole?: string;
+  startupId?: string;
+  provenance: Provenance;
+  sourceUrl: string;
+}
+
+/** Technology Readiness Level, 1 (basic principles) → 9 (proven in operational use). */
+export type TRL = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export interface Founder {
+  name: string;
+  role: string;
+  /** e.g. "Master's in Medical Technologies, 2022 cohort" or "AIIMS Jodhpur". */
+  affiliation?: string;
+  photo?: Media;
+  profileUrl?: string;
+}
+
+export interface FundingAward {
+  /** Grant, fellowship, incubator or investor. */
+  source: string;
+  programme?: string;
+  kind: "Grant" | "Fellowship" | "Incubation" | "Seed investment" | "Prize" | "Other";
+  amount?: string;
+  year?: number;
+}
+
+export interface StartupProduct {
   name: string;
   description: string;
-  founders?: string[];
-  url?: string;
+  image?: Media;
+}
+
+export interface Startup extends BaseRecord {
+  name: string;
+  tagline: string;
+  description: string;
+  clinicalProblem?: string;
+  researchAreaId?: string;
+  foundedYear?: number;
+  logo?: Media;
+  teamPhoto?: Media;
+  product: StartupProduct;
+  trl: TRL;
+  /** What the current TRL is evidenced by (e.g. "Validated at AIIMS Jodhpur"). */
+  trlEvidence?: string;
+  founders: Founder[];
+  /** Person IDs of faculty mentors (data/people.ts). */
+  mentorIds: string[];
+  funding: FundingAward[];
+  incubator?: string;
+  website?: string;
+  links?: Link[];
 }
 
 export interface CollaborationPathway {
@@ -215,6 +280,8 @@ export interface PipelineStage {
 export interface NavItem {
   label: string;
   href: string;
+  description?: string;
+  children?: NavItem[];
 }
 
 export interface SiteConfig {

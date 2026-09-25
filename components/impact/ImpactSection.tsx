@@ -1,23 +1,25 @@
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { getMetrics } from "@/lib/data";
 import { Counter } from "./Counter";
 
-export async function ImpactSection() {
+export async function ImpactSection({ index, heading = true }: SectionProps = {}) {
   const metrics = await getMetrics();
   const verified = metrics.filter((m) => m.value !== null);
   const pending = metrics.filter((m) => m.value === null);
 
   return (
-    <section id="impact" aria-labelledby="impact-title" className="section-y">
+    <section id="impact" aria-labelledby={heading ? "impact-title" : undefined} className="section-y">
       <div className="container-x">
+        {heading && (
         <SectionHeading
           id="impact-title"
-          index="07"
+          index={index}
           label="Impact"
           title="Measured, and only what can be verified."
           intro="Figures here are counted from official IIT Jodhpur pages. Research outputs will appear as soon as the Center publishes verified numbers."
         />
+        )}
 
         <dl className="mt-16 grid grid-cols-2 border-t border-ink lg:grid-cols-4">
           {verified.map((m, i) => (

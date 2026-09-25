@@ -28,7 +28,7 @@ export const site: SiteConfig = {
     },
     {
       name: "AIIMS Jodhpur",
-      url: "https://www.aiimsjodhpur.edu.in",
+      url: "https://aiimsjodhpur.edu.in/",
       logo: {
         src: "/logos/aiims-jodhpur-seal.png",
         alt: "AIIMS Jodhpur official seal",
@@ -40,14 +40,27 @@ export const site: SiteConfig = {
   // TODO(content): add official social profiles once confirmed by the Center.
   social: [],
   nav: [
-    { label: "About", href: "#about" },
-    { label: "Research", href: "#research" },
-    { label: "Innovation", href: "#innovation" },
-    { label: "Programs", href: "#programs" },
-    { label: "Funding", href: "#funding" },
-    { label: "People", href: "#people" },
-    { label: "Impact", href: "#impact" },
-    { label: "News", href: "#news" },
+    { label: "About", href: "/about" },
+    {
+      label: "Research",
+      href: "/research",
+      children: [
+        { label: "Research areas", href: "/research", description: "Six themes across sensing, imaging, robotics and more" },
+        { label: "Innovation", href: "/research#innovation", description: "Projects moving from lab to clinic" },
+        { label: "Funding", href: "/funding", description: "Grants and opportunities for medtech work" },
+      ],
+    },
+    { label: "Startups", href: "/startups" },
+    { label: "Programs", href: "/programs" },
+    {
+      label: "People",
+      href: "/people",
+      children: [
+        { label: "Faculty & staff", href: "/people", description: "Leadership, affiliated and visiting faculty" },
+        { label: "Students & alumni", href: "/students", description: "Every cohort since 2020" },
+      ],
+    },
+    { label: "News", href: "/news" },
   ],
   announcement: {
     tag: "Admissions 2026–27",
