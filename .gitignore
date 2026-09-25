@@ -4,3 +4,6 @@ out
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# Original event photos (HEIC masters) - web versions live in public/images
+icmi2025/

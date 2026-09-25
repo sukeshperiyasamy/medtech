@@ -118,6 +118,24 @@
 .anim-fade-up {
   animation: fade-up 0.8s var(--ease-precise) both;
 }
+/* Continuous photo strip. The track holds the list twice; -50% loops seamlessly. */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 80s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee[data-paused="true"] .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee-viewport { overflow-x: auto; }
+  .marquee-clone { display: none; }
+}
+
 .anim-wipe {
   animation: wipe-down 1.1s cubic-bezier(0.65, 0, 0.35, 1) both;
 }

@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import Image from "next/image";
 import type { Program, SiteConfig } from "@/lib/types";
 
 export function Introduction({ site, programs, index }: { site: SiteConfig; programs: Program[]; index?: string }) {
@@ -76,11 +76,22 @@ export function Introduction({ site, programs, index }: { site: SiteConfig; prog
           </Reveal>
 
           <Reveal delay={0.1} className="mt-14">
-            <ImagePlaceholder
-              ratio="21 / 9"
-              figure="Fig. 02"
-              brief="Mixed cohort of medical and engineering students with clinicians at AIIMS Jodhpur"
-            />
+            <figure>
+              <div className="overflow-hidden bg-mist">
+                <Image
+                  src="/images/icmi-2025/icmi-2025-13-group-photo.jpg"
+                  alt="Large group photograph of delegates and participants at ICMI 2025, standing on building steps"
+                  width={2000}
+                  height={1500}
+                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  className="aspect-[21/9] w-full object-cover object-[50%_45%]"
+                />
+              </div>
+              <figcaption className="mt-3 flex items-baseline justify-between gap-4">
+                <span className="text-sm text-muted">Delegates and participants at ICMI 2025, hosted jointly by IIT Jodhpur and AIIMS Jodhpur.</span>
+                <span className="eyebrow hidden shrink-0 sm:inline">Fig. 02</span>
+              </figcaption>
+            </figure>
           </Reveal>
           <p className="sr-only">Contact: {site.email}</p>
         </div>

@@ -21,6 +21,12 @@ export const news: NewsItem[] = [
     summary:
       "Hosted jointly by IIT Jodhpur and AIIMS Jodhpur, ICMI brought together experts, executives and innovators — with clinical immersion, a hackathon, deep-tech exposure and start-up partners for students.",
     link: { label: "Conference website", url: "https://events.iitj.ac.in/icmi/" },
+    image: {
+      src: "/images/icmi-2025/icmi-2025-04-auditorium.jpg",
+      alt: "The ICMI 2025 main auditorium, with the conference title on screen and the panel seated on stage",
+      width: 2000,
+      height: 1500,
+    },
     featured: true,
   },
   {

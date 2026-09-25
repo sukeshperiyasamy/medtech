@@ -227,6 +227,16 @@ export interface StartupProduct {
   image?: Media;
 }
 
+/** A photograph in an event/media gallery. */
+export interface GalleryImage extends Media {
+  id: string;
+  /** Links the image to a NewsItem / event id, e.g. "icmi-2025". */
+  eventId: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
 export interface Startup extends BaseRecord {
   name: string;
   tagline: string;

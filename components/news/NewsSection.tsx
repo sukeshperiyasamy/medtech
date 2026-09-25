@@ -1,35 +1,48 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { getNews, getSite } from "@/lib/data";
+import { PhotoMosaic } from "@/components/gallery/PhotoMosaic";
+import { getGallery, getNews, getSite } from "@/lib/data";
 import { formatDateRange } from "@/lib/utils";
 
 export async function NewsSection({ index, heading = true }: SectionProps = {}) {
   const [items, site] = await Promise.all([getNews(), getSite()]);
   const featured = items.find((n) => n.featured) ?? items[0];
   const rest = items.filter((n) => n.id !== featured.id);
+  const photos = await getGallery(featured.id);
 
   return (
     <section id="news" aria-labelledby={heading ? "news-title" : undefined} className="section-y border-t border-line">
       <div className="container-x">
         {heading && (
-        <SectionHeading
-          id="news-title"
-          index={index}
-          label="News & events"
-          title="From the Center."
-          intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
-        />
+          <SectionHeading
+            id="news-title"
+            index={index}
+            label="News & events"
+            title="From the Center."
+            intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
+          />
         )}
 
-        <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-10">
+        <div className={`grid gap-12 lg:grid-cols-12 lg:gap-10 ${heading ? "mt-14 lg:mt-20" : ""}`}>
           <Reveal as="article" className="lg:col-span-7">
             <a href={featured.link?.url} target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="overflow-hidden">
-                <div className="transition-transform duration-[1.2s] ease-[var(--ease-precise)] group-hover:scale-[1.02]">
-                  <ImagePlaceholder ratio="16 / 9" brief="ICMI 2025 — plenary or hackathon photograph, IIT Jodhpur / AIIMS Jodhpur" />
-                </div>
+              <div className="overflow-hidden bg-mist">
+                {featured.image ? (
+                  <Image
+                    src={featured.image.src}
+                    alt={featured.image.alt}
+                    width={featured.image.width ?? 2000}
+                    height={featured.image.height ?? 1500}
+                    sizes="(min-width: 1024px) 55vw, 100vw"
+                    priority
+                    className="aspect-[16/10] w-full object-cover transition-transform duration-[1.2s] ease-[var(--ease-precise)] group-hover:scale-[1.02]"
+                  />
+                ) : (
+                  <ImagePlaceholder ratio="16 / 10" brief={`Photograph — ${featured.title}`} />
+                )}
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1">
                 <span className="eyebrow !text-blue">{featured.category}</span>
@@ -74,12 +87,28 @@ export async function NewsSection({ index, heading = true }: SectionProps = {}) 
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-blue"
             >
-              <span className="link-line">All news & events</span>
+              <span className="link-line">Official news & events page</span>
               <ArrowUpRight aria-hidden className="size-4" />
               <span className="sr-only">(opens in a new tab)</span>
             </a>
           </div>
         </div>
+
+        {photos.length > 0 && (
+          <section id={featured.id} aria-labelledby="gallery-title" className="mt-24 scroll-mt-28 border-t border-line pt-10 lg:mt-32">
+            <div className="mb-10 grid gap-4 lg:grid-cols-12 lg:items-end lg:gap-10">
+              <div className="lg:col-span-7">
+                <p className="eyebrow mb-3">Gallery</p>
+                <h2 id="gallery-title" className="text-h2 text-ink">{featured.title}</h2>
+              </div>
+              <p className="text-muted lg:col-span-5">
+                {formatDateRange(featured.date, featured.endDate)}
+                {featured.venue && ` · ${featured.venue}`}
+              </p>
+            </div>
+            <PhotoMosaic images={photos} title="ICMI 2025" />
+          </section>
+        )}
       </div>
     </section>
   );

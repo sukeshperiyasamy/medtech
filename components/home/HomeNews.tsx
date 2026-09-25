@@ -1,11 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { MoreLink } from "@/components/ui/MoreLink";
-import { getNews } from "@/lib/data";
+import { PhotoMarquee } from "@/components/gallery/PhotoMarquee";
+import { getGallery, getNews } from "@/lib/data";
 import { formatDateRange } from "@/lib/utils";
 
 export async function HomeNews({ index }: { index?: string }) {
-  const items = (await getNews()).slice(0, 3);
+  const [all, photos] = await Promise.all([getNews(), getGallery("icmi-2025")]);
+  const items = all.slice(0, 3);
   return (
     <section id="news" aria-labelledby="home-news-title" className="section-y border-t border-line">
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -45,6 +47,19 @@ export async function HomeNews({ index }: { index?: string }) {
           ))}
         </ul>
       </div>
+
+      {photos.length > 0 && (
+        <div className="mt-20 lg:mt-24">
+          <div className="container-x mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">In pictures</p>
+              <p className="mt-2 text-h3 text-ink">ICMI 2025 — Indian Conference on MedTech Innovations</p>
+            </div>
+            <MoreLink href="/news#icmi-2025">Full gallery</MoreLink>
+          </div>
+          <PhotoMarquee images={photos} title="ICMI 2025" />
+        </div>
+      )}
     </section>
   );
 }
