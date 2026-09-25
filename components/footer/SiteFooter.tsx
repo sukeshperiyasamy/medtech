@@ -21,6 +21,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
             width={48}
             height={53}
             className="h-12 w-auto"
+            style={{ width: "auto", height: "auto" }}
           />
           <p className="mt-6 text-xl font-medium tracking-[-0.015em] text-ink">{site.name}</p>
           <p className="eyebrow mt-1">{site.parent}</p>

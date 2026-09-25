@@ -36,7 +36,7 @@ export default async function MedicalTechnologiesPage() {
           {site.institutions.map((inst, i) => (
             <span key={inst.name} className="flex items-center gap-3">
               {i > 0 && <span aria-hidden className="font-mono text-xs text-muted">×</span>}
-              <Image src={inst.logo.src} alt={inst.logo.alt} width={44} height={44} className="h-11 w-auto" />
+              <Image src={inst.logo.src} alt={inst.logo.alt} width={44} height={44} className="h-11 w-auto" style={{ width: "auto", height: "auto" }} />
             </span>
           ))}
           <p className="ml-2 text-sm text-muted">A vertical of the {site.name}, IIT Jodhpur</p>

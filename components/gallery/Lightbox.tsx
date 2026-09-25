@@ -85,7 +85,7 @@ export function Lightbox({ images, index, onChange, title }: Props) {
 
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 sm:px-16">
             <div className="relative h-full w-full">
-              <Image key={img.id} src={img.src} alt={img.alt} fill sizes="100vw" className="object-contain" />
+              <Image key={img.id} src={img.src} alt={img.alt} fill sizes="(min-width: 1280px) 1200px, (min-width: 640px) 92vw, 100vw" className="object-contain" />
             </div>
             {images.length > 1 && (
               <>
@@ -125,7 +125,7 @@ export function Lightbox({ images, index, onChange, title }: Props) {
           {/* Preload the next photo so browsing feels instant */}
           {next && (
             <div aria-hidden className="pointer-events-none absolute size-px overflow-hidden opacity-0">
-              <Image src={next.src} alt="" fill sizes="100vw" loading="eager" />
+              <Image src={next.src} alt="" fill sizes="(min-width: 1280px) 1200px, (min-width: 640px) 92vw, 100vw" loading="eager" />
             </div>
           )}
         </div>

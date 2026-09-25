@@ -22,7 +22,7 @@ export default async function DigitalHealthPage() {
         intro={cdh.tagline}
       >
         <div className="mt-10 flex items-center gap-3">
-          <Image src={iitj.logo.src} alt={iitj.logo.alt} width={40} height={44} className="h-11 w-auto" />
+          <Image src={iitj.logo.src} alt={iitj.logo.alt} width={40} height={44} className="h-11 w-auto" style={{ width: "auto", height: "auto" }} />
           <p className="text-sm text-muted">A vertical of the {site.name}, IIT Jodhpur</p>
         </div>
       </PageHeader>

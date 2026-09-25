@@ -45,7 +45,7 @@ export async function HomeAbout({ index }: { index?: string }) {
         <Reveal className="mt-16 lg:mt-24">
           <div className="grid border-y border-line md:grid-cols-[1fr_auto_1fr]">
             <div className="flex items-center gap-4 py-6 md:pr-8">
-              <Image src={iitj.logo.src} alt={iitj.logo.alt} width={48} height={53} className="h-12 w-auto" />
+              <Image src={iitj.logo.src} alt={iitj.logo.alt} width={48} height={53} className="h-12 w-auto" style={{ width: "auto", height: "auto" }} />
               <div>
                 <p className="text-lg font-medium tracking-[-0.01em] text-ink">IIT Jodhpur</p>
                 <p className="text-sm text-muted">{IITJ}</p>
@@ -59,7 +59,7 @@ export async function HomeAbout({ index }: { index?: string }) {
               </div>
             </div>
             <div className="flex items-center gap-4 py-6 md:flex-row-reverse md:pl-8 md:text-right">
-              <Image src={aiims.logo.src} alt={aiims.logo.alt} width={48} height={48} className="h-12 w-auto" />
+              <Image src={aiims.logo.src} alt={aiims.logo.alt} width={48} height={48} className="h-12 w-auto" style={{ width: "auto", height: "auto" }} />
               <div>
                 <p className="text-lg font-medium tracking-[-0.01em] text-ink">AIIMS Jodhpur</p>
                 <p className="text-sm text-muted">{AIIMS}</p>

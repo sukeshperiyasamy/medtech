@@ -112,7 +112,7 @@ function InstitutionBlock({ inst, items, color }: { inst: Inst; items: string[];
   return (
     <div className="border border-line bg-white p-5">
       <div className="flex items-center gap-3">
-        <Image src={inst.logo.src} alt={inst.logo.alt} width={40} height={40} className="h-10 w-auto" />
+        <Image src={inst.logo.src} alt={inst.logo.alt} width={40} height={40} className="h-10 w-auto" style={{ width: "auto", height: "auto" }} />
         <p className="text-lg font-medium text-ink">{inst.name}</p>
       </div>
       <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[0.95rem] text-ink-2">

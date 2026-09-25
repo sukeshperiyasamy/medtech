@@ -86,7 +86,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plexSans.variable} ${plexMono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${plexSans.variable} ${plexMono.variable}`}>
       <body>
         <a
           href="#main"

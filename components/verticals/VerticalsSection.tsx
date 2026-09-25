@@ -79,7 +79,7 @@ export async function VerticalsSection({
                     return (
                       <span key={name} className="flex items-center gap-2">
                         {n > 0 && <span aria-hidden className="font-mono text-xs text-muted">×</span>}
-                        {l && <Image src={l.src} alt={l.alt} width={40} height={40} className="h-10 w-auto" />}
+                        {l && <Image src={l.src} alt={l.alt} width={40} height={40} className="h-10 w-auto" style={{ width: "auto", height: "auto" }} />}
                       </span>
                     );
                   })}
