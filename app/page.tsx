@@ -6,21 +6,15 @@ import { HomeVentures } from "@/components/home/HomeVentures";
 import { FundingCallout } from "@/components/home/FundingCallout";
 import { ImpactSection } from "@/components/impact/ImpactSection";
 import { HomePrograms } from "@/components/home/HomePrograms";
-import { HomeNews } from "@/components/home/HomeNews";
-import { ClosingCta } from "@/components/footer/ClosingCta";
-import { getCollaborationPathways, getPeople, getPrograms, getSite } from "@/lib/data";
+import { FromTheGallery } from "@/components/gallery/FromTheGallery";
+import { getPeople, getSite } from "@/lib/data";
 
 /**
- * The homepage presents the Centre's identity — who, what, how, what comes out of it,
- * and how to engage. Full collections live on their own pages.
+ * The homepage presents the Centre's identity — who, what, how and what comes out of it.
+ * Full collections live on their own pages; collaboration pathways live on /contact.
  */
 export default async function HomePage() {
-  const [site, programs, faculty, pathways] = await Promise.all([
-    getSite(),
-    getPrograms(),
-    getPeople("Faculty"),
-    getCollaborationPathways(),
-  ]);
+  const [site, faculty] = await Promise.all([getSite(), getPeople("Faculty")]);
 
   const heroFacts = [
     { label: "An interdisciplinary centre at", value: "IIT Jodhpur" },
@@ -39,8 +33,9 @@ export default async function HomePage() {
       <FundingCallout />
       <ImpactSection index="05" />
       <HomePrograms index="06" />
-      <HomeNews index="07" />
-      <ClosingCta site={site} programs={programs} pathways={pathways} />
+      <section aria-label="From the gallery" className="section-y border-t border-line">
+        <FromTheGallery />
+      </section>
     </main>
   );
 }

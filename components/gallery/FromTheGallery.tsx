@@ -4,14 +4,14 @@ import { MoreLink } from "@/components/ui/MoreLink";
 import { getFeaturedGalleryImages } from "@/lib/data";
 
 /**
- * Homepage teaser: five hand-picked photos (one large, four small), linking to /gallery.
+ * Homepage gallery teaser: five hand-picked photos (one large, four small), linking to /gallery.
  * Only these five load on the homepage.
  */
 export async function FromTheGallery() {
   const photos = await getFeaturedGalleryImages(5);
   if (!photos.length) return null;
   return (
-    <div className="container-x mt-20 lg:mt-24">
+    <div className="container-x">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">From the gallery</p>
