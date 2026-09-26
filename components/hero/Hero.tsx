@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import type { SiteConfig } from "@/lib/types";
 
@@ -16,16 +15,9 @@ const lines = [["Engineering", "the"], ["future", "of", "medicine."]].map((words
 export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      {/* Decorative background: IIT Jodhpur and AIIMS Jodhpur joined by a DNA strand */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <Image
-          src="/images/backgrounds/hero-medtech.webp"
-          alt=""
-          fill
-          preload
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+      {/* Soft blue → cyan → teal glow (the site's accent colours) with the fine grid on top */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-glow">
+        <div className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
       </div>
       <div className="container-x relative pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-28">
         <p className="anim-fade-up eyebrow mb-8 flex flex-wrap items-center gap-x-3 gap-y-1 lg:mb-10">
