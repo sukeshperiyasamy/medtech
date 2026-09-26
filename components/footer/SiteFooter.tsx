@@ -13,7 +13,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
 
   return (
     <footer className="border-t border-line bg-white">
-      <div className="container-x grid gap-12 py-16 lg:grid-cols-12 lg:py-20">
+      <div className="container-x grid gap-10 py-12 lg:grid-cols-12 lg:gap-12 lg:py-14">
         <div className="lg:col-span-4">
           <Image
             src={site.institutions[0].logo.src}
@@ -37,14 +37,15 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
           </p>
         </div>
 
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8">
-          <div>
+        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 lg:col-span-8">
+          {/* Site links in two columns, so the footer stays short */}
+          <div className="col-span-2">
             <p className="eyebrow mb-4">Explore</p>
-            <ul className="space-y-2.5 text-[0.93rem]">
+            <ul className="columns-2 gap-x-8 text-[0.93rem]">
               {[...site.nav.flatMap((n) => n.children ?? [n]), { label: "Startups", href: "/startups" }, { label: "Contact", href: "/contact" }]
                 .filter((n, i, all) => all.findIndex((m) => m.href === n.href) === i)
                 .map((n) => (
-                  <li key={n.href}>
+                  <li key={n.href} className="mb-2 break-inside-avoid">
                     <Link prefetch={false} href={n.href} className="link-line text-ink-2 hover:text-ink">{n.label}</Link>
                   </li>
                 ))}
@@ -52,7 +53,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
           </div>
           <div>
             <p className="eyebrow mb-4">Institutions</p>
-            <ul className="space-y-2.5 text-[0.93rem]">
+            <ul className="space-y-2 text-[0.93rem]">
               {site.institutions.map((inst) => (
                 <li key={inst.name}>
                   <a href={inst.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ink-2 hover:text-ink">
@@ -69,9 +70,9 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
               </li>
             </ul>
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <p className="eyebrow mb-4">Official resources</p>
-            <ul className="space-y-2.5 text-[0.93rem]">
+            <ul className="space-y-2 text-[0.93rem]">
               {official.map((l) => (
                 <li key={l.url}>
                   <a href={l.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ink-2 hover:text-ink">
