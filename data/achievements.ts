@@ -11,6 +11,9 @@ import type { Achievement } from "@/lib/types";
 // To add one: copy an entry, fill in what the source states, and leave unknown fields out.
 const IMG = "/images/gallery/";
 const GROUP = "MedTech Centre official group announcement";
+// Posters and photographs from the department's "Achievements photographs" deck (Sep 2026).
+const ACH = "/images/achievements/";
+const DECK = "Official poster / photograph in the department's achievements deck";
 
 type Entry = Omit<Achievement, "status" | "provenance" | "slug"> & { slug?: string };
 const a = (e: Entry): Achievement => ({ status: "published", provenance: "verified", slug: e.id, ...e });
@@ -427,5 +430,166 @@ export const achievements: Achievement[] = [
       "The first company to come out of the IITJ–AIIMSJ MedTech Centre raised US$100,000 for SWASAM, a non-surgical treatment for deviated nasal septum (DNS).",
     details: [{ label: "Also", value: "NBEC 2024 winners" }],
     sourceNote: `${GROUP}, 12 Aug 2024`,
+  }),
+
+  // ─────────── 2023 ───────────
+  // The team photographs name no individuals, so no recipients are listed.
+  a({
+    id: "medha-2023-winners",
+    title: "Winners of MEDHA 2023",
+    shortTitle: "MEDHA 2023 winners",
+    category: "Competition",
+    awardedBy: "IIT Bombay",
+    year: 2023,
+    audience: "Centre",
+    recipients: [],
+    image: {
+      src: ACH + "medha-2023-winners.jpg",
+      alt: "Six members of the winning team standing in front of an IIT Bombay MEDEX 2023 and MEDHA 2023 backdrop",
+      width: 1280,
+      height: 1092,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "healthhacks-2023-winners",
+    title: "Winners of Healthhacks 2023",
+    shortTitle: "Healthhacks 2023 winners",
+    category: "Competition",
+    year: 2023,
+    audience: "Centre",
+    recipients: [],
+    image: {
+      src: ACH + "healthhacks-2023-winners.jpg",
+      alt: "Winning team on stage holding a trophy and a large presentation cheque",
+      width: 1600,
+      height: 1066,
+    },
+    sourceNote: DECK,
+  }),
+
+  // ─────────── 2022 ───────────
+  a({
+    id: "pmrf-2022",
+    title: "Prime Minister's Research Fellowship (PMRF) 2022",
+    shortTitle: "PMRF 2022",
+    category: "Fellowship",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Sarmistha Mazumder" }, { name: "Misaal Khan", studentId: "D20ID004" }],
+    image: {
+      src: ACH + "pmrf-2022.jpg",
+      alt: "Congratulations poster with portraits of Sarmistha Mazumder and Misaal Khan, awarded the Prime Minister's Research Fellowship (PMRF) 2022",
+      width: 800,
+      height: 800,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "patent-noninvasive-glucometer-2022",
+    title: "Indian patent: non-invasive glucometer",
+    shortTitle: "Indian patent",
+    category: "Patent",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Debasish Panda", studentId: "M22ID003" }],
+    summary:
+      "“Non-invasive glucometer to determine blood glucose level from mouth blown air and a method thereof”.",
+    image: {
+      src: ACH + "patent-noninvasive-glucometer-2022.jpg",
+      alt: "Congratulations poster with a portrait of Debashish Panda for the Indian patent on a non-invasive glucometer, 2022",
+      width: 800,
+      height: 798,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "birac-big-2022",
+    title: "BIRAC BIG grant",
+    shortTitle: "BIRAC BIG grant",
+    category: "Grant",
+    awardedBy: "BIRAC",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Neha Nagarkoti", studentId: "D20ID005" }],
+    image: {
+      src: ACH + "birac-big-2022.jpg",
+      alt: "Congratulations poster with a portrait of Neha Nagarkoti for being awarded the BIRAC BIG grant, 2022",
+      width: 800,
+      height: 800,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "padup-ventures-2022",
+    title: "Selected for PadUp Ventures startup mentoring",
+    shortTitle: "PadUp Ventures",
+    category: "Selection",
+    awardedBy: "PadUp Ventures",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Rajshree Singh" }],
+    summary: "Selected for PadUp Ventures to mentor their startups.",
+    image: {
+      src: ACH + "padup-ventures-2022.jpg",
+      alt: "Congratulations poster with a portrait of Rajshree Singh for being selected for PadUp Ventures, 2022",
+      width: 800,
+      height: 797,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "msme-grant-2022",
+    title: "MSME grant",
+    shortTitle: "MSME grant",
+    category: "Grant",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Thilak Chakaravarthi E", studentId: "M20ID008" }],
+    summary: "Awarded the MSME grant announced by Vigyan Bhavan, New Delhi.",
+    image: {
+      src: ACH + "msme-grant-2022.jpg",
+      alt: "Congratulations poster with a portrait of Thilak Chakaravarthi E for being awarded the MSME grant, 2022",
+      width: 800,
+      height: 799,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "medha-2022",
+    title: "Winner of MEDHA 2022",
+    shortTitle: "MEDHA 2022 winner",
+    category: "Competition",
+    awardedBy: "BETIC, IIT Bombay",
+    year: 2022,
+    audience: "Student",
+    recipients: [{ name: "Varun Raman Khandelwal", studentId: "M21ID007" }],
+    details: [
+      { label: "Also", value: "Technology readiness award in MEDIC 2022" },
+      { label: "Grant", value: "Grant for Rapid Prototyping by Marathwada MedTech Lab, Aurangabad" },
+    ],
+    image: {
+      src: ACH + "medha-2022-varun-khandelwal.jpg",
+      alt: "Congratulations poster with a portrait of Varun Khandelwal, winner of MEDHA 2022",
+      width: 800,
+      height: 798,
+    },
+    sourceNote: DECK,
+  }),
+  a({
+    id: "nbec-2022-winners",
+    title: "Winners of NBEC 2022",
+    shortTitle: "NBEC 2022 winners",
+    category: "Competition",
+    year: 2022,
+    audience: "Centre",
+    recipients: [],
+    image: {
+      src: ACH + "nbec-2022-winners.jpg",
+      alt: "Winning team on stage receiving a large presentation cheque",
+      width: 1600,
+      height: 1068,
+    },
+    sourceNote: DECK,
   }),
 ];

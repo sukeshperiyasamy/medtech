@@ -46,7 +46,7 @@ export function AchievementsList({ items }: { items: ResolvedAchievement[] }) {
       alt: a.image!.alt,
       width: a.image!.width,
       height: a.image!.height,
-      caption: `${a.title} — ${a.people.map((p) => p.name).join(", ")}`,
+      caption: [a.title, a.people.map((p) => p.name).join(", ")].filter(Boolean).join(" — "),
       date: a.date,
     }));
 
