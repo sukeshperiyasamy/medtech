@@ -371,6 +371,8 @@ export interface Metric {
   suffix?: string;
   note: string;
   sourceUrl?: string;
+  /** Where to explore this output while no verified count is published. */
+  link?: Link;
 }
 
 export interface PipelineStage {

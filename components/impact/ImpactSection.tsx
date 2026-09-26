@@ -1,5 +1,6 @@
 import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { MoreLink } from "@/components/ui/MoreLink";
 import { getMetrics } from "@/lib/data";
 import { Counter } from "./Counter";
 
@@ -17,7 +18,7 @@ export async function ImpactSection({ index, heading = true }: SectionProps = {}
           index={index}
           label="Impact"
           title="Measured, and only what can be verified."
-          intro="Figures here are counted from official IIT Jodhpur pages. Research outputs will appear as soon as the Centre publishes verified numbers."
+          intro="Every figure here is counted from official IIT Jodhpur records."
         />
         )}
 
@@ -50,17 +51,26 @@ export async function ImpactSection({ index, heading = true }: SectionProps = {}
           ))}
         </dl>
 
-        <dl className="mt-10 grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
-          {pending.map((m) => (
-            <div key={m.id} className="bg-white py-5 pr-4 sm:pr-6">
-              <dt className="text-[0.95rem] text-ink-2">{m.label}</dt>
-              <dd className="mt-2 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-muted">
-                <span aria-hidden className="h-px w-5 border-t border-dashed border-muted" />
-                {m.note}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        {pending.length > 0 && (
+          // Outputs without a verified count yet are shown as navigation, not as empty numbers.
+          <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:gap-10">
+            <p className="eyebrow pt-1 lg:col-span-2">Research output</p>
+            <ul className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-10">
+              {pending.map((m) => (
+                <li key={m.id} className="border-t border-line py-4">
+                  <p className="text-[0.98rem] text-ink">{m.label}</p>
+                  {m.link ? (
+                    <MoreLink href={m.link.url} className="mt-1.5 !text-[0.88rem] !font-normal text-muted">
+                      {m.link.label}
+                    </MoreLink>
+                  ) : (
+                    <p className="mt-1.5 text-[0.88rem] text-muted">{m.note}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   );

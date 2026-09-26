@@ -90,9 +90,8 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
         </nav>
       </div>
       <div className="border-t border-line">
-        <div className="container-x flex flex-col gap-2 py-6 text-xs text-muted sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.</p>
-          <p>Institutional information sourced from official IIT Jodhpur pages.</p>
+        <div className="container-x py-6 text-xs text-muted">
+          <p>© {new Date().getFullYear()} {site.name}, {site.parent}.</p>
         </div>
       </div>
     </footer>

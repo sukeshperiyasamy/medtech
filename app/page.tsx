@@ -23,9 +23,9 @@ export default async function HomePage() {
   ]);
 
   const heroFacts = [
-    { label: "A centre of", value: "IIT Jodhpur" },
-    { label: "Verticals", value: "Medical Technologies · Digital Health" },
-    { label: "Clinical partner", value: "AIIMS Jodhpur" },
+    { label: "An interdisciplinary centre at", value: "IIT Jodhpur" },
+    { label: "Two verticals", value: "Medical Technologies · Digital Health" },
+    { label: "Clinical partnership", value: "AIIMS Jodhpur" },
     { label: "Affiliated faculty", value: `${faculty.length} at IIT Jodhpur` },
   ];
 

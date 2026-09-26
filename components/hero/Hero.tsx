@@ -55,15 +55,17 @@ export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
           className="anim-fade-up mt-10 grid gap-10 lg:mt-14 lg:grid-cols-12 lg:items-end"
           style={{ animationDelay: "0.55s" }}
         >
-          <p className="text-lead max-w-[38rem] text-ink-2 lg:col-span-7">
-            Where clinical insight meets deep-tech innovation. The Medical Technology Centre at IIT
-            Jodhpur is home to the Medical Technologies Program, run jointly with AIIMS Jodhpur, and
-            the Centre for Digital Health.
-          </p>
+          <div className="lg:col-span-7">
+            <p className="text-lead max-w-[36rem] text-ink-2">
+              Where clinical insight, engineering and entrepreneurship come together to create
+              technologies for real-world healthcare.
+            </p>
+            <p className="eyebrow mt-5 !text-ink">IIT Jodhpur × AIIMS Jodhpur</p>
+          </div>
           <div className="flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
-            <ButtonLink href="#verticals">Explore our verticals</ButtonLink>
-            <ButtonLink href="/startups" variant="secondary">
-              Meet our startups
+            <ButtonLink href="/about">Explore the Centre</ButtonLink>
+            <ButtonLink href="/research" variant="secondary">
+              Explore research
             </ButtonLink>
           </div>
         </div>
