@@ -35,9 +35,6 @@ export async function HomeResearch({ index }: { index?: string }) {
                   <span className="block text-[1.35rem] leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue sm:text-[1.6rem]">
                     {a.title}
                   </span>
-                  <span className="mt-2 hidden font-mono text-[0.68rem] uppercase tracking-[0.08em] text-muted sm:block">
-                    {a.keywords.slice(0, 4).join("  ·  ")}
-                  </span>
                 </span>
                 <ArrowRight aria-hidden className="size-5 -translate-x-2 text-blue opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
               </Link>
