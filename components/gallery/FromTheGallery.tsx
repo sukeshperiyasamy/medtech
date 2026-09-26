@@ -22,7 +22,7 @@ export async function FromTheGallery() {
       <ul className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-4">
         {photos.map((p, i) => (
           <li key={p.id} className={i === 0 ? "col-span-2 row-span-2" : ""}>
-            <Link
+            <Link prefetch={false}
               href="/gallery"
               className="group relative block h-full overflow-hidden border border-line"
               style={{ backgroundColor: p.color }}

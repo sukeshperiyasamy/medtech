@@ -1,8 +1,13 @@
 import { PageHeader } from "@/components/layout/PageHeader";
-import { AchievementsList, type ResolvedAchievement } from "@/components/achievements/AchievementsList";
+import {
+  AchievementsList,
+  type ResolvedAchievement,
+} from "@/components/achievements/AchievementsList";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { getAchievements, getAllPrograms, getPeopleByIds, getSite, getStudents } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { achievementsLd } from "@/lib/structured-data";
 
 export const metadata = pageMetadata(
   "Achievements",
@@ -27,7 +32,10 @@ export default async function AchievementsPage() {
           if (r.studentId) {
             const s = students.find((x) => x.id === r.studentId);
             const prog = s && programs.find((p) => p.id === s.programId);
-            return { name: r.name, context: s && prog ? `${prog.shortTitle}, admitted ${s.cohortYear}` : undefined };
+            return {
+              name: r.name,
+              context: s && prog ? `${prog.shortTitle}, admitted ${s.cohortYear}` : undefined,
+            };
           }
           if (r.personId) {
             const [p] = await getPeopleByIds([r.personId]);
@@ -41,6 +49,7 @@ export default async function AchievementsPage() {
 
   return (
     <main id="main">
+      <JsonLd data={achievementsLd(achievements, site)} />
       <PageHeader
         crumbs={[{ label: "People", href: "/people" }, { label: "Achievements" }]}
         label="Achievements"
@@ -51,7 +60,10 @@ export default async function AchievementsPage() {
         {items.length ? (
           <AchievementsList items={items} />
         ) : (
-          <EmptyState title="Achievements will be listed here." body="Medals, fellowships and awards will appear once confirmed." />
+          <EmptyState
+            title="Achievements will be listed here."
+            body="Medals, fellowships and awards will appear once confirmed."
+          />
         )}
         <div className="mt-16 grid gap-4 border border-line bg-paper p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center">
           <div>

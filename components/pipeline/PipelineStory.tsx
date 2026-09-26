@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll } from "motion/react";
+import { AnimatePresence, useScroll } from "motion/react";
+import * as m from "motion/react-m";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { PipelineStage } from "@/lib/types";
@@ -55,7 +57,7 @@ function StickyStory({ stages }: { stages: PipelineStage[] }) {
             </div>
             <div className="relative mt-10 min-h-[22rem]">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={s.id}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -71,7 +73,7 @@ function StickyStory({ stages }: { stages: PipelineStage[] }) {
                     {s.question}
                   </p>
                   <p className="mt-5 max-w-lg text-muted">{s.description}</p>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
           </div>
@@ -138,13 +140,13 @@ function Timeline({ stages }: { stages: PipelineStage[] }) {
     <div className="container-x">
       <ol ref={ref} className="relative">
         <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-px bg-line" />
-        <motion.span
+        <m.span
           aria-hidden
           className="absolute bottom-2 left-[7px] top-2 w-px origin-top bg-gradient-to-b from-blue via-cyan to-teal"
           style={{ scaleY: scrollYProgress }}
         />
         {stages.map((s, i) => (
-          <motion.li
+          <m.li
             key={s.id}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -165,7 +167,7 @@ function Timeline({ stages }: { stages: PipelineStage[] }) {
             <h3 className="mt-1 text-2xl font-medium tracking-[-0.02em] text-ink">{s.title}</h3>
             <p className="mt-2 text-[1.05rem] text-ink-2">{s.question}</p>
             <p className="mt-2 text-[0.95rem] text-muted">{s.description}</p>
-          </motion.li>
+          </m.li>
         ))}
       </ol>
     </div>
@@ -174,13 +176,15 @@ function Timeline({ stages }: { stages: PipelineStage[] }) {
 
 export function PipelineStory({ stages }: { stages: PipelineStage[] }) {
   return (
-    <>
-      <div className="hidden lg:block">
-        <StickyStory stages={stages} />
-      </div>
-      <div className="lg:hidden">
-        <Timeline stages={stages} />
-      </div>
-    </>
+    <MotionProvider>
+      <>
+        <div className="hidden lg:block">
+          <StickyStory stages={stages} />
+        </div>
+        <div className="lg:hidden">
+          <Timeline stages={stages} />
+        </div>
+      </>
+    </MotionProvider>
   );
 }

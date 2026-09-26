@@ -190,7 +190,7 @@ export function StudentRegister({
                       {program === "all" && <span className="font-sans"> · {label(s.programId)}</span>}
                     </span>
                     {awards[s.id]?.map((w) => (
-                      <Link
+                      <Link prefetch={false}
                         key={w}
                         href="/achievements"
                         className="mt-1.5 inline-flex items-center gap-1 rounded-xs border border-blue/25 bg-blue-soft px-1.5 py-0.5 text-[0.72rem] text-blue hover:border-blue"

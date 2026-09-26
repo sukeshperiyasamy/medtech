@@ -1,9 +1,9 @@
 import Image from "next/image";
+import { isIitjHosted } from "@/lib/utils";
 import { Mail, Phone } from "lucide-react";
 import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { getPeople } from "@/lib/data";
-import { isRemote } from "@/lib/utils";
 import { PeopleDirectory } from "./PeopleDirectory";
 
 export async function PeopleSection({ index, heading = true }: SectionProps = {}) {
@@ -38,7 +38,7 @@ export async function PeopleSection({ index, heading = true }: SectionProps = {}
                     <div className="overflow-hidden bg-mist lg:aspect-[4/5]">
                       <Image
                         src={head.photo.src}
-                        unoptimized={isRemote(head.photo.src)}
+                        unoptimized={isIitjHosted(head.photo.src)}
                         alt={head.photo.alt}
                         width={480}
                         height={600}
@@ -92,10 +92,10 @@ export async function PeopleSection({ index, heading = true }: SectionProps = {}
                     {p.photo ? (
                       <Image
                         src={p.photo.src}
+                        unoptimized={isIitjHosted(p.photo.src)}
                         alt={p.photo.alt}
                         width={64}
                         height={80}
-                        unoptimized={isRemote(p.photo.src)}
                         className="aspect-[4/5] w-16 object-cover object-top"
                       />
                     ) : (

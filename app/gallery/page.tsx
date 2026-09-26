@@ -1,7 +1,9 @@
 import { PageHeader } from "@/components/layout/PageHeader";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
-import { getGalleryImages } from "@/lib/data";
+import { getGalleryImages, getSite } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { galleryLd } from "@/lib/structured-data";
 
 export const metadata = pageMetadata(
   "Gallery",
@@ -10,9 +12,10 @@ export const metadata = pageMetadata(
 );
 
 export default async function GalleryPage() {
-  const images = await getGalleryImages();
+  const [images, site] = await Promise.all([getGalleryImages(), getSite()]);
   return (
     <main id="main">
+      <JsonLd data={galleryLd(images, site)} />
       <PageHeader
         crumbs={[{ label: "News", href: "/news" }, { label: "Gallery" }]}
         label="Gallery"

@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Research",
-  "Research themes and innovation projects at the Medical Technology Centre — sensors and diagnostics, imaging and AI, rehabilitation robotics, nanomedicine, device design and digital health.",
+  "Research at the Medical Technology Centre: sensors and diagnostics, imaging and AI, rehabilitation robotics, nanomedicine, device design and digital health.",
   "/research",
 );
 

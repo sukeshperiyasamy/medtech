@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isIitjHosted } from "@/lib/utils";
 import { Mail } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { VerticalsSection } from "@/components/verticals/VerticalsSection";
@@ -7,7 +8,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MoreLink } from "@/components/ui/MoreLink";
 import { getCentrePhoto, getCentreVideo, getPeople, getSite } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
-import { isRemote } from "@/lib/utils";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { personLd, videoLd } from "@/lib/structured-data";
 
 export const metadata = pageMetadata(
   "About the Centre",
@@ -26,6 +28,21 @@ export default async function AboutPage() {
 
   return (
     <main id="main">
+      <JsonLd
+        data={[
+          videoLd(video, site),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Leadership",
+            itemListElement: leaders.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: personLd(p, site),
+            })),
+          },
+        ]}
+      />
       <PageHeader
         crumbs={[{ label: "About" }]}
         label="About the Centre"
@@ -55,7 +72,7 @@ export default async function AboutPage() {
             width={photo.width}
             height={photo.height}
             sizes="(min-width: 1360px) 1264px, 100vw"
-            priority
+            preload
             className="aspect-[4/3] w-full object-cover object-[50%_35%] sm:aspect-[21/9]"
           />
         </div>
@@ -94,10 +111,10 @@ export default async function AboutPage() {
                 {p.photo ? (
                   <Image
                     src={p.photo.src}
+                    unoptimized={isIitjHosted(p.photo.src)}
                     alt={p.photo.alt}
                     width={88}
                     height={110}
-                    unoptimized={isRemote(p.photo.src)}
                     className="aspect-[4/5] w-[5.5rem] object-cover object-top"
                   />
                 ) : (

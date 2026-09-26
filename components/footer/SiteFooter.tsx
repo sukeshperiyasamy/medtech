@@ -45,7 +45,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
                 .filter((n, i, all) => all.findIndex((m) => m.href === n.href) === i)
                 .map((n) => (
                   <li key={n.href}>
-                    <Link href={n.href} className="link-line text-ink-2 hover:text-ink">{n.label}</Link>
+                    <Link prefetch={false} href={n.href} className="link-line text-ink-2 hover:text-ink">{n.label}</Link>
                   </li>
                 ))}
             </ul>

@@ -2,12 +2,14 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import { ArrowUpRight } from "lucide-react";
 import type { Person, Startup, TRL } from "@/lib/types";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { DemoRibbon, SampleBadge } from "@/components/ui/SampleNote";
-import { cn, isRemote, pad2 } from "@/lib/utils";
+import { cn, pad2 } from "@/lib/utils";
 import { TrlMeter } from "./TrlMeter";
 
 export interface ResolvedStartup extends Startup {
@@ -41,7 +43,6 @@ export function Profile({ s, scale }: { s: ResolvedStartup; scale: Scale }) {
             alt={s.teamPhoto.alt}
             width={1200}
             height={600}
-            unoptimized={isRemote(s.teamPhoto.src)}
             sizes="(min-width: 1024px) 60vw, 100vw"
             className="aspect-[2/1] w-full object-cover"
           />
@@ -55,7 +56,7 @@ export function Profile({ s, scale }: { s: ResolvedStartup; scale: Scale }) {
         <header className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             {s.logo ? (
-              <Image src={s.logo.src} alt={s.logo.alt} width={56} height={56} unoptimized={isRemote(s.logo.src)} className="size-14 border border-line object-contain p-1" />
+              <Image src={s.logo.src} alt={s.logo.alt} width={56} height={56} className="size-14 border border-line object-contain p-1" />
             ) : (
               <span aria-hidden className="flex size-14 items-center justify-center border border-dashed border-line-strong font-mono text-[0.6rem] uppercase text-muted">
                 Logo
@@ -94,7 +95,7 @@ export function Profile({ s, scale }: { s: ResolvedStartup; scale: Scale }) {
             <div className="flex gap-4">
               <div className="w-28 shrink-0">
                 {s.product.image ? (
-                  <Image src={s.product.image.src} alt={s.product.image.alt} width={224} height={224} unoptimized={isRemote(s.product.image.src)} className="aspect-square w-full object-cover" />
+                  <Image src={s.product.image.src} alt={s.product.image.alt} width={224} height={224} className="aspect-square w-full object-cover" />
                 ) : (
                   <div aria-hidden className="aspect-square w-full bg-mist bg-grid-fine" />
                 )}
@@ -126,7 +127,7 @@ export function Profile({ s, scale }: { s: ResolvedStartup; scale: Scale }) {
               {s.founders.map((f, i) => (
                 <li key={`${f.name}-${i}`} className="flex items-center gap-3">
                   {f.photo ? (
-                    <Image src={f.photo.src} alt="" width={44} height={44} unoptimized={isRemote(f.photo.src)} className="size-11 shrink-0 rounded-full object-cover" />
+                    <Image src={f.photo.src} alt="" width={44} height={44} className="size-11 shrink-0 rounded-full object-cover" />
                   ) : (
                     <Initials name={f.name} />
                   )}
@@ -214,86 +215,88 @@ export function StartupShowcase({ startups, scale, email }: { startups: Resolved
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
-      <div className="lg:col-span-4">
-        <div className="lg:sticky lg:top-28">
-          <div role="tablist" aria-label="Startups" className="-mx-5 flex overflow-x-auto px-5 sm:mx-0 sm:px-0 lg:flex-col lg:border-t lg:border-ink">
-            {startups.map((st, i) => {
-              const on = i === active;
-              return (
-                <button
-                  key={st.id}
-                  ref={(el) => {
-                    tabs.current[i] = el;
-                  }}
-                  role="tab"
-                  id={`su-tab-${st.id}`}
-                  aria-selected={on}
-                  aria-controls={`su-panel-${st.id}`}
-                  tabIndex={on ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  onKeyDown={(e) => onKey(e, i)}
-                  className={cn(
-                    "group relative min-w-[13rem] shrink-0 border-b py-4 pr-5 text-left transition-colors lg:min-w-0 lg:py-5",
-                    on ? "border-blue lg:border-line" : "border-line",
-                  )}
-                >
-                  <span className="flex items-baseline gap-3">
-                    <span className={cn("font-mono text-xs", on ? "text-blue" : "text-muted")}>{pad2(i + 1)}</span>
-                    <span className="flex-1">
-                      <span className={cn("block text-[1.25rem] leading-tight tracking-[-0.02em] transition-colors", on ? "text-ink" : "text-muted group-hover:text-ink")}>
-                        {st.name}
-                      </span>
-                      <span className="mt-0.5 block text-sm text-muted">{st.tagline}</span>
-                      <span className="mt-2.5 block">
-                        <TrlMeter trl={st.trl} scale={scale} compact />
+    <MotionProvider>
+      <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-28">
+            <div role="tablist" aria-label="Startups" className="-mx-5 flex overflow-x-auto px-5 sm:mx-0 sm:px-0 lg:flex-col lg:border-t lg:border-ink">
+              {startups.map((st, i) => {
+                const on = i === active;
+                return (
+                  <button
+                    key={st.id}
+                    ref={(el) => {
+                      tabs.current[i] = el;
+                    }}
+                    role="tab"
+                    id={`su-tab-${st.id}`}
+                    aria-selected={on}
+                    aria-controls={`su-panel-${st.id}`}
+                    tabIndex={on ? 0 : -1}
+                    onClick={() => setActive(i)}
+                    onKeyDown={(e) => onKey(e, i)}
+                    className={cn(
+                      "group relative min-w-[13rem] shrink-0 border-b py-4 pr-5 text-left transition-colors lg:min-w-0 lg:py-5",
+                      on ? "border-blue lg:border-line" : "border-line",
+                    )}
+                  >
+                    <span className="flex items-baseline gap-3">
+                      <span className={cn("font-mono text-xs", on ? "text-blue" : "text-muted")}>{pad2(i + 1)}</span>
+                      <span className="flex-1">
+                        <span className={cn("block text-[1.25rem] leading-tight tracking-[-0.02em] transition-colors", on ? "text-ink" : "text-muted group-hover:text-ink")}>
+                          {st.name}
+                        </span>
+                        <span className="mt-0.5 block text-sm text-muted">{st.tagline}</span>
+                        <span className="mt-2.5 block">
+                          <TrlMeter trl={st.trl} scale={scale} compact />
+                        </span>
                       </span>
                     </span>
-                  </span>
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "absolute -left-px top-0 hidden h-full w-[2px] bg-blue transition-opacity lg:block",
-                      on ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                </button>
-              );
-            })}
-          </div>
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute -left-px top-0 hidden h-full w-[2px] bg-blue transition-opacity lg:block",
+                        on ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  </button>
+                );
+              })}
+            </div>
 
-          <div className="mt-8 hidden border border-line bg-white p-5 lg:block">
-            <p className="font-medium text-ink">Student founder?</p>
-            <p className="mt-1 text-sm text-muted">
-              Get your startup listed with its product, TRL, team and funding.
-            </p>
-            <a
-              href={`mailto:${email}?subject=${encodeURIComponent("Startup listing")}`}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-blue"
-            >
-              <span className="link-line">Submit your startup</span>
-              <ArrowUpRight aria-hidden className="size-3.5" />
-            </a>
+            <div className="mt-8 hidden border border-line bg-white p-5 lg:block">
+              <p className="font-medium text-ink">Student founder?</p>
+              <p className="mt-1 text-sm text-muted">
+                Get your startup listed with its product, TRL, team and funding.
+              </p>
+              <a
+                href={`mailto:${email}?subject=${encodeURIComponent("Startup listing")}`}
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-blue"
+              >
+                <span className="link-line">Submit your startup</span>
+                <ArrowUpRight aria-hidden className="size-3.5" />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="lg:col-span-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={s.id}
-            role="tabpanel"
-            id={`su-panel-${s.id}`}
-            aria-labelledby={`su-tab-${s.id}`}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35 }}
-          >
-            <Profile s={s} scale={scale} />
-          </motion.div>
-        </AnimatePresence>
+        <div className="lg:col-span-8">
+          <AnimatePresence mode="wait">
+            <m.div
+              key={s.id}
+              role="tabpanel"
+              id={`su-panel-${s.id}`}
+              aria-labelledby={`su-tab-${s.id}`}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+            >
+              <Profile s={s} scale={scale} />
+            </m.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+    </MotionProvider>
   );
 }

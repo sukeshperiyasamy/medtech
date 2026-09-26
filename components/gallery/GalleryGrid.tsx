@@ -9,6 +9,12 @@ import { Lightbox } from "./Lightbox";
 /** Target row height (px) of the justified grid; rows stretch to fill the width. */
 const ROW = { base: 150, sm: 210, lg: 260 };
 
+/** On phones a tile can never be wider than the screen, so wide photos are capped at 100vw. */
+const mobileSize = (r: number) => {
+  const px = Math.round(r * ROW.base * 1.6);
+  return px > 360 ? "100vw" : `${px}px`;
+};
+
 /**
  * All photos in one editorial, justified grid: every image keeps its own aspect ratio,
  * rows fill the full width, order is chronological (newest first). Pure CSS layout, so
@@ -82,8 +88,9 @@ export function GalleryGrid({ images }: { images: GalleryImage[] }) {
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes={`(min-width: 1024px) ${Math.round(r * ROW.lg * 1.5)}px, (min-width: 640px) ${Math.round(r * ROW.sm * 1.5)}px, ${Math.round(r * ROW.base * 1.6)}px`}
-                  priority={i < 4}
+                  sizes={`(min-width: 1024px) ${Math.round(r * ROW.lg * 1.5)}px, (min-width: 640px) ${Math.round(r * ROW.sm * 1.5)}px, ${mobileSize(r)}`}
+                  loading={i < 4 ? "eager" : undefined}
+                  fetchPriority={i < 4 ? "high" : undefined}
                   className="object-cover transition-[transform,filter] duration-700 ease-[var(--ease-precise)] group-hover:scale-[1.015] group-hover:brightness-[0.92]"
                 />
                 {img.caption && (

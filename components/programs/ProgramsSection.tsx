@@ -48,7 +48,7 @@ export async function ProgramsSection({ index, heading = true }: SectionProps = 
                     </p>
                     <p className="mt-1 max-w-2xl text-[0.93rem] text-muted">{p.overview}</p>
                   </div>
-                  <Link href="/students" className="link-line self-start text-sm font-medium text-ink hover:text-blue">
+                  <Link prefetch={false} href="/students" className="link-line self-start text-sm font-medium text-ink hover:text-blue">
                     View cohorts
                   </Link>
                 </li>

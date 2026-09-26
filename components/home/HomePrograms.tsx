@@ -31,7 +31,7 @@ export async function HomePrograms({ index }: { index?: string }) {
                 <p className="eyebrow pt-1.5">{p.degree}</p>
                 <div>
                   <h3 className="text-[1.45rem] leading-tight tracking-[-0.02em] text-ink">
-                    <Link href={`/programs#${p.id}`} className="hover:text-blue">{p.title}</Link>
+                    <Link prefetch={false} href={`/programs#${p.id}`} className="hover:text-blue">{p.title}</Link>
                   </h3>
                   <p className="mt-2 line-clamp-2 max-w-xl text-[0.95rem] text-muted">{p.overview}</p>
                 </div>
@@ -54,7 +54,7 @@ export async function HomePrograms({ index }: { index?: string }) {
             <p className="eyebrow pt-1.5">Digital Health</p>
             <div>
               <h3 className="text-[1.45rem] leading-tight tracking-[-0.02em] text-ink">
-                <Link href="/digital-health#cdh-programs" className="hover:text-blue">Programmes in Digital Health</Link>
+                <Link prefetch={false} href="/digital-health#cdh-programs" className="hover:text-blue">Programmes in Digital Health</Link>
               </h3>
               <p className="mt-2 max-w-xl text-[0.95rem] text-muted">
                 Certificate, Diploma, MBA, M.Tech and MS (Research) programmes from the Centre for

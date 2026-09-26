@@ -20,7 +20,7 @@ export function BrandLockup({ site, compact = false, className }: { site: SiteCo
         height={Math.round(size * 1.1)}
         className="shrink-0"
         style={{ width: size * 0.9, height: "auto" }}
-        priority
+        loading="eager"
       />
       <span aria-hidden className="h-8 w-px bg-line" />
       <span className="leading-tight">

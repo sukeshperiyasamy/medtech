@@ -118,6 +118,28 @@
 .anim-fade-up {
   animation: fade-up 0.8s var(--ease-precise) both;
 }
+/* <Reveal>: hidden only once the inline reveal script has run (lib/reveal-script). */
+.reveal-on [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 18px));
+}
+
+/* Desktop nav dropdown (enter / exit). */
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dropdown-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(4px); }
+}
+.anim-dropdown-in {
+  animation: dropdown-in 0.2s ease-out both;
+}
+.anim-dropdown-out {
+  animation: dropdown-out 0.2s ease-out both;
+}
+
 /* Continuous photo strip. The track holds the list twice; -50% loops seamlessly. */
 @keyframes marquee {
   to { transform: translateX(-50%); }

@@ -50,7 +50,7 @@ export const centreBuilding: GalleryImage = {
 export const centreVideo = {
   id: "centre-walkthrough",
   src: "/videos/medtech-centre-walkthrough.mp4",
-  poster: "/videos/medtech-centre-walkthrough-poster.jpg",
+  poster: "/videos/medtech-centre-walkthrough-poster.webp",
   duration: "1:09",
   width: 720,
   height: 1280,

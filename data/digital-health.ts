@@ -78,7 +78,8 @@ export const digitalHealth: DigitalHealthContent = {
       name: "Technology Innovation and Start-up Center (TISC), IIT Jodhpur",
       description:
         "A Section-8 company promoted by IIT Jodhpur and a recognised Technology Business Incubator, supporting start-ups, venture creation and technology commercialisation.",
-      url: "https://www.iitj-tisc.org/",
+      // HTTPS on this domain fails (broken certificate, Sep 2026); only HTTP loads.
+      url: "http://www.iitj-tisc.org/",
     },
     {
       name: "iHub Drishti, IIT Jodhpur",

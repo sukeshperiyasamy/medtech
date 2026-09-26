@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Mail, Search } from "lucide-react";
 import type { Person } from "@/lib/types";
-import { cn, isRemote } from "@/lib/utils";
+import { cn, isIitjHosted } from "@/lib/utils";
 
 const INITIAL = 10;
 
@@ -16,14 +16,18 @@ function Avatar({ person, size = 48 }: { person: Person; size?: number }) {
         style={{ width: size, height: size }}
         className="flex shrink-0 items-center justify-center rounded-full bg-mist font-mono text-xs text-muted"
       >
-        {person.name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
+        {person.name
+          .split(" ")
+          .map((n) => n[0])
+          .slice(0, 2)
+          .join("")}
       </span>
     );
   }
   return (
     <Image
       src={person.photo.src}
-      unoptimized={isRemote(person.photo.src)}
+      unoptimized={isIitjHosted(person.photo.src)}
       loading="lazy"
       alt=""
       width={size}
@@ -45,7 +49,8 @@ export function PeopleDirectory({ people }: { people: Person[] }) {
     return people.filter(
       (p) =>
         (term ? true : p.category === group) &&
-        (!term || [p.name, p.designation, ...p.researchInterests].join(" ").toLowerCase().includes(term)),
+        (!term ||
+          [p.name, p.designation, ...p.researchInterests].join(" ").toLowerCase().includes(term)),
     );
   }, [people, group, q]);
 
@@ -73,14 +78,22 @@ export function PeopleDirectory({ people }: { people: Person[] }) {
                   on ? "bg-ink text-white" : "text-ink-2 hover:bg-mist",
                 )}
               >
-                {g} <span className={cn("font-mono text-[0.7rem]", on ? "text-white/60" : "text-muted")}>{count}</span>
+                {g}{" "}
+                <span
+                  className={cn("font-mono text-[0.7rem]", on ? "text-white/60" : "text-muted")}
+                >
+                  {count}
+                </span>
               </button>
             );
           })}
         </div>
         <label className="relative block sm:w-72">
           <span className="sr-only">Search people by name or research interest</span>
-          <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
+          <Search
+            aria-hidden
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
+          />
           <input
             type="search"
             value={q}
@@ -91,11 +104,16 @@ export function PeopleDirectory({ people }: { people: Person[] }) {
         </label>
       </div>
 
-      <p className="sr-only" aria-live="polite">{filtered.length} people found</p>
+      <p className="sr-only" aria-live="polite">
+        {filtered.length} people found
+      </p>
 
       <ul className="grid sm:grid-cols-2">
         {shown.map((p) => (
-          <li key={p.id} className="group flex gap-4 border-b border-line py-5 sm:pr-6 sm:[&:nth-child(even)]:border-l sm:[&:nth-child(even)]:pl-6">
+          <li
+            key={p.id}
+            className="group flex gap-4 border-b border-line py-5 sm:pr-6 sm:[&:nth-child(even)]:border-l sm:[&:nth-child(even)]:pl-6"
+          >
             <Avatar person={p} />
             <div className="min-w-0 flex-1">
               <div className="flex items-start justify-between gap-3">

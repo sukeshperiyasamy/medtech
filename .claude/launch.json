@@ -7,6 +7,12 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3100,
       "autoPort": true
+    },
+    {
+      "name": "medtech-prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "start", "-p", "3200"],
+      "port": 3200
     }
   ]
 }

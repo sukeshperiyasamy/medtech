@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import type { SiteConfig } from "@/lib/types";
@@ -49,7 +50,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
       {IITJ.map((label, i) => (
         <g key={label}>
           <text x={40} y={leftY[i] + 5} fontSize={16} fill="#334155">{label}</text>
-          <motion.path
+          <m.path
             d={`M 290 ${leftY[i]} C 400 ${leftY[i]}, 400 ${cy}, 480 ${cy}`}
             fill="none" stroke="#2563eb" strokeWidth={1.2} {...draw(0.1 + i * 0.08)}
           />
@@ -60,7 +61,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
       {AIIMS.map((label, i) => (
         <g key={label}>
           <text x={1160} y={rightY[i] + 5} fontSize={16} fill="#334155" textAnchor="end">{label}</text>
-          <motion.path
+          <m.path
             d={`M 910 ${rightY[i]} C 800 ${rightY[i]}, 800 ${cy}, 720 ${cy}`}
             fill="none" stroke="#14b8a6" strokeWidth={1.2} {...draw(0.1 + i * 0.08)}
           />
@@ -70,7 +71,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
       ))}
 
       {/* Program node */}
-      <motion.g
+      <m.g
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-20% 0px" }}
@@ -81,14 +82,14 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
         <text x={600} y={cy - 8} textAnchor="middle" fontSize={19} fill="#111827" fontWeight={500} letterSpacing="-0.01em">Medical Technologies</text>
         <text x={600} y={cy + 16} textAnchor="middle" fontSize={19} fill="#111827" fontWeight={500} letterSpacing="-0.01em">Program</text>
         <text x={600} y={cy + 40} textAnchor="middle" className="font-mono" fontSize={10} letterSpacing="0.08em" fill="#64748b">IITJ × AIIMS</text>
-      </motion.g>
+      </m.g>
 
       {/* Outputs */}
-      <motion.path d={`M 600 ${cy + 54} L 600 ${cy + 120}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.2)} />
-      <motion.path d={`M ${outX[0]} ${cy + 150} L ${outX[0]} ${cy + 120} L ${outX[2]} ${cy + 120} L ${outX[2]} ${cy + 150}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.4)} />
-      <motion.path d={`M 600 ${cy + 120} L 600 ${cy + 150}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.5)} />
+      <m.path d={`M 600 ${cy + 54} L 600 ${cy + 120}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.2)} />
+      <m.path d={`M ${outX[0]} ${cy + 150} L ${outX[0]} ${cy + 120} L ${outX[2]} ${cy + 120} L ${outX[2]} ${cy + 150}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.4)} />
+      <m.path d={`M 600 ${cy + 120} L 600 ${cy + 150}`} fill="none" stroke="#111827" strokeWidth={1.2} {...draw(1.5)} />
       {OUT.map((label, i) => (
-        <motion.g
+        <m.g
           key={label}
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +101,7 @@ function DesktopDiagram({ site }: { site: SiteConfig }) {
           <text x={outX[i]} y={cy + 212} textAnchor="middle" className="font-mono" fontSize={10} letterSpacing="0.08em" fill="#94a3b8">
             {`OUTPUT 0${i + 1}`}
           </text>
-        </motion.g>
+        </m.g>
       ))}
     </svg>
   );
@@ -130,7 +131,7 @@ function InstitutionBlock({ inst, items, color }: { inst: Inst; items: string[];
 function Connector({ color }: { color: string }) {
   return (
     <div aria-hidden className="flex justify-center py-1">
-      <motion.span
+      <m.span
         className="block h-10 w-px origin-top"
         style={{ background: color }}
         initial={{ scaleY: 0 }}
@@ -167,33 +168,35 @@ export function Partnership({ site, index }: { site: SiteConfig; index?: string 
     { t: "Together", d: "Joint coursework, mixed cohorts and shared projects, so every technology starts from a real clinical question." },
   ];
   return (
-    <section id="partnership" aria-labelledby="partnership-title" className="section-y bg-paper">
-      <div className="container-x">
-        <SectionHeading
-          id="partnership-title"
-          index={index}
-          label="IIT Jodhpur × AIIMS Jodhpur"
-          title={<>Two institutions. One translational loop.</>}
-          intro="An engineering institute and a medical institute, designing the curriculum and the research together — so that medicine sets the problem and engineering answers it."
-        />
-        <div className="mt-16 lg:mt-20">
-          <div className="hidden border border-line bg-white px-6 py-8 md:block lg:px-10 lg:py-10">
-            <DesktopDiagram site={site} />
+    <MotionProvider>
+      <section id="partnership" aria-labelledby="partnership-title" className="section-y bg-paper">
+        <div className="container-x">
+          <SectionHeading
+            id="partnership-title"
+            index={index}
+            label="IIT Jodhpur × AIIMS Jodhpur"
+            title={<>Two institutions. One translational loop.</>}
+            intro="An engineering institute and a medical institute, designing the curriculum and the research together — so that medicine sets the problem and engineering answers it."
+          />
+          <div className="mt-16 lg:mt-20">
+            <div className="hidden border border-line bg-white px-6 py-8 md:block lg:px-10 lg:py-10">
+              <DesktopDiagram site={site} />
+            </div>
+            <div className="md:hidden">
+              <MobileDiagram site={site} />
+            </div>
           </div>
-          <div className="md:hidden">
-            <MobileDiagram site={site} />
+          <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            {points.map((p, i) => (
+              <Reveal key={p.t} delay={i * 0.08} className="border-t border-ink pt-5">
+                <p className="eyebrow mb-3">{`0${i + 1}`}</p>
+                <h3 className="text-xl font-medium tracking-[-0.01em] text-ink">{p.t}</h3>
+                <p className="mt-3 text-[0.98rem] text-muted">{p.d}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-          {points.map((p, i) => (
-            <Reveal key={p.t} delay={i * 0.08} className="border-t border-ink pt-5">
-              <p className="eyebrow mb-3">{`0${i + 1}`}</p>
-              <h3 className="text-xl font-medium tracking-[-0.01em] text-ink">{p.t}</h3>
-              <p className="mt-3 text-[0.98rem] text-muted">{p.d}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </MotionProvider>
   );
 }

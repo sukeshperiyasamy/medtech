@@ -176,6 +176,10 @@ export interface NewsItem extends BaseRecord {
   endDate?: string;
   summary: string;
   venue?: string;
+  /** Organising institutions, as stated by the official source. */
+  organizers?: string[];
+  /** Attendance mode, only when the source states it. */
+  attendance?: "offline" | "online" | "mixed";
   image?: Media;
   link?: Link;
   featured?: boolean;

@@ -29,7 +29,7 @@ export async function HomeResearch({ index }: { index?: string }) {
         <ol className="border-t border-ink lg:col-span-8">
           {areas.map((a, i) => (
             <Reveal as="li" key={a.id} delay={i * 0.04} className="border-b border-line">
-              <Link href={`/research#${a.id}`} className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-6 sm:py-7">
+              <Link prefetch={false} href={`/research#${a.id}`} className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-6 sm:py-7">
                 <span className="font-mono text-xs text-muted transition-colors group-hover:text-blue">{pad2(i + 1)}</span>
                 <span>
                   <span className="block text-[1.35rem] leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue sm:text-[1.6rem]">

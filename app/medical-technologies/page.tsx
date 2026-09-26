@@ -11,7 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Medical Technologies Program",
-  "The Medical Technologies Program — Master's and PhD programmes offered jointly by IIT Jodhpur and AIIMS Jodhpur to produce deep-tech innovators in medical technologies.",
+  "Master's and PhD programmes in Medical Technologies, offered jointly by IIT Jodhpur and AIIMS Jodhpur to produce deep-tech innovators.",
   "/medical-technologies",
 );
 

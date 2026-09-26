@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
-import { MotionProvider } from "@/components/layout/MotionProvider";
 import { AnnouncementBar } from "@/components/navigation/AnnouncementBar";
 import { SiteHeader } from "@/components/navigation/SiteHeader";
 import { SiteFooter } from "@/components/footer/SiteFooter";
 import { site } from "@/data/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationLd, websiteLd } from "@/lib/structured-data";
+import { revealScript } from "@/lib/reveal-script";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -46,6 +48,7 @@ export const metadata: Metadata = {
     url: site.url,
   },
   twitter: { card: "summary_large_image", title, description: site.description },
+  applicationName: site.name,
   robots: { index: true, follow: true },
 };
 
@@ -55,55 +58,28 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  name: site.name,
-  alternateName: "MedTech Centre, IIT Jodhpur",
-  url: site.officialUrl,
-  email: site.email,
-  telephone: site.phone,
-  description: site.description,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "NH 62, Nagaur Road, Karwar",
-    addressLocality: "Jodhpur",
-    postalCode: "342030",
-    addressRegion: "Rajasthan",
-    addressCountry: "IN",
-  },
-  parentOrganization: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Jodhpur", url: "https://www.iitj.ac.in" },
-  // The Centre's verticals. AIIMS Jodhpur partners in the Medical Technologies Program.
-  subOrganization: [
-    {
-      "@type": "EducationalOrganization",
-      name: "Medical Technologies Program (IIT Jodhpur × AIIMS Jodhpur)",
-      url: `${site.url}/medical-technologies`,
-    },
-    { "@type": "ResearchOrganization", name: "Centre for Digital Health, IIT Jodhpur", url: "https://www.iitj.ac.in/cdh" },
-  ],
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${plexSans.variable} ${plexMono.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${plexSans.variable} ${plexMono.variable}`}
+      // The reveal script adds a class to <html> before React hydrates.
+      suppressHydrationWarning
+    >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: revealScript }} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow"
         >
           Skip to content
         </a>
-        <MotionProvider>
-          <AnnouncementBar announcement={site.announcement} />
-          <SiteHeader site={site} />
-          {children}
-          <SiteFooter site={site} />
-        </MotionProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <AnnouncementBar announcement={site.announcement} />
+        <SiteHeader site={site} />
+        {children}
+        <SiteFooter site={site} />
+        <JsonLd data={[organizationLd(site), websiteLd(site)]} />
       </body>
     </html>
   );

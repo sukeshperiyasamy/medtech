@@ -34,7 +34,7 @@ export async function HomeAbout({ index }: { index?: string }) {
               graduates into the same classroom — with equal seats for each — to build globally
               competitive medical technologies.
             </p>
-            <Link href="/medical-technologies" className="group mt-6 inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
+            <Link prefetch={false} href="/medical-technologies" className="group mt-6 inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
               <span className="link-line">About the programme</span>
               <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -75,7 +75,7 @@ export async function HomeAbout({ index }: { index?: string }) {
               <p className="eyebrow">How we work</p>
               <p className="mt-2 text-h3 text-ink">Clinical need → engineering → validation → translation.</p>
             </div>
-            <Link href="/medical-technologies#pipeline" className="group inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
+            <Link prefetch={false} href="/medical-technologies#pipeline" className="group inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
               <span className="link-line">The full model</span>
               <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
             </Link>

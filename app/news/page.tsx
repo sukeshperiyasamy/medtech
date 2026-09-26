@@ -1,6 +1,9 @@
 import { PageHeader } from "@/components/layout/PageHeader";
 import { NewsSection } from "@/components/news/NewsSection";
 import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { eventLd } from "@/lib/structured-data";
+import { getNews } from "@/lib/data";
 
 export const metadata = pageMetadata(
   "News & Events",
@@ -8,9 +11,11 @@ export const metadata = pageMetadata(
   "/news",
 );
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const news = await getNews();
   return (
     <main id="main">
+      <JsonLd data={news.map(eventLd)} />
       <PageHeader
         crumbs={[{ label: "News & events" }]}
         label="News & events"

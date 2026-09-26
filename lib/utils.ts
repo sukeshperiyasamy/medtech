@@ -15,13 +15,14 @@ export function formatDateRange(start: string, end?: string) {
   return `${dateFmt.format(s)} – ${dateFmt.format(e)}`;
 }
 
-/**
- * Official photos are hot-linked from iitj.ac.in, which resolves to a private IP on the
- * campus network — Next's optimiser refuses that (SSRF guard). Let the browser fetch
- * them directly until they are moved to local/object storage.
- */
-export const isRemote = (src: string) => /^https?:\/\//.test(src);
-
 export function pad2(n: number) {
   return String(n).padStart(2, "0");
 }
+
+/**
+ * Faculty portraits are hosted by IIT Jodhpur. Its server sends an incomplete TLS
+ * certificate chain, so server-side fetches (Next's image optimiser, incl. on Vercel) fail,
+ * while browsers load them fine. These images are therefore loaded directly by the
+ * browser (lazily). If re-use permission is granted, host optimised copies locally instead.
+ */
+export const isIitjHosted = (src: string) => src.startsWith("https://www.iitj.ac.in/");

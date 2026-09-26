@@ -37,7 +37,7 @@ export async function NewsSection({ index, heading = true }: SectionProps = {}) 
                     width={featured.image.width ?? 2000}
                     height={featured.image.height ?? 1500}
                     sizes="(min-width: 1024px) 55vw, 100vw"
-                    priority
+                    preload
                     className="aspect-[16/10] w-full object-cover transition-transform duration-[1.2s] ease-[var(--ease-precise)] group-hover:scale-[1.02]"
                   />
                 ) : (

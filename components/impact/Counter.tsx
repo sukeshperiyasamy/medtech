@@ -1,30 +1,40 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, useInView, useReducedMotion } from "motion/react";
 
+// Same curve as the site-wide motion ease, cubic-bezier(0.22, 1, 0.36, 1) ≈ easeOutQuint.
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 5);
+const DURATION = 1400;
+
+/**
+ * Counts up to `value` once it scrolls into view. Plain requestAnimationFrame rather than
+ * motion's `animate`, which would pull the full animation engine into the initial bundle.
+ */
 export function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px" });
-  const reduce = useReducedMotion();
-  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || reduce || hasAnimated.current) return;
+    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    if (inView) {
-      hasAnimated.current = true;
-      const controls = animate(0, value, {
-        duration: 1.4,
-        ease: [0.22, 1, 0.36, 1],
-        onUpdate: (v) => {
-          if (el) el.textContent = `${Math.round(v)}${suffix}`;
-        },
-      });
-      return () => controls.stop();
-    }
-  }, [inView, value, suffix, reduce]);
+    let frame = 0;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        el.textContent = `${Math.round(easeOut(t) * value)}${suffix}`;
+        if (t < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value, suffix]);
 
   return (
     <span ref={ref} className="tabular-nums">

@@ -42,7 +42,7 @@ export function PageHeader({
               <li key={c.label} className="flex items-center gap-2">
                 {i > 0 && <span aria-hidden className="text-line-strong">/</span>}
                 {c.href && i < trail.length - 1 ? (
-                  <Link href={c.href} className="hover:text-ink">{c.label}</Link>
+                  <Link prefetch={false} href={c.href} className="hover:text-ink">{c.label}</Link>
                 ) : (
                   <span aria-current="page" className="text-ink">{c.label}</span>
                 )}

@@ -10,7 +10,14 @@ export const site: SiteConfig = {
   // (jointly with AIIMS Jodhpur) and the Centre for Digital Health (per the Head, Sep 2026).
   description:
     "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program, run jointly with AIIMS Jodhpur, and the Centre for Digital Health.",
-  url: "https://www.iitj.ac.in/medical-technologies",
+  // Public address of the site, used for canonicals, share images, sitemap and structured
+  // data. Set SITE_URL where it is hosted; on Vercel the production domain is used
+  // automatically. Falls back to the planned IIT Jodhpur address.
+  url:
+    process.env.SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://www.iitj.ac.in/medical-technologies"),
   email: "office_medtechcentre@iitj.ac.in",
   phone: "0291 280 1044",
   address: [

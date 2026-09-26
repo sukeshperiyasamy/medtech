@@ -18,6 +18,7 @@ export const news: NewsItem[] = [
     date: "2025-02-15",
     endDate: "2025-02-17",
     venue: "Jodhpur Club, IIT Jodhpur & Auditorium, AIIMS Jodhpur",
+    organizers: ["IIT Jodhpur", "AIIMS Jodhpur"],
     summary:
       "Hosted jointly by IIT Jodhpur and AIIMS Jodhpur, ICMI brought together experts, executives and innovators — with clinical immersion, a hackathon, deep-tech exposure and start-up partners for students.",
     link: { label: "Conference website", url: "https://events.iitj.ac.in/icmi/" },
@@ -40,6 +41,7 @@ export const news: NewsItem[] = [
     date: "2026-05-28",
     endDate: "2026-05-29",
     venue: "AIIMS Jodhpur (offline)",
+    attendance: "offline",
     summary:
       "The written test (multiple-choice) and interviews for Master's and PhD admissions were conducted in offline mode.",
     link: { label: "View announcement", url: HOME },

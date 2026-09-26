@@ -34,7 +34,7 @@ export async function HomeVentures({ index }: { index?: string }) {
             <ol className="border-t border-ink">
               {featured.map((v, i) => (
                 <Reveal as="li" key={v.id} delay={i * 0.06} className="border-b border-line">
-                  <Link href={`/startups/${v.slug}`} className="group grid gap-4 py-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
+                  <Link prefetch={false} href={`/startups/${v.slug}`} className="group grid gap-4 py-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
                     <span>
                       <span className="flex flex-wrap items-center gap-3">
                         <span className="text-[1.5rem] leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue">

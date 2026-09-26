@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import type { NavItem, SiteConfig } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -18,6 +17,9 @@ const isActive = (item: NavItem, path: string) =>
 
 function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
   const [open, setOpen] = useState(false);
+  // Stays true while the exit animation plays, then the panel unmounts.
+  const [mounted, setMounted] = useState(false);
+  if (open && !mounted) setMounted(true);
   const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -68,36 +70,34 @@ function Dropdown({ item, active }: { item: NavItem; active: boolean }) {
           )}
         />
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-0 top-full pt-3"
-          >
-            <ul className="w-72 border border-line bg-white p-2 shadow-[0_12px_32px_-12px_rgb(15_23_42/0.18)]">
-              {item.children?.map((c) => (
-                <li key={c.href}>
-                  <Link
-                    href={c.href}
-                    onClick={() => setOpen(false)}
-                    className="group block px-3 py-2.5 transition-colors hover:bg-paper"
-                  >
-                    <span className="block text-[0.92rem] text-ink group-hover:text-blue">
-                      {c.label}
-                    </span>
-                    {c.description && (
-                      <span className="mt-0.5 block text-xs text-muted">{c.description}</span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mounted && (
+        <div
+          className={cn(
+            "absolute left-0 top-full pt-3",
+            open ? "anim-dropdown-in" : "anim-dropdown-out pointer-events-none",
+          )}
+          onAnimationEnd={() => !open && setMounted(false)}
+        >
+          <ul className="w-72 border border-line bg-white p-2 shadow-[0_12px_32px_-12px_rgb(15_23_42/0.18)]">
+            {item.children?.map((c) => (
+              <li key={c.href}>
+                <Link
+                  href={c.href}
+                  onClick={() => setOpen(false)}
+                  className="group block px-3 py-2.5 transition-colors hover:bg-paper"
+                >
+                  <span className="block text-[0.92rem] text-ink group-hover:text-blue">
+                    {c.label}
+                  </span>
+                  {c.description && (
+                    <span className="mt-0.5 block text-xs text-muted">{c.description}</span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </li>
   );
 }
@@ -240,6 +240,7 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                     <Link
                       href={item.href}
                       onClick={close}
+                      prefetch={open ? undefined : false}
                       className={cn(
                         "text-2xl tracking-[-0.02em]",
                         isActive(item, pathname) ? "text-blue" : "text-ink",
@@ -254,6 +255,7 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                             <Link
                               href={c.href}
                               onClick={close}
+                              prefetch={open ? undefined : false}
                               className="text-[0.95rem] text-muted hover:text-ink"
                             >
                               {c.label}
@@ -269,6 +271,7 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                 <Link
                   href="/contact"
                   onClick={close}
+                  prefetch={open ? undefined : false}
                   className="flex h-12 items-center justify-center rounded-sm bg-ink text-white"
                 >
                   Contact the Centre
