@@ -30,7 +30,7 @@ interface Card {
 }
 
 export async function ogCard({ eyebrow, title, subtitle, photo }: Card) {
-  const logo = await dataUrl("/logos/iitj-logo.jpg", "image/jpeg");
+  const logo = await dataUrl("/images/brand/iitj-logo.jpg", "image/jpeg");
   const image = photo ? await dataUrl(photo, "image/jpeg") : null;
   const textWidth = image ? 640 : 1040;
   const titleSize = title.length > 34 ? (image ? 50 : 60) : image ? 60 : 76;

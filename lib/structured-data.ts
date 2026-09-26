@@ -46,7 +46,7 @@ export function organizationLd(site: SiteConfig): Json {
     name: site.name,
     alternateName: `MedTech Centre, ${site.parent}`,
     url: absoluteUrl("/"),
-    logo: absoluteUrl("/logos/iitj-logo.jpg"),
+    logo: absoluteUrl("/images/brand/iitj-logo.jpg"),
     image: absoluteUrl("/images/centre/medtech-centre-w16-berm.jpg"),
     description: site.description,
     email: site.email,

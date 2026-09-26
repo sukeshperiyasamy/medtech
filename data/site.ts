@@ -32,13 +32,13 @@ export const site: SiteConfig = {
     {
       name: "IIT Jodhpur",
       url: "https://www.iitj.ac.in",
-      logo: { src: "/logos/iitj-logo.jpg", alt: "IIT Jodhpur logo", width: 495, height: 546 },
+      logo: { src: "/images/brand/iitj-logo.jpg", alt: "IIT Jodhpur logo", width: 495, height: 546 },
     },
     {
       name: "AIIMS Jodhpur",
       url: "https://aiimsjodhpur.edu.in/",
       logo: {
-        src: "/logos/aiims-jodhpur-seal.png",
+        src: "/images/brand/aiims-jodhpur-seal.png",
         alt: "AIIMS Jodhpur official seal",
         width: 320,
         height: 320,
