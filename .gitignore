@@ -12,8 +12,8 @@ icmi2025/
 .venv-photos/
 
 # Raw source images (web versions live in public/images)
-indranil-banerjee.jpg
-w16 berm medtech center image.png
+/indranil-banerjee.jpg
+/w16 berm medtech center image.png
 
 # Raw video master exceeds GitHub's 100MB limit (optimized web version is in public/videos/)
 medtech-media/vedio/
