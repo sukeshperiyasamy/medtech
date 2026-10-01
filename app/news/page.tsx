@@ -7,7 +7,7 @@ import { getNews } from "@/lib/data";
 
 export const metadata = pageMetadata(
   "News & Events",
-  "Conferences, admissions and announcements from the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
+  "Conferences, admissions, announcements, discussions and invited talks from the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
   "/news",
 );
 
@@ -20,7 +20,7 @@ export default async function NewsPage() {
         crumbs={[{ label: "News & events" }]}
         label="News & events"
         title="From the Centre."
-        intro="Conferences, admissions and announcements from IIT Jodhpur and AIIMS Jodhpur."
+        intro="Conferences, admissions and announcements — and discussions and invited talks — from IIT Jodhpur and AIIMS Jodhpur."
       />
       <NewsSection heading={false} />
     </main>

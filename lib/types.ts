@@ -165,11 +165,19 @@ export type NewsCategory =
   | "Workshop"
   | "Seminar"
   | "Award"
-  | "Achievement";
+  | "Achievement"
+  | "Talk";
+
+/** A talk on the news page is either an invited lecture or a discussion. */
+export type TalkKind = "Invited talk" | "Discussion";
 
 export interface NewsItem extends BaseRecord {
   title: string;
   category: NewsCategory;
+  /** Set when `category` is "Talk". */
+  talkKind?: TalkKind;
+  /** Speaker, for a talk. */
+  speaker?: string;
   /** ISO date (YYYY-MM-DD). */
   date: string;
   /** Optional end date for multi-day events. */

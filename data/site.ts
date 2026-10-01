@@ -81,6 +81,7 @@ export const site: SiteConfig = {
       href: "/news",
       children: [
         { label: "News & events", href: "/news", description: "Conferences, admissions and announcements" },
+        { label: "Talks", href: "/news#talks", description: "Discussions and invited talks" },
         { label: "Gallery", href: "/gallery", description: "All photographs from the Centre" },
       ],
     },

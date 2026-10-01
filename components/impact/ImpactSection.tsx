@@ -17,8 +17,8 @@ export async function ImpactSection({ index, heading = true }: SectionProps = {}
           id="impact-title"
           index={index}
           label="Impact"
-          title="Measured, and only what can be verified."
-          intro="Every figure here is counted from official IIT Jodhpur records."
+          title="Students, degrees and faculty."
+          intro="Students since 2020, the degrees offered, and the faculty who teach them."
         />
         )}
 

@@ -15,34 +15,22 @@ export async function HomeAbout({ index }: { index?: string }) {
   return (
     <section id="program" aria-labelledby="program-title" className="section-y border-t border-line">
       <div className="container-x">
-        {/* Statement */}
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="lg:col-span-7">
-            <p className="eyebrow mb-5 flex items-center gap-3">
+        <Reveal>
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <h2 id="program-title" className="eyebrow flex items-center gap-3">
               {index && <span className="text-blue">{index}</span>}
               <span aria-hidden className="h-px w-8 bg-line-strong" />
               <span>Medical Technologies Program</span>
-            </p>
-            <h2 id="program-title" className="text-h2 max-w-[20ch] text-ink">
-              Not a department. A place where clinical problems become{" "}
-              <span className="text-blue">engineered technologies</span>.
             </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-5 lg:pt-14">
-            <p className="text-lead text-ink-2">
-              Run jointly with AIIMS Jodhpur, the programme brings medical and engineering
-              graduates into the same classroom — with equal seats for each — to build globally
-              competitive medical technologies.
-            </p>
-            <Link prefetch={false} href="/medical-technologies" className="group mt-6 inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
+            <Link prefetch={false} href="/medical-technologies" className="group inline-flex items-center gap-2 text-[0.95rem] font-medium text-ink hover:text-blue">
               <span className="link-line">About the programme</span>
               <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
         {/* Institutional lockup: IITJ → Program ← AIIMS */}
-        <Reveal className="mt-16 lg:mt-24">
+        <Reveal>
           <div className="grid border-y border-line md:grid-cols-[1fr_auto_1fr]">
             <div className="flex items-center gap-4 py-6 md:pr-8">
               <Image src={iitj.logo.src} alt={iitj.logo.alt} width={48} height={53} className="h-12 w-auto" style={{ width: "auto", height: "auto" }} />

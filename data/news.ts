@@ -2,6 +2,9 @@ import type { NewsItem } from "@/lib/types";
 
 // Sources: official Medical Technologies home page announcements, the admissions page
 // and the ICMI 2025 conference site (retrieved 25 Sep 2026).
+//
+// Talks belong here too. Use category "Talk" and talkKind "Invited talk" or "Discussion",
+// with speaker, date, venue and summary as known. They appear under Talks on /news.
 const HOME = "https://www.iitj.ac.in/medical-technologies/en/medical-technologies";
 const ADMISSION =
   "https://www.iitj.ac.in/admission-postgraduate-programs/en/masters-and-phd-programs-in-medical-technologies";

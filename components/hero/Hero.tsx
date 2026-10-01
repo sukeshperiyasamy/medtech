@@ -14,12 +14,8 @@ const lines = [["Engineering", "the"], ["future", "of", "medicine."]].map((words
 /** Full-width typographic hero. Entrance is CSS-only so it never waits on hydration. */
 export function Hero({ site, facts }: { site: SiteConfig; facts: Fact[] }) {
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      {/* Soft blue → cyan → teal glow (the site's accent colours) with the fine grid on top */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-glow">
-        <div className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
-      </div>
-      <div className="container-x relative pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-28">
+    <section aria-labelledby="hero-title" className="bg-white">
+      <div className="container-x pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-28">
         <p className="anim-fade-up eyebrow mb-8 flex flex-wrap items-center gap-x-3 gap-y-1 lg:mb-10">
           <span className="text-ink">{site.parent}</span>
           <span aria-hidden className="h-px w-6 bg-line-strong" />

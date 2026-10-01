@@ -15,10 +15,10 @@ export default async function HomePage() {
   const [site, faculty] = await Promise.all([getSite(), getPeople("Faculty")]);
 
   const heroFacts = [
-    { label: "An interdisciplinary centre at", value: "IIT Jodhpur" },
+    { label: "Based at", value: "IIT Jodhpur" },
     { label: "Programme", value: "Medical Technologies" },
-    { label: "Clinical partnership", value: "AIIMS Jodhpur" },
-    { label: "Affiliated faculty", value: `${faculty.length} at IIT Jodhpur` },
+    { label: "Partner", value: "AIIMS Jodhpur" },
+    { label: "Faculty", value: String(faculty.length) },
   ];
 
   return (
