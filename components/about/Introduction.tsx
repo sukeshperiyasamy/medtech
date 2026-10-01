@@ -50,7 +50,7 @@ export function Introduction({ site, programs, index }: { site: SiteConfig; prog
         <div className="lg:col-span-8">
           <Reveal>
             <h2 id="about-title" className="text-h2 max-w-[22ch] text-ink">
-              Not a department. A place where clinical problems become{" "}
+              A place where clinical problems become{" "}
               <span className="text-blue">engineered technologies</span>.
             </h2>
           </Reveal>
