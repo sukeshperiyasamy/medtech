@@ -55,6 +55,7 @@ export async function PeopleSection({ index, heading = true }: SectionProps = {}
                       {head.name}
                     </h3>
                     <p className="mt-1 text-muted">{head.designation}</p>
+                    {head.department && <p className="text-sm text-muted">{head.department}</p>}
                     <p className="mt-4 text-[0.9rem] text-ink-2">
                       {head.researchInterests.join(" · ")}
                     </p>

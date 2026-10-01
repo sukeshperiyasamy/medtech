@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero/Hero";
+import { HomeAchievements } from "@/components/home/HomeAchievements";
 import { VerticalsSection } from "@/components/verticals/VerticalsSection";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeResearch } from "@/components/home/HomeResearch";
@@ -15,13 +16,14 @@ export default async function HomePage() {
 
   const heroFacts = [
     { label: "An interdisciplinary centre at", value: "IIT Jodhpur" },
-    { label: "Two verticals", value: "Medical Technologies · Digital Health" },
+    { label: "Programme", value: "Medical Technologies" },
     { label: "Clinical partnership", value: "AIIMS Jodhpur" },
     { label: "Affiliated faculty", value: `${faculty.length} at IIT Jodhpur` },
   ];
 
   return (
     <main id="main">
+      <HomeAchievements />
       <Hero site={site} facts={heroFacts} />
       <VerticalsSection index="01" showPhoto />
       <HomeAbout index="02" />

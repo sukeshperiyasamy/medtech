@@ -8,7 +8,7 @@ import { getPeople, getSite } from "@/lib/data";
 
 export const metadata = pageMetadata(
   "Faculty & Staff",
-  "Leadership, affiliated faculty, visiting faculty and staff of the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
+  "Leadership, affiliated faculty and staff of the Medical Technology Centre, IIT Jodhpur × AIIMS Jodhpur.",
   "/people",
 );
 

@@ -13,7 +13,7 @@ import { personLd, videoLd } from "@/lib/structured-data";
 
 export const metadata = pageMetadata(
   "About the Centre",
-  "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program with AIIMS Jodhpur and the Centre for Digital Health.",
+  "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program with AIIMS Jodhpur.",
   "/about",
 );
 

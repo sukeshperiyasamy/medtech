@@ -6,10 +6,10 @@ export const site: SiteConfig = {
   shortName: "MedTech Centre",
   parent: "IIT Jodhpur",
   tagline: "Engineering the future of medicine",
-  // The Centre is an IIT Jodhpur centre; its verticals are the Medical Technologies Program
-  // (jointly with AIIMS Jodhpur) and the Centre for Digital Health (per the Head, Sep 2026).
+  // The Centre is an IIT Jodhpur centre. Its approved vertical is the Medical Technologies
+  // Program (jointly with AIIMS Jodhpur). Digital Health is not listed until it is approved.
   description:
-    "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program, run jointly with AIIMS Jodhpur, and the Centre for Digital Health.",
+    "The Medical Technology Centre at IIT Jodhpur — home to the Medical Technologies Program, run jointly with AIIMS Jodhpur.",
   // Public address of the site, used for canonicals, share images, sitemap and structured
   // data. Set SITE_URL where it is hosted; on Vercel the production domain is used
   // automatically. Falls back to the planned IIT Jodhpur address.
@@ -55,7 +55,6 @@ export const site: SiteConfig = {
       children: [
         { label: "Medical Technologies Program", href: "/medical-technologies", description: "Joint programme with AIIMS Jodhpur" },
         { label: "Programmes & admissions", href: "/programs", description: "Master's and PhD in Medical Technologies" },
-        { label: "Centre for Digital Health", href: "/digital-health", description: "Health equity through digital transformation" },
       ],
     },
     {

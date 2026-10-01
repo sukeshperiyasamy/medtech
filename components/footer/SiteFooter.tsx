@@ -7,7 +7,6 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
   const official = [
     { label: "Official Medical Technologies page", url: site.officialUrl },
     { label: "People directory", url: "https://www.iitj.ac.in/People?dept=Medical-Technologies" },
-    { label: "Centre for Digital Health", url: "https://www.iitj.ac.in/cdh" },
     { label: "ICMI conference", url: "https://events.iitj.ac.in/icmi/" },
   ];
 

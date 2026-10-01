@@ -66,11 +66,6 @@ export function organizationLd(site: SiteConfig): Json {
         name: "Medical Technologies Program (IIT Jodhpur × AIIMS Jodhpur)",
         url: absoluteUrl("/medical-technologies"),
       },
-      {
-        "@type": "ResearchOrganization",
-        name: "Centre for Digital Health, IIT Jodhpur",
-        url: absoluteUrl("/digital-health"),
-      },
     ],
     sameAs: [site.officialUrl],
   };

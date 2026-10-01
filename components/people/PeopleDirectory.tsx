@@ -50,7 +50,7 @@ export function PeopleDirectory({ people }: { people: Person[] }) {
       (p) =>
         (term ? true : p.category === group) &&
         (!term ||
-          [p.name, p.designation, ...p.researchInterests].join(" ").toLowerCase().includes(term)),
+          [p.name, p.designation, p.department, ...p.researchInterests].filter(Boolean).join(" ").toLowerCase().includes(term)),
     );
   }, [people, group, q]);
 
@@ -120,6 +120,7 @@ export function PeopleDirectory({ people }: { people: Person[] }) {
                 <div>
                   <p className="text-[1.02rem] font-medium leading-tight text-ink">{p.name}</p>
                   <p className="mt-0.5 text-sm text-muted">{p.designation}</p>
+                  {p.department && <p className="text-sm text-muted">{p.department}</p>}
                 </div>
                 {p.email && (
                   <a

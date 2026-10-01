@@ -30,7 +30,7 @@ export const researchAreas: ResearchArea[] = [
     summary:
       "Image, video and signal processing with deep learning for biomedical data — built around responsible AI and applications such as medical cell image analysis for precision oncology.",
     keywords: ["Medical imaging", "Deep learning", "Responsible AI", "Signal processing"],
-    facultyIds: ["deepak-mishra", "anil-kumar-tiwari", "siddharth-srivastava"],
+    facultyIds: ["anil-kumar-tiwari"],
   }),
   area({
     id: "rehab-robotics",
@@ -39,7 +39,7 @@ export const researchAreas: ResearchArea[] = [
     summary:
       "Bionic prosthetics, assistive and lower-limb rehabilitation robots, robotic therapy systems and the human–robot interaction that makes them usable in care.",
     keywords: ["Prosthetics", "Assistive robotics", "Rehabilitation", "Human–robot interaction"],
-    facultyIds: ["bhivraj-suthar", "jayant-kumar-mohanta"],
+    facultyIds: ["bhivraj-suthar"],
   }),
   area({
     id: "nanomedicine-biomaterials",
@@ -48,7 +48,7 @@ export const researchAreas: ResearchArea[] = [
     summary:
       "Nanobiotechnology, drug delivery, theranostics and photomedicine, grounded in cell and molecular physiology and in the design of materials that work inside the body.",
     keywords: ["Drug delivery", "Theranostics", "Photomedicine", "Biomaterials"],
-    facultyIds: ["raviraj-vankayala", "sushmita-jha", "jaiveer-singh", "sagar-kumar-verma"],
+    facultyIds: ["raviraj-vankayala", "sushmita-jha"],
   }),
   area({
     id: "manufacturing-design",
@@ -57,7 +57,7 @@ export const researchAreas: ResearchArea[] = [
     summary:
       "Industrial design, microsystems fabrication and additive manufacturing — the disciplines that turn a validated concept into a device that can be built, used and trusted.",
     keywords: ["Industrial design", "Additive manufacturing", "Microfabrication", "Composites"],
-    facultyIds: ["gaurav-vinod-vaidya", "mrityunjay-doddamani", "ankur-gupta", "jaiveer-singh"],
+    facultyIds: ["mrityunjay-doddamani", "ankur-gupta"],
   }),
   area({
     id: "digital-health",
@@ -66,6 +66,6 @@ export const researchAreas: ResearchArea[] = [
     summary:
       "Health systems, health economics and equity alongside IoT, software systems and security — making sure technology reaches patients at scale, safely.",
     keywords: ["Public health", "Health economics", "IoT", "Security & privacy"],
-    facultyIds: ["alok-ranjan", "sumit-kalra", "mohit-kumar-jangid"],
+    facultyIds: ["alok-ranjan", "sumit-kalra"],
   }),
 ];
