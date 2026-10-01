@@ -3,10 +3,10 @@ import Image from "next/image";
 import type { Program, SiteConfig } from "@/lib/types";
 
 export function Introduction({ site, programs, index }: { site: SiteConfig; programs: Program[]; index?: string }) {
-  const meta = [
+  const meta: { k: string; v?: string; lines?: string[] }[] = [
     { k: "Jointly offered by", v: "IIT Jodhpur & AIIMS Jodhpur" },
-    { k: "Programmes", v: programs.map((p) => p.shortTitle).join(" · ") },
-    { k: "Cohort model", v: "Equal seats for medical and engineering graduates" },
+    { k: "Programmes", lines: programs.map((p) => p.shortTitle) },
+    { k: "Cohort model", v: "Medical and engineering graduates" },
     { k: "Location", v: "Jodhpur, Rajasthan" },
   ];
 
@@ -30,7 +30,17 @@ export function Introduction({ site, programs, index }: { site: SiteConfig; prog
               {meta.map((m) => (
                 <div key={m.k} className="grid grid-cols-[8.5rem_1fr] gap-4 border-b border-line py-4 text-sm">
                   <dt className="text-muted">{m.k}</dt>
-                  <dd className="text-ink">{m.v}</dd>
+                  <dd className="text-ink">
+                    {m.lines ? (
+                      <span className="flex flex-col gap-1">
+                        {m.lines.map((line) => (
+                          <span key={line}>{line}</span>
+                        ))}
+                      </span>
+                    ) : (
+                      m.v
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -69,7 +79,17 @@ export function Introduction({ site, programs, index }: { site: SiteConfig; prog
               {meta.map((m) => (
                 <div key={m.k} className="grid grid-cols-[8rem_1fr] gap-4 border-b border-line py-3.5 text-sm">
                   <dt className="text-muted">{m.k}</dt>
-                  <dd className="text-ink">{m.v}</dd>
+                  <dd className="text-ink">
+                    {m.lines ? (
+                      <span className="flex flex-col gap-1">
+                        {m.lines.map((line) => (
+                          <span key={line}>{line}</span>
+                        ))}
+                      </span>
+                    ) : (
+                      m.v
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
