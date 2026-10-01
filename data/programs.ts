@@ -73,4 +73,18 @@ export const programs: Program[] = [
       "No longer offered for new admissions. Students were admitted to the Dual Degree in Medical Technologies from 2020 to 2025; their cohorts remain part of the Centre's student register.",
     cohortsUrl: "https://www.iitj.ac.in/medical-technologies/en/dual-degree-medical-technologies",
   },
+  {
+    id: "part-time-phd",
+    slug: "part-time-phd-medical-technologies",
+    status: "published",
+    provenance: "verified",
+    sourceUrl: HOME,
+    title: "Part-time PhD in Medical Technologies",
+    shortTitle: "Part-time PhD",
+    degree: "Doctoral",
+    // Discontinued — no longer offered for new admissions (per the department, Oct 2026).
+    // No cohort list is published, so intake years and the student register are left unset.
+    availability: "discontinued",
+    overview: "No longer offered for new admissions.",
+  },
 ];

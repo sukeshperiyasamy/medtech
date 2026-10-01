@@ -46,7 +46,7 @@ export default async function AboutPage() {
       <PageHeader
         crumbs={[{ label: "About" }]}
         label="About the Centre"
-        title="One Centre for medical technology at IIT Jodhpur."
+        title="Medical technology at IIT Jodhpur."
         intro={site.description}
       >
         <div className="mt-10 flex items-center gap-3">

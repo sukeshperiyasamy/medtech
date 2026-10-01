@@ -17,7 +17,7 @@ export async function StudentsSection({ index, heading = true }: SectionProps = 
       if (r.studentId) (awards[r.studentId] ??= []).push(`${(a.shortTitle ?? a.title).replace(/ \d{4}$/, "")} ${a.year}`);
   const years = students.map((s) => s.cohortYear);
   // Programme status belongs to the programme, never next to a student's name.
-  const meta = programs.map((p) => ({
+  const meta = programs.filter((p) => students.some((s) => s.programId === p.id)).map((p) => ({
     id: p.id,
     label: p.shortTitle,
     note:

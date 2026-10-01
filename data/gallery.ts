@@ -78,7 +78,12 @@ const FEATURED = new Set(FEATURED_ORDER);
 
 const slugOf = (folder: string) => folder.replace(/^\d{4}-\d\d-\d\d_/, "");
 
-export const galleryImages: GalleryImage[] = (manifest as ManifestRow[]).map((row) => {
+/** Kept in the archive, but not published on the site. */
+const HIDDEN_FOLDERS = new Set(["2025-05-20_new-workspace"]);
+
+export const galleryImages: GalleryImage[] = (manifest as ManifestRow[])
+  .filter((row) => !HIDDEN_FOLDERS.has(row.folder))
+  .map((row) => {
   const slug = slugOf(row.folder);
   const id = row.file.replace(/\.jpg$/, "");
   const event = EVENT[slug];
