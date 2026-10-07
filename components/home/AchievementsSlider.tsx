@@ -2,19 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 export interface AchievementSlide {
   id: string;
-  title: string;
-  category: string;
-  year: number;
-  recipients: string;
   image: { src: string; alt: string; width: number; height: number };
 }
 
-const GAP = 16;
+const GAP = 20;
 
 export function AchievementsSlider({ items }: { items: AchievementSlide[] }) {
   const scroller = useRef<HTMLUListElement>(null);
@@ -50,7 +45,7 @@ export function AchievementsSlider({ items }: { items: AchievementSlide[] }) {
     <section
       aria-roledescription="carousel"
       aria-label="Achievements"
-      className="border-b border-line bg-paper"
+      className="relative border-b border-line bg-white"
       onMouseEnter={() => setEngaged(true)}
       onMouseLeave={() => setEngaged(false)}
       onFocusCapture={() => setEngaged(true)}
@@ -58,82 +53,63 @@ export function AchievementsSlider({ items }: { items: AchievementSlide[] }) {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setEngaged(false);
       }}
     >
-      <div className="container-x flex flex-wrap items-center justify-between gap-3 pt-5">
-        <p className="eyebrow">Achievements</p>
-        <div className="flex items-center gap-2">
-          <Link prefetch={false} href="/achievements" className="link-line mr-2 text-[0.92rem] font-medium text-ink hover:text-blue">
-            All achievements
-          </Link>
-          <button
-            type="button"
-            onClick={() => step(-1)}
-            className="inline-flex size-9 items-center justify-center rounded-sm border border-line text-ink transition-colors hover:border-ink"
-            aria-label="Previous achievement"
-          >
-            <ChevronLeft aria-hidden className="size-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => step(1)}
-            className="inline-flex size-9 items-center justify-center rounded-sm border border-line text-ink transition-colors hover:border-ink"
-            aria-label="Next achievement"
-          >
-            <ChevronRight aria-hidden className="size-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => setUserPaused((p) => !p)}
-            aria-pressed={userPaused}
-            className="inline-flex size-9 items-center justify-center rounded-sm border border-line text-ink transition-colors hover:border-ink motion-reduce:hidden"
-            aria-label={userPaused ? "Play achievements" : "Pause achievements"}
-          >
-            {userPaused ? <Play aria-hidden className="size-3.5" /> : <Pause aria-hidden className="size-3.5" />}
-          </button>
-        </div>
-      </div>
-
       <ul
         ref={scroller}
-        className="container-x flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-6 pt-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-5 py-6 [scrollbar-width:none] sm:px-8 sm:py-8 lg:px-10 [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item, i) => (
           <li
             key={item.id}
-            className="w-[min(82vw,20.5rem)] shrink-0 snap-start"
+            className="w-[min(88vw,34rem)] shrink-0 snap-start"
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${items.length}`}
           >
-            <Link
-              prefetch={false}
-              href={`/achievements#ach-title-${item.id}`}
-              className="group block overflow-hidden border border-line bg-white"
-            >
-              <div className="overflow-hidden bg-mist">
-                <Image
-                  src={item.image.src}
-                  alt={item.image.alt}
-                  width={item.image.width}
-                  height={item.image.height}
-                  sizes="(min-width: 1024px) 328px, 82vw"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-precise)] group-hover:scale-[1.03]"
-                />
-              </div>
-              <div className="px-4 py-3.5">
-                <p className="flex items-center gap-2">
-                  <span className="eyebrow !text-blue">{item.category}</span>
-                  <span className="eyebrow">{item.year}</span>
-                </p>
-                <p className="mt-2 line-clamp-2 text-[1.05rem] font-medium leading-snug tracking-[-0.02em] text-ink group-hover:text-blue">
-                  {item.title}
-                </p>
-                {item.recipients && (
-                  <p className="mt-1.5 line-clamp-1 text-sm text-muted">{item.recipients}</p>
-                )}
-              </div>
-            </Link>
+            <div className="overflow-hidden border border-line bg-mist">
+              <Image
+                src={item.image.src}
+                alt={item.image.alt}
+                width={item.image.width}
+                height={item.image.height}
+                priority={i === 0}
+                sizes="(min-width: 1024px) 544px, 88vw"
+                className="aspect-[4/3] w-full object-cover"
+              />
+            </div>
           </li>
         ))}
       </ul>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-8 sm:bottom-10">
+        <div className="flex justify-end px-5 sm:px-8 lg:px-10">
+          <div className="pointer-events-auto flex items-center gap-1.5 border border-line bg-white/95 p-1.5 shadow-sm">
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              className="inline-flex size-9 items-center justify-center text-ink transition-colors hover:bg-mist"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft aria-hidden className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => step(1)}
+              className="inline-flex size-9 items-center justify-center text-ink transition-colors hover:bg-mist"
+              aria-label="Next photo"
+            >
+              <ChevronRight aria-hidden className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setUserPaused((p) => !p)}
+              aria-pressed={userPaused}
+              className="inline-flex size-9 items-center justify-center text-ink transition-colors hover:bg-mist motion-reduce:hidden"
+              aria-label={userPaused ? "Play photos" : "Pause photos"}
+            >
+              {userPaused ? <Play aria-hidden className="size-3.5" /> : <Pause aria-hidden className="size-3.5" />}
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

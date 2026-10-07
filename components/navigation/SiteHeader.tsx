@@ -199,6 +199,16 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
 
         <div className="flex items-center gap-2">
           <Link
+            href="/portal"
+            className="inline-flex h-9 sm:h-10 items-center gap-1.5 rounded-sm border border-blue/30 bg-blue-50/70 px-3 sm:px-3.5 text-[0.82rem] sm:text-[0.88rem] font-medium text-blue hover:bg-blue hover:text-white transition-all duration-300"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+            </span>
+            <span>Brochure Portal</span>
+          </Link>
+          <Link
             href="/contact"
             className="hidden h-10 items-center rounded-sm bg-ink px-4 text-[0.88rem] font-medium text-white transition-colors duration-300 hover:bg-blue sm:inline-flex"
           >
@@ -267,7 +277,19 @@ export function SiteHeader({ site }: { site: SiteConfig }) {
                   </li>
                 ))}
               </ul>
-              <div className="mt-auto pt-10">
+              <div className="mt-auto pt-8 flex flex-col gap-3">
+                <Link
+                  href="/portal"
+                  onClick={close}
+                  prefetch={open ? undefined : false}
+                  className="flex h-12 items-center justify-center gap-2 rounded-sm bg-blue text-white font-medium"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                  </span>
+                  <span>Brochure Submission Portal</span>
+                </Link>
                 <Link
                   href="/contact"
                   onClick={close}

@@ -3,7 +3,17 @@ node_modules
 out
 *.tsbuildinfo
 next-env.d.ts
+# Environment & Secrets
+.env
 .env*.local
+.env.production
+.env.staging
+*.pem
+service-account*.json
+*credentials*.json
+
+broucher/**/node_modules/
+broucher/**/.next/
 
 # Original event photos (HEIC masters, ~30 MB) - web versions live in public/images
 /medtech-media/source/icmi-2025-heic/

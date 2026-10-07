@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero/Hero";
 import { HomeAchievements } from "@/components/home/HomeAchievements";
 import { VerticalsSection } from "@/components/verticals/VerticalsSection";
+import { HomeBrochurePortalSection } from "@/components/home/HomeBrochurePortalSection";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeResearch } from "@/components/home/HomeResearch";
 import { ImpactSection } from "@/components/impact/ImpactSection";
@@ -25,6 +26,7 @@ export default async function HomePage() {
     <main id="main">
       <HomeAchievements />
       <Hero site={site} facts={heroFacts} />
+      <HomeBrochurePortalSection />
       <VerticalsSection index="01" showPhoto />
       <HomeAbout index="02" />
       <HomeResearch index="03" />

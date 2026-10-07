@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { SectionHeading, type SectionProps } from "@/components/ui/SectionHeading";
 import { getAchievements, getAllPrograms, getSite, getStudents } from "@/lib/data";
 import { StudentRegister } from "./StudentRegister";
@@ -38,7 +39,33 @@ export async function StudentsSection({ index, heading = true }: SectionProps = 
           intro={`${students.length} medical and engineering graduates admitted across the Master's, PhD and Dual Degree programmes since ${Math.min(...years)} — listed by cohort, as published by IIT Jodhpur.`}
         />
         )}
-        <div className="mt-14 lg:mt-20">
+
+        {/* Brochure Data Portal Notice */}
+        <div className="mt-8 p-5 sm:p-6 rounded-sm border border-blue/20 bg-blue-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <span className="relative flex h-2.5 w-2.5 shrink-0 mt-1 sm:mt-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-ink">
+                2026 Centre Brochure Data Collection Notice
+              </p>
+              <p className="text-xs text-muted mt-0.5 max-w-2xl">
+                Are you listed in any cohort below? Access the portal with your roll number to review your profile and submit your journal papers, patent applications, clinical internships, and ventures.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/portal"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-sm bg-blue px-4 text-xs font-semibold text-white hover:bg-blue-600 transition-colors shrink-0"
+          >
+            <span>Open Student Portal</span>
+            <ArrowRight className="size-3.5" />
+          </Link>
+        </div>
+
+        <div className="mt-12 lg:mt-16">
           <StudentRegister students={students} programs={meta} awards={awards} />
         </div>
 
