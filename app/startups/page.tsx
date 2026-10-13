@@ -1,23 +1,58 @@
-import { PageHeader } from "@/components/layout/PageHeader";
-import { StartupsSection } from "@/components/startups/StartupsSection";
+import { StartupsHero } from "@/components/startups/StartupsHero";
+import { StartupsMetricsBar } from "@/components/startups/StartupsMetricsBar";
+import { FeaturedVentures } from "@/components/startups/FeaturedVentures";
+import { ResearchToVenturePathway } from "@/components/startups/ResearchToVenturePathway";
+import { StartupsDirectory } from "@/components/startups/StartupsDirectory";
+import { StartupsCTA } from "@/components/startups/StartupsCTA";
+import { getPeopleByIds, getResearchAreas, getSite, getStartups, getTrlScale } from "@/lib/data";
+import type { ResolvedStartup } from "@/components/startups/StartupShowcase";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
-  "Student & Faculty Ventures",
-  "Startups founded by students and faculty of the Medical Technology Centre — products, technology readiness, teams and funding.",
+  "Startups & Innovation",
+  "Ventures founded by IIT Jodhpur faculty and scholars in clinical partnership with AIIMS Jodhpur — medical devices, digital diagnostics, filed patent applications, and venture-backed translation.",
   "/startups",
 );
 
-export default function StartupsPage() {
+export default async function StartupsPage() {
+  const [startups, areas, scale, site] = await Promise.all([
+    getStartups(),
+    getResearchAreas(),
+    getTrlScale(),
+    getSite(),
+  ]);
+
+  const resolved: ResolvedStartup[] = await Promise.all(
+    startups.map(async (s) => ({
+      ...s,
+      areaTitle: areas.find((a) => a.id === s.researchAreaId)?.shortTitle,
+      mentors: (await getPeopleByIds(s.mentorIds)).map(({ id, name, designation }) => ({
+        id,
+        name,
+        designation,
+      })),
+    })),
+  );
+
   return (
     <main id="main">
-      <PageHeader
-        crumbs={[{ label: "Startups" }]}
-        label="Student & Faculty Ventures"
-        title="From classroom to company."
-        intro="Ventures founded by the Centre's students and faculty — what they build, how ready it is, who is behind it and how it is funded."
-      />
-      <StartupsSection heading={false} />
+      {/* Editorial Hero */}
+      <StartupsHero />
+
+      {/* Restrained Ecosystem Metric Strip */}
+      <StartupsMetricsBar startups={resolved} />
+
+      {/* 01: Featured Venture Storytelling */}
+      <FeaturedVentures startups={resolved} />
+
+      {/* 02: Research-to-Venture Pathway */}
+      <ResearchToVenturePathway />
+
+      {/* 03: Complete Venture Registry & Searchable Directory */}
+      <StartupsDirectory startups={resolved} scale={scale} email={site.email} />
+
+      {/* Final Editorial Call to Action */}
+      <StartupsCTA contactEmail={site.email} />
     </main>
   );
 }

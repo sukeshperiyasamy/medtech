@@ -1,6 +1,14 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import {
   Search,
   X,
@@ -21,6 +29,26 @@ const FILTER_GOVERNMENT = "Government Schemes";
 const FILTER_BIOTECH = "Biotechnology & Health";
 const FILTER_FELLOWSHIPS = "Fellowships & Selections";
 const FILTER_OPEN = "Open Application Pathways";
+
+function subscribeReducedMotion(callback: () => void) {
+  if (typeof window === "undefined" || !window.matchMedia) {
+    return () => {};
+  }
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mediaQuery.addEventListener("change", callback);
+  return () => mediaQuery.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  if (typeof window === "undefined" || !window.matchMedia) {
+    return false;
+  }
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
+}
 
 function StatusPill({ status }: { status: Grant["grantStatus"] }) {
   const tone: Record<Grant["grantStatus"], string> = {
@@ -149,6 +177,139 @@ export function FundingExplorer({ grants }: { grants: Grant[] }) {
     setActiveFilter(FILTER_ALL);
   };
 
+  // Spotlight state
+  const isReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot,
+  );
+
+  const [activeSpotlightId, setActiveSpotlightId] = useState<string | null>(null);
+  const [hoveredSpotlightId, setHoveredSpotlightId] = useState<string | null>(null);
+
+  const activeSpotlightIdRef = useRef<string | null>(null);
+  const cardRefs = useRef<Map<string, HTMLElement>>(new Map());
+
+  // Compute the first 10 eligible records based on current filtered/searched results
+  const first10Grants = useMemo(() => {
+    return filteredGrants.slice(0, 10);
+  }, [filteredGrants]);
+
+  const spotlightIdSet = useMemo(() => {
+    return new Set(first10Grants.map((g) => g.id));
+  }, [first10Grants]);
+
+  // Observer and RAF-throttled scroll detection
+  const updateSpotlight = useCallback(() => {
+    if (isReducedMotion || first10Grants.length === 0) {
+      if (activeSpotlightIdRef.current !== null) {
+        activeSpotlightIdRef.current = null;
+        setActiveSpotlightId(null);
+      }
+      return;
+    }
+
+    const vh = window.innerHeight;
+    // Central viewport focus zone
+    const focusTop = vh * 0.16;
+    const focusBottom = vh * 0.80;
+    const focusCenter = vh * 0.48;
+
+    const firstCard = first10Grants[0];
+    const lastCard = first10Grants[first10Grants.length - 1];
+
+    const firstEl = cardRefs.current.get(firstCard.id);
+    const lastEl = cardRefs.current.get(lastCard.id);
+
+    if (!firstEl || !lastEl) {
+      if (activeSpotlightIdRef.current !== null) {
+        activeSpotlightIdRef.current = null;
+        setActiveSpotlightId(null);
+      }
+      return;
+    }
+
+    const firstRect = firstEl.getBoundingClientRect();
+    const lastRect = lastEl.getBoundingClientRect();
+
+    const firstCenter = firstRect.top + firstRect.height / 2;
+    const lastCenter = lastRect.top + lastRect.height / 2;
+
+    // 1. Before the first spotlight record enters the focus zone:
+    // keep records in their normal appearance
+    if (firstCenter > focusBottom) {
+      if (activeSpotlightIdRef.current !== null) {
+        activeSpotlightIdRef.current = null;
+        setActiveSpotlightId(null);
+      }
+      return;
+    }
+
+    // 2. Once the 10th (last) spotlight record has passed the focus zone:
+    // restore normal browsing for every record
+    if (lastCenter < focusTop || lastRect.bottom < focusTop + 60) {
+      if (activeSpotlightIdRef.current !== null) {
+        activeSpotlightIdRef.current = null;
+        setActiveSpotlightId(null);
+      }
+      return;
+    }
+
+    // 3. Within the spotlight sequence: find the grant closest to viewport focus center
+    let closestId: string | null = null;
+    let minDistance = Infinity;
+
+    for (const grant of first10Grants) {
+      const el = cardRefs.current.get(grant.id);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(cardCenter - focusCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestId = grant.id;
+      }
+    }
+
+    if (closestId !== activeSpotlightIdRef.current) {
+      activeSpotlightIdRef.current = closestId;
+      setActiveSpotlightId(closestId);
+    }
+  }, [first10Grants, isReducedMotion]);
+
+  useEffect(() => {
+    if (isReducedMotion || first10Grants.length === 0) {
+      activeSpotlightIdRef.current = null;
+      return;
+    }
+
+    let ticking = false;
+    const handleScrollOrResize = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          updateSpotlight();
+          ticking = false;
+        });
+      }
+    };
+
+    // Evaluate after paint
+    const rafId = window.requestAnimationFrame(() => {
+      updateSpotlight();
+    });
+
+    window.addEventListener("scroll", handleScrollOrResize, { passive: true });
+    window.addEventListener("resize", handleScrollOrResize, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScrollOrResize);
+      window.removeEventListener("resize", handleScrollOrResize);
+    };
+  }, [updateSpotlight, isReducedMotion, first10Grants.length]);
+
   return (
     <div id="explorer" className="scroll-mt-24">
       {/* Search & Filter Toolbar */}
@@ -260,12 +421,59 @@ export function FundingExplorer({ grants }: { grants: Grant[] }) {
             </button>
           </div>
         ) : (
-          filteredGrants.map((g) => (
-            <article
-              key={g.id}
-              id={g.id}
-              className="group rounded-lg border border-line bg-white p-5 sm:p-6 transition-all hover:border-line-strong hover:shadow-2xs scroll-mt-24"
-            >
+          filteredGrants.map((g, idx) => {
+            const isEligible = idx < 10;
+            const isSpotlightActive =
+              !isReducedMotion &&
+              activeSpotlightId !== null &&
+              spotlightIdSet.has(activeSpotlightId);
+            const isPrimaryActive =
+              isSpotlightActive &&
+              isEligible &&
+              (activeSpotlightId === g.id || hoveredSpotlightId === g.id);
+            const isSubdued = isSpotlightActive && isEligible && !isPrimaryActive;
+
+            return (
+              <article
+                key={g.id}
+                id={g.id}
+                ref={(el) => {
+                  if (el) {
+                    cardRefs.current.set(g.id, el);
+                  } else {
+                    cardRefs.current.delete(g.id);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (isEligible && isSpotlightActive) {
+                    setHoveredSpotlightId(g.id);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (hoveredSpotlightId === g.id) {
+                    setHoveredSpotlightId(null);
+                  }
+                }}
+                onFocus={() => {
+                  if (isEligible && isSpotlightActive) {
+                    setHoveredSpotlightId(g.id);
+                  }
+                }}
+                onBlur={() => {
+                  if (hoveredSpotlightId === g.id) {
+                    setHoveredSpotlightId(null);
+                  }
+                }}
+                aria-current={isPrimaryActive ? "true" : undefined}
+                className={cn(
+                  "group rounded-lg p-5 sm:p-6 scroll-mt-24 transition-[transform,opacity,filter,border-color,box-shadow] duration-[250ms] ease-out will-change-[transform,opacity,filter] motion-reduce:transform-none motion-reduce:filter-none motion-reduce:opacity-100 motion-reduce:transition-none",
+                  isPrimaryActive
+                    ? "scale-[1.025] sm:scale-[1.03] opacity-100 filter-none border border-ink/80 shadow-md ring-1 ring-blue/20 bg-white z-10 relative"
+                    : isSubdued
+                    ? "scale-100 opacity-70 blur-[1.5px] border border-line bg-white z-0 relative hover:scale-[1.02] hover:opacity-100 hover:filter-none hover:border-line-strong hover:z-10 focus-within:scale-[1.02] focus-within:opacity-100 focus-within:filter-none focus-within:border-ink focus-within:z-10"
+                    : "scale-100 opacity-100 filter-none border border-line bg-white hover:border-line-strong hover:shadow-2xs z-0 relative focus-within:border-ink",
+                )}
+              >
               {/* Header: Agency, Kind, Year & Status */}
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line/60 pb-3">
                 <div className="flex flex-wrap items-center gap-2">
@@ -406,8 +614,9 @@ export function FundingExplorer({ grants }: { grants: Grant[] }) {
                 </div>
               </details>
             </article>
-          ))
-        )}
+          );
+        })
+      )}
       </div>
     </div>
   );

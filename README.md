@@ -109,9 +109,10 @@ The homepage shows **who** the Centre is, **what** it does, **how** it works, **
 │                     capacity building, open source, partnerships, contact)
 ├── /research         Research themes (#<theme-id> deep links) · innovation projects (#innovation)
 │   └── /funding      Funding & grants explorer
-├── /startups         Student & Faculty Ventures
-│   └── /startups/[slug]   Individual venture profile
+├── /startups         Flagship MedTech Innovation Showcase (editorial hero, metric strip, featured spotlights, 5-step pathway, searchable registry)
+│   └── /startups/[slug]   Comprehensive venture engineering & clinical dossier (7 structured sections, TRL meter, patent disclosures, confirmed capital)
 ├── /programs         Master's and PhD (#masters, #phd) · discontinued programmes  (flat URL, part of vertical 01)
+├── /portal           Student Brochure Portal (profile completeness engine, master data records)
 ├── /people           Leadership, affiliated faculty, visiting faculty, staff
 │   ├── /students     Student & alumni register (every cohort since 2020)
 │   └── /achievements Medals, fellowships and awards (linked to the student register)
@@ -143,10 +144,14 @@ components/
   pipeline/                 Clinical Need → Impact story (GSAP sticky + mobile timeline)
   research/                 Research explorer
   innovation/               Project showcase + stage tracker
-  startups/                 Venture showcase, profile, scientific TRL scale
-  funding/                  Filterable funding table
+  startups/                 Flagship venture showcase: StartupsHero, StartupsMetricsBar,
+                            FeaturedVentures, ResearchToVenturePathway, StartupsDirectory,
+                            StartupsCTA, Profile (dossier), TrlMeter (ruled scientific scale)
+  funding/                  FundingExplorer with scroll-driven spotlight, FeaturedFunding,
+                            FundingMetricsStrip, category and status filters
   impact/                   Verified metrics + counters
   programs/                 Programme tabs, discontinued programmes
+  portal/                   Student brochure portal components & completeness engine
   people/                   Leadership + faculty directory
   students/                 Student register with intake chart
   news/                     News listing + event gallery
@@ -481,12 +486,13 @@ Next.js  →  API  →  PostgreSQL  →  Admin panel (/admin)
 
 Needed from the Centre before launch:
 
-- [ ] Verified **startup** profiles: product, TRL with evidence, founders and photos, mentors, grants and funding received
+- [x] Verified **startup** profiles: 10 documented ventures, TRL 5-7 with evidence, founders, mentors, Indian Patent Office applications, and confirmed funding
+- [x] Verified **funding & grants** directory: Master spreadsheet integration with scroll-driven spotlight on top awards, MSME grants, and seed capital
+- [x] Student **brochure portal** and database integration (`/portal`)
 - [ ] Verified **projects** for the Innovation section
-- [ ] Current, dated **funding calls**
 - [ ] **AIIMS Jodhpur** clinical faculty for the People directory
 - [ ] Programme **duration** and **brochures** (Master's and PhD)
-- [ ] Verified counts for **research projects, publications, patents, start-ups**
+- [ ] Verified counts for **research projects, publications, patents** (outside startup portfolio)
 - [ ] **Lab / clinical** photography for the research and about pages
 - [ ] Official **social media** links (`data/site.ts → social`)
 - [ ] **Alumni** status and current roles (`data/students.ts → status`, `currentRole`)
