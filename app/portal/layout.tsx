@@ -3,9 +3,9 @@ import { StudentProvider } from "@/components/portal/context/StudentContext";
 import { Navbar } from "@/components/portal/Navbar";
 
 export const metadata: Metadata = {
-  title: "MedTech Student Brochure Portal | IIT Jodhpur & AIIMS Jodhpur",
+  title: "MedTech Student Data Collection Portal | IIT Jodhpur & AIIMS Jodhpur",
   description:
-    "Official student research and achievements collection portal for the Centre for Medical Technologies 2026 Brochure.",
+    "Official student research, publications, patents, and achievements data collection portal for the Centre for Medical Technologies, IIT Jodhpur & AIIMS Jodhpur.",
 };
 
 export default function PortalLayout({

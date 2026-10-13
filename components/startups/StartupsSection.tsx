@@ -38,7 +38,31 @@ export async function StartupsSection({ index, heading = true }: SectionProps = 
             the layout; names, products, TRL and funding must be replaced before launch.
           </SampleNote>
         )}
-        <div className="mt-14 lg:mt-16">
+        {/* Master Sheet Incubation Ecosystem Metrics */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
+          <div className="rounded-xl border border-line bg-white p-4 shadow-xs">
+            <p className="font-mono text-[0.72rem] uppercase tracking-wider text-muted">Total Ventures</p>
+            <p className="mt-1 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">10</p>
+            <p className="mt-0.5 text-xs text-muted">Deep-tech healthcare companies</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200/80 bg-emerald-50/40 p-4 shadow-xs">
+            <p className="font-mono text-[0.72rem] uppercase tracking-wider text-emerald-800">Incubated Startups</p>
+            <p className="mt-1 text-2xl font-semibold tracking-tight text-emerald-700 sm:text-3xl">7</p>
+            <p className="mt-0.5 text-xs text-emerald-700/80">TISC signed incubation agreements</p>
+          </div>
+          <div className="rounded-xl border border-purple-200/80 bg-purple-50/40 p-4 shadow-xs">
+            <p className="font-mono text-[0.72rem] uppercase tracking-wider text-purple-800">Pre-Incubatees</p>
+            <p className="mt-1 text-2xl font-semibold tracking-tight text-purple-700 sm:text-3xl">3</p>
+            <p className="mt-0.5 text-xs text-purple-700/80">Pipeline translation ventures</p>
+          </div>
+          <div className="rounded-xl border border-teal-200/80 bg-teal-50/40 p-4 shadow-xs">
+            <p className="font-mono text-[0.72rem] uppercase tracking-wider text-teal-800">Patent-Backed</p>
+            <p className="mt-1 text-2xl font-semibold tracking-tight text-teal-700 sm:text-3xl">6</p>
+            <p className="mt-0.5 text-xs text-teal-700/80">Ventures with filed IPR</p>
+          </div>
+        </div>
+
+        <div className="mt-10 lg:mt-12">
           {resolved.length ? (
             <StartupShowcase startups={resolved} scale={scale} email={site.email} />
           ) : (

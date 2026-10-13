@@ -116,7 +116,7 @@ export type GrantCategory =
   | "Industry Sponsored"
   | "International";
 
-export type GrantStatus = "Open" | "Upcoming" | "Rolling" | "Closed" | "Unverified";
+export type GrantStatus = "Awarded" | "Open" | "Upcoming" | "Rolling" | "Closed" | "Unverified";
 
 export interface Grant extends BaseRecord {
   name: string;
@@ -128,6 +128,15 @@ export interface Grant extends BaseRecord {
   deadline?: string;
   grantStatus: GrantStatus;
   officialUrl: string;
+  /** Verified details from Centre Master Data & Entrepreneurship sheets */
+  beneficiary?: string;
+  recipientRoll?: string;
+  facultyMentor?: string;
+  associatedStartup?: string;
+  associatedPatent?: string;
+  grantKind?: "Awarded Grant" | "Seed Funding" | "National Scheme" | "Fellowship";
+  year?: number;
+  featured?: boolean;
 }
 
 export interface Publication extends BaseRecord {
@@ -231,6 +240,7 @@ export interface FundingAward {
   kind: "Grant" | "Fellowship" | "Incubation" | "Seed investment" | "Prize" | "Other";
   amount?: string;
   year?: number;
+  grantId?: string;
 }
 
 export interface StartupProduct {
@@ -365,6 +375,14 @@ export interface Startup extends BaseRecord {
   incubator?: string;
   website?: string;
   links?: Link[];
+  /** Verified details from Centre Master Data sheet */
+  incubationStage?: "Incubated" | "Pre-Incubatee";
+  agreementDate?: string;
+  studentLead?: string;
+  facultyInvolved?: string;
+  facultyPosition?: string;
+  associatedPatents?: string[];
+  domainSpotlight?: string;
 }
 
 export interface CollaborationPathway {

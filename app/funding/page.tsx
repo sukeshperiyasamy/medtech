@@ -1,23 +1,28 @@
-import { PageHeader } from "@/components/layout/PageHeader";
+import { FundingHero } from "@/components/funding/FundingHero";
+import { FundingMetricsBar } from "@/components/funding/FundingMetricsBar";
 import { FundingSection } from "@/components/funding/FundingSection";
+import { getGrants } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Funding & Grants",
-  "Grants and funding opportunities for medical technology researchers, innovators and industry partners.",
+  "Verified grants, translational seed capital, and competitive biomedical schemes supporting research and startup incubation at IIT Jodhpur and AIIMS Jodhpur.",
   "/funding",
 );
 
-export default function FundingPage() {
+export default async function FundingPage() {
+  const grants = await getGrants();
+
   return (
     <main id="main">
-      <PageHeader
-        crumbs={[{ label: "Research", href: "/research" }, { label: "Funding" }]}
-        label="Funding & grants"
-        title="Funding the next generation of medical technologies."
-        intro="Government schemes, biotech and deep-tech programmes, start-up support and industry-sponsored research — in one place."
-      />
-      <FundingSection heading={false} />
+      {/* Editorial Hero */}
+      <FundingHero />
+
+      {/* Compact Metrics Bar */}
+      <FundingMetricsBar grants={grants} />
+
+      {/* Page Content Sections */}
+      <FundingSection />
     </main>
   );
 }

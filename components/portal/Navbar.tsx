@@ -85,7 +85,7 @@ export function Navbar() {
                 MedTech Student Portal
               </span>
               <span className="text-[11px] font-medium text-slate-500 tracking-wider uppercase block mt-0.5">
-                Centralized Brochure Data & Drive Vault
+                Centralized Data Collection & Drive Vault
               </span>
             </div>
           </Link>

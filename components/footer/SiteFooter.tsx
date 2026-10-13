@@ -11,7 +11,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
   ];
 
   return (
-    <footer className="border-t border-line bg-white">
+    <footer className="border-t border-line bg-mist">
       <div className="container-x grid gap-10 py-12 lg:grid-cols-12 lg:gap-12 lg:py-14">
         <div className="lg:col-span-4">
           <Image
@@ -89,7 +89,7 @@ export function SiteFooter({ site }: { site: SiteConfig }) {
           </div>
         </nav>
       </div>
-      <div className="border-t border-line">
+      <div className="border-t border-line bg-slate-100/60">
         <div className="container-x py-6 text-xs text-muted">
           <p>© {new Date().getFullYear()} {site.name}, {site.parent}.</p>
         </div>
